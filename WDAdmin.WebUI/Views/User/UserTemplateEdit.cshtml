@@ -1,0 +1,102 @@
+﻿@model WDAdmin.WebUI.Models.UserTemplateFormModel
+
+@{
+    ViewBag.Title = LangResources.UserGroupManagement;
+}
+
+<h4 class="alert_info">@LangResources.UserGroupTemplateEditTitle</h4>
+
+@using (Html.BeginForm())
+{       
+    @Html.AntiForgeryToken()
+    <article class="module width_full">
+        <header><h3>@LangResources.UserGroupTemplateEditHeader - @LangResources.Sites</h3></header> 
+        <br /> 
+        @Html.HiddenFor(m => m.Id)
+        <div class="editor-label">
+            @Html.LabelFor(m => m.TemplateName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(m => m.TemplateName)  
+            @Html.ValidationMessageFor(m => m.TemplateName)
+        </div>
+        <br />
+        <p>@LangResources.UserGroupRightsHeader</p>
+        <ul id="pageTree">
+            <li>@Html.CheckBoxFor(m => m.Home, new { @class = "usergroupfunction" })@Html.LabelFor(m => m.Home)  @*Homepage section*@
+                <ul>
+                    <li>@Html.CheckBoxFor(m => m.HomeModule1, new { @class = "page" })@Html.LabelFor(m => m.HomeModule1)</li> 
+                    <li>@Html.CheckBoxFor(m => m.HomeModule2, new { @class = "page" })@Html.LabelFor(m => m.HomeModule2)</li>
+                    <li>@Html.CheckBoxFor(m => m.HomeModule3, new { @class = "page" })@Html.LabelFor(m => m.HomeModule3)</li>
+                    <li>@Html.CheckBoxFor(m => m.HomeModule4, new { @class = "page" })@Html.LabelFor(m => m.HomeModule4)</li>
+                </ul>
+            </li>
+            <li>@Html.CheckBoxFor(m => m.Group1, new { @class = "usergroupfunction" })@Html.LabelFor(m => m.Group1) @*User management section*@
+                <ul>
+                    <li>@Html.CheckBoxFor(m => m.Group1Page1, new { @class = "page" })@Html.LabelFor(m => m.Group1Page1)</li>
+                    <li>@Html.CheckBoxFor(m => m.Group1Page2, new { @class = "page" })@Html.LabelFor(m => m.Group1Page2)</li>
+                    <li>@Html.CheckBoxFor(m => m.Group1Page3, new { @class = "page" })@Html.LabelFor(m => m.Group1Page3)</li>
+                </ul>
+            </li>
+            <li>@Html.CheckBoxFor(m => m.Group2, new { @class = "usergroupfunction" })@Html.LabelFor(m => m.Group2) @*UserGroup management section*@
+                <ul>
+                    <li>@Html.CheckBoxFor(m => m.Group2Page1, new { @class = "page" })@Html.LabelFor(m => m.Group2Page1)</li>
+                    <li>@Html.CheckBoxFor(m => m.Group2Page2, new { @class = "page" })@Html.LabelFor(m => m.Group2Page2)</li>
+                    <li>@Html.CheckBoxFor(m => m.Group2Page3, new { @class = "page" })@Html.LabelFor(m => m.Group2Page3)</li>
+                    <li>@Html.CheckBoxFor(m => m.Group2Page4, new { @class = "page" })@Html.LabelFor(m => m.Group2Page4)</li>
+                    <li>@Html.CheckBoxFor(m => m.Group2Page5, new { @class = "page" })@Html.LabelFor(m => m.Group2Page5)</li>
+                    <li>@Html.CheckBoxFor(m => m.Group2Page6, new { @class = "page" })@Html.LabelFor(m => m.Group2Page6)</li>
+                    <li>@Html.CheckBoxFor(m => m.Group2Page7, new { @class = "page" })@Html.LabelFor(m => m.Group2Page7)</li>
+                </ul>
+            </li>
+            <li>@Html.CheckBoxFor(m => m.Group3, new { @class = "usergroupfunction" })@Html.LabelFor(m => m.Group3) @*VFO management section*@
+                <ul>
+                    <li>@Html.CheckBoxFor(m => m.Group3Page1, new { @class = "page" })@Html.LabelFor(m => m.Group3Page1)</li>
+                    <li>@Html.CheckBoxFor(m => m.Group3Page2, new { @class = "page" })@Html.LabelFor(m => m.Group3Page2)</li>
+                </ul>
+            </li>
+            <li>@Html.CheckBoxFor(m => m.Group4, new { @class = "usergroupfunction" })@Html.LabelFor(m => m.Group4) @*Content management section*@
+                <ul>
+                    <li>@Html.CheckBoxFor(m => m.Group4Page1, new { @class = "page" })@Html.LabelFor(m => m.Group4Page1)</li>
+                    <li>@Html.CheckBoxFor(m => m.Group4Page2, new { @class = "page" })@Html.LabelFor(m => m.Group4Page2)</li>
+                    <li>@Html.CheckBoxFor(m => m.Group4Page3, new { @class = "page" })@Html.LabelFor(m => m.Group4Page3)</li>
+                    <li>@Html.CheckBoxFor(m => m.Group4Page4, new { @class = "page" })@Html.LabelFor(m => m.Group4Page4)</li>
+                    <li>@Html.CheckBoxFor(m => m.Group4Page5, new { @class = "page" })@Html.LabelFor(m => m.Group4Page5)</li>
+                    <li>@Html.CheckBoxFor(m => m.Group4Page6, new { @class = "page" })@Html.LabelFor(m => m.Group4Page6)</li>
+                    <li>@Html.CheckBoxFor(m => m.Group4Page7, new { @class = "page" })@Html.LabelFor(m => m.Group4Page7)</li>
+                    <li>@Html.CheckBoxFor(m => m.Group4Page8, new { @class = "page" })@Html.LabelFor(m => m.Group4Page8)</li>
+                    <li>@Html.CheckBoxFor(m => m.Group4Page9, new { @class = "page" })@Html.LabelFor(m => m.Group4Page9)</li> 
+                </ul>
+            </li>
+            <li>@Html.CheckBoxFor(m => m.Group5, new { @class = "usergroupfunction" })@Html.LabelFor(m => m.Group5) @*Log management section*@
+                <ul>
+                    <li>@Html.CheckBoxFor(m => m.Group5Page1, new { @class = "page" })@Html.LabelFor(m => m.Group5Page1)</li>
+                    <li>@Html.CheckBoxFor(m => m.Group5Page2, new { @class = "page" })@Html.LabelFor(m => m.Group5Page2)</li>
+                </ul>
+            </li>
+        </ul>
+        <br />
+        <input type="submit" value="@LangResources.SaveButton" />
+        <button onclick="history.back(); return false;">@LangResources.BtnCancel</button>
+    </article> 
+}
+
+@Html.ValidationSummary(true, LangResources.UserGroupTemplateCreateGeneralError)
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        //Check all if parent checked
+        $(".usergroupfunction").click(function () {
+            $(this).closest("li").find(":checkbox").attr("checked", this.checked);
+        });
+
+        //Check parent if child is checked - don't uncheck parent until last child is unchecked
+        $('.page').click(function () {
+            if ($(this).is(':checked')) {
+               $(this).parentsUntil('#pageTree').siblings().filter('input:checkbox').attr('checked', true).trigger('change');
+            } else {
+               $(this).parents('ul:first').siblings('input:checkbox').prop('checked', $(this).parent().siblings().children('input:checked').length).trigger('change');
+            }
+        });
+    });
+</script>

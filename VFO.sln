@@ -1,0 +1,96 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VFO.WebUI", "WDAdmin.WebUI\VFO.WebUI.csproj", "{200DA2F3-F94F-4B4D-9A38-CA7A4EDF92C2}"
+	ProjectSection(ProjectDependencies) = postProject
+		{CC179862-6FCA-4743-90DC-CD01EA9ECEB0} = {CC179862-6FCA-4743-90DC-CD01EA9ECEB0}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VFO.Domain", "WDAdmin.Domain\VFO.Domain.csproj", "{CC938E33-4115-4BB3-B35C-59202DB0ED7E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VFO.Resources", "WDAdmin.Resources\VFO.Resources.csproj", "{CC179862-6FCA-4743-90DC-CD01EA9ECEB0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Migration", "Migration\Migration.csproj", "{D18D4E39-CB9F-4D4F-899E-DDE992D1BA61}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{BF255710-7963-44BE-B82E-C36592255BDF}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 5
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://welfaredenmark.visualstudio.com/
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = WDAdmin.Domain\\VFO.Domain.csproj
+		SccProjectName1 = WDAdmin.Domain
+		SccLocalPath1 = WDAdmin.Domain
+		SccProjectUniqueName2 = WDAdmin.Resources\\VFO.Resources.csproj
+		SccProjectName2 = WDAdmin.Resources
+		SccLocalPath2 = WDAdmin.Resources
+		SccProjectUniqueName3 = Migration\\Migration.csproj
+		SccProjectName3 = Migration
+		SccLocalPath3 = Migration
+		SccProjectUniqueName4 = WDAdmin.WebUI\\VFO.WebUI.csproj
+		SccProjectName4 = WDAdmin.WebUI
+		SccLocalPath4 = WDAdmin.WebUI
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Danish|Any CPU = Danish|Any CPU
+		Debug|Any CPU = Debug|Any CPU
+		Norwegian|Any CPU = Norwegian|Any CPU
+		Release|Any CPU = Release|Any CPU
+		Swedish|Any CPU = Swedish|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{200DA2F3-F94F-4B4D-9A38-CA7A4EDF92C2}.Danish|Any CPU.ActiveCfg = Danish|Any CPU
+		{200DA2F3-F94F-4B4D-9A38-CA7A4EDF92C2}.Danish|Any CPU.Build.0 = Danish|Any CPU
+		{200DA2F3-F94F-4B4D-9A38-CA7A4EDF92C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{200DA2F3-F94F-4B4D-9A38-CA7A4EDF92C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{200DA2F3-F94F-4B4D-9A38-CA7A4EDF92C2}.Norwegian|Any CPU.ActiveCfg = Norwegian|Any CPU
+		{200DA2F3-F94F-4B4D-9A38-CA7A4EDF92C2}.Norwegian|Any CPU.Build.0 = Norwegian|Any CPU
+		{200DA2F3-F94F-4B4D-9A38-CA7A4EDF92C2}.Norwegian|Any CPU.Deploy.0 = Norwegian|Any CPU
+		{200DA2F3-F94F-4B4D-9A38-CA7A4EDF92C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{200DA2F3-F94F-4B4D-9A38-CA7A4EDF92C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{200DA2F3-F94F-4B4D-9A38-CA7A4EDF92C2}.Swedish|Any CPU.ActiveCfg = Swedish|Any CPU
+		{200DA2F3-F94F-4B4D-9A38-CA7A4EDF92C2}.Swedish|Any CPU.Build.0 = Swedish|Any CPU
+		{CC938E33-4115-4BB3-B35C-59202DB0ED7E}.Danish|Any CPU.ActiveCfg = Danish|Any CPU
+		{CC938E33-4115-4BB3-B35C-59202DB0ED7E}.Danish|Any CPU.Build.0 = Danish|Any CPU
+		{CC938E33-4115-4BB3-B35C-59202DB0ED7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC938E33-4115-4BB3-B35C-59202DB0ED7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC938E33-4115-4BB3-B35C-59202DB0ED7E}.Norwegian|Any CPU.ActiveCfg = Norwegian|Any CPU
+		{CC938E33-4115-4BB3-B35C-59202DB0ED7E}.Norwegian|Any CPU.Build.0 = Norwegian|Any CPU
+		{CC938E33-4115-4BB3-B35C-59202DB0ED7E}.Release|Any CPU.ActiveCfg = Swedish|Any CPU
+		{CC938E33-4115-4BB3-B35C-59202DB0ED7E}.Release|Any CPU.Build.0 = Swedish|Any CPU
+		{CC938E33-4115-4BB3-B35C-59202DB0ED7E}.Swedish|Any CPU.ActiveCfg = Swedish|Any CPU
+		{CC938E33-4115-4BB3-B35C-59202DB0ED7E}.Swedish|Any CPU.Build.0 = Swedish|Any CPU
+		{CC179862-6FCA-4743-90DC-CD01EA9ECEB0}.Danish|Any CPU.ActiveCfg = Danish|Any CPU
+		{CC179862-6FCA-4743-90DC-CD01EA9ECEB0}.Danish|Any CPU.Build.0 = Danish|Any CPU
+		{CC179862-6FCA-4743-90DC-CD01EA9ECEB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC179862-6FCA-4743-90DC-CD01EA9ECEB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC179862-6FCA-4743-90DC-CD01EA9ECEB0}.Norwegian|Any CPU.ActiveCfg = Norwegian|Any CPU
+		{CC179862-6FCA-4743-90DC-CD01EA9ECEB0}.Norwegian|Any CPU.Build.0 = Norwegian|Any CPU
+		{CC179862-6FCA-4743-90DC-CD01EA9ECEB0}.Release|Any CPU.ActiveCfg = Swedish|Any CPU
+		{CC179862-6FCA-4743-90DC-CD01EA9ECEB0}.Release|Any CPU.Build.0 = Swedish|Any CPU
+		{CC179862-6FCA-4743-90DC-CD01EA9ECEB0}.Swedish|Any CPU.ActiveCfg = Swedish|Any CPU
+		{CC179862-6FCA-4743-90DC-CD01EA9ECEB0}.Swedish|Any CPU.Build.0 = Swedish|Any CPU
+		{D18D4E39-CB9F-4D4F-899E-DDE992D1BA61}.Danish|Any CPU.ActiveCfg = Debug|Any CPU
+		{D18D4E39-CB9F-4D4F-899E-DDE992D1BA61}.Danish|Any CPU.Build.0 = Debug|Any CPU
+		{D18D4E39-CB9F-4D4F-899E-DDE992D1BA61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D18D4E39-CB9F-4D4F-899E-DDE992D1BA61}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D18D4E39-CB9F-4D4F-899E-DDE992D1BA61}.Norwegian|Any CPU.ActiveCfg = Release|Any CPU
+		{D18D4E39-CB9F-4D4F-899E-DDE992D1BA61}.Norwegian|Any CPU.Build.0 = Release|Any CPU
+		{D18D4E39-CB9F-4D4F-899E-DDE992D1BA61}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D18D4E39-CB9F-4D4F-899E-DDE992D1BA61}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D18D4E39-CB9F-4D4F-899E-DDE992D1BA61}.Swedish|Any CPU.ActiveCfg = Release|Any CPU
+		{D18D4E39-CB9F-4D4F-899E-DDE992D1BA61}.Swedish|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

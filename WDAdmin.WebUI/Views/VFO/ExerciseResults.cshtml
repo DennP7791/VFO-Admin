@@ -1,0 +1,93 @@
+﻿@model WDAdmin.WebUI.Models.ExerciseResultsViewModel
+
+@{
+    ViewBag.Title = LangResources.SeeResults;
+}
+
+<h4 class="alert_info">@string.Format(LangResources.ExerciseResutlsTitle, Model.UserName, Model.CategoryName)</h4>
+
+
+<!--[if lte IE 8]><script src="@Url.Content("~/Scripts/jqplot/excanvas.min.js")" type="text/javascript"></script><![endif]-->
+<script src="@Url.Content("~/Scripts/jqplot/jquery.jqplot.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jqplot/jquery.jqplot.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jqplot/plugins/jqplot.logAxisRenderer.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jqplot/plugins/jqplot.dateAxisRenderer.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jqplot/plugins/jqplot.canvasTextRenderer.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jqplot/plugins/jqplot.canvasAxisLabelRenderer.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jqplot/plugins/jqplot.canvasAxisTickRenderer.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jqplot/plugins/jqplot.categoryAxisRenderer.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jqplot/plugins/jqplot.pointLabels.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jqplot/plugins/jqplot.pieRenderer.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jqplot/plugins/jqplot.highlighter.min.js")" type="text/javascript"></script>
+
+<article class="module width_full">
+    <header><h3>@LangResources.ExerciseResultsHeader</h3></header>
+    <br />
+    @{
+        var grid = new WebGrid(Model.Results, null, null, 30);   
+        @grid.GetHtml(columns: grid.Columns(
+              grid.Column(format: (item) =>
+                 {
+                     if (item.Passed)
+                     {
+                         return Html.Raw(string.Format("<text><img class=\"passed\" src=\"{0}\" alt=\"\"/></text>", Url.Content("~/Content/Graphics/icn_alert_success.png")));
+                     }
+                     else if (item.NTries > 0)
+                     {
+                         return Html.Raw(string.Format("<text><img class=\"passed\" src=\"{0}\" alt=\"\"/></text>", Url.Content("~/Content/Graphics/icn_alert_error.png")));
+                     }
+                     else return Html.Raw("");
+                 }
+             ),   
+             grid.Column("ExerciseName", LangResources.Name, canSort: true),
+             grid.Column("Passed", LangResources.Result, canSort: true, format: (item) => {
+                 if (item.Passed) { return LangResources.Passed; }
+                 else if (item.NTries > 0) { return LangResources.Failed; }
+                 else { return LangResources.NoResult; }
+             }),
+             grid.Column("NTries", LangResources.NTries),
+             grid.Column("Timestamp", LangResources.LastPassed, canSort: true)
+        ));
+    }
+    <br />
+</article>
+
+@if (!Model.NoResults)
+{ 
+<article class="module width_full">
+    <header><h3>@LangResources.ExerciseGraphHeader</h3></header>
+    <div id="placeholder" class="flot-placeholder-big"></div>
+</article>
+}
+
+<button class="back" onclick="history.back(); return false;">@LangResources.BackButton</button>
+
+@if (!Model.NoResults)
+{ 
+<script type="text/javascript">
+    $(document).ready(function () {
+        var packed = @Html.Raw(Model.Statistic.PlotData);
+        var data = [];
+        $(packed).each(function (i, v) {
+            data.push([v["Name"], v["NTries"]]);
+        });
+        $('#placeholder').jqplot([data], {
+            title: '@LangResources.ExerciseResultChartExplanation',
+            seriesDefaults: {
+                renderer: jQuery.jqplot.PieRenderer,
+                rendererOptions: {
+                    showDataLabels: true,
+                    dataLabels: 'value'
+                }
+            },
+            legend: { show: true, location: 'e' },
+            highlighter: {
+                show: true,
+                formatString: '%s',
+                tooltipLocation: 'sw',
+                useAxesFormatters: false
+            }
+        });
+    });
+</script>
+}

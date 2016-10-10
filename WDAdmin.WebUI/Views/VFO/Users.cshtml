@@ -1,0 +1,40 @@
+﻿@model WDAdmin.WebUI.Models.UsersViewModel
+
+@{
+    ViewBag.Title = LangResources.SeeResults;
+}
+
+<h4 class="alert_info">@LangResources.GroupResultsTitle</h4>
+
+@if (Model.Users != null && Model.Users.Any())
+{
+    <article class="module width_full">
+        <header><h3>@LangResources.GroupResultsHeader</h3></header>
+        <br />
+        @{
+           var grid = new WebGrid(Model.Users, null, null, 20);   
+             @grid.GetHtml(columns: grid.Columns(            
+                 grid.Column("SalaryNumber", LangResources.SalaryNumber, canSort: true),   
+                 grid.Column("Firstname", LangResources.Firstname, canSort: true),
+                 grid.Column("Lastname", LangResources.Lastname, canSort: true),  
+                 grid.Column("GroupName", LangResources.Groupname, canSort: true),
+                 grid.Column(header: "", format: @<text>@Html.ActionLink(LangResources.SeeDetails, "CategoryResults", new { id = item.UserId }, new { @class = "icn_search" })</text>)
+             ));
+        }
+        <br />
+    </article>
+
+    <article class="module width_full">
+        <header><h3>@LangResources.GroupAvgGraphHeader</h3></header>
+        <div id="placeholder-group" class="flot-placeholder"/>
+    </article>
+}
+
+@{          
+    if (Model.NoResults)
+    {   
+        <h4 class="alert_warning">
+            @LangResources.NoResultsFound
+        </h4>  
+    }
+}

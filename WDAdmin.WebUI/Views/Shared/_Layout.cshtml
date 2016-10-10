@@ -1,0 +1,161 @@
+﻿@{
+    var model = (WDAdmin.WebUI.Models.MasterUserRightsModel)Session["Rights"];
+} 
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>@ViewBag.Title</title>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+        <link rel="icon" href="@Url.Content("~/Content/favicon.ico")" type="image/x-icon" />
+
+
+        @* Styles *@
+        <link href="@Url.Content("~/Content/jqplot/jquery.jqplot.min.css")" rel="stylesheet" type="text/css" />
+        <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+        <!--[if IE]><link href="@Url.Content("~/Content/Site_ie.css")" rel="stylesheet" type="text/css" /><![endif]-->
+        <!--[if gt IE 8]><link href="@Url.Content("~/Content/style_ie9.css")" rel="stylesheet" type="text/css" media="all" /><![endif]-->
+        @* IE 10 hack *@
+        <!--[if !IE]><!--><script> if (/*@@cc_on!@@*/false) { document.documentElement.className+=' ie10'; } </script><!--<![endif]-->
+        
+        @* Scripts *@
+        <!--[if IE]><script src="@Url.Content("~/Scripts/html5.js")" type="text/javascript"></script><![endif]-->
+        <script src="@Url.Content("~/Scripts/jquery-1.8.3.min.js")" type="text/javascript"></script>
+        <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+        <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+        <script src="@Url.Content("~/Scripts/VFOFunctions.js")" type="text/javascript"></script>
+    </head>
+    <body>
+        <div id="pageWrap">
+            <header id="header">
+                <hgroup>
+                    <h1 class="site_title"><div class="logo" style="background-image: url(@string.Format("/Content/Graphics/logo_{0}.png", UICulture))"></div></h1>
+                    <h2 class="section_title">@LangResources.VirtualTransport</h2>
+                    <div class="btn_view_site">@Html.ActionLink(LangResources.Home, "Index", "Home")</div>
+                </hgroup>
+            </header> <!-- end of header bar -->
+            <section id="secondary_bar">
+                <div class="user">
+                    <p>@Session["User"]</p>
+                </div>
+                <div class="breadcrumbs_container">               
+                    @if (Session["Help"] != null)
+                    {
+                        var link = "~/Content/Help/" + (string)Session["Help"];
+                        <a class="current" href="@Url.Content(link)" >
+                            <img alt="" style="float: right;" class="help" src="@Url.Content("~/Content/Graphics/help.png")" />
+                        </a>
+                    }
+                </div>
+            </section><!-- end of secondary bar -->
+            <aside id="sidebar" class="column">
+                <br />
+                @{
+                    <ul class="toggle">
+                        <li class="icn_photo">@Html.ActionLink(LangResources.Home, "Index", new { controller = "Home" })</li>
+                    </ul>
+                    <br />
+            
+                    if (model.Group1)
+                    {
+                        <h3>@LangResources.UserManagement</h3>
+                        <ul class="toggle">
+                            @if (model.Group1Page1)
+                            {      
+                                <li class="icn_view_users">@Html.ActionLink(LangResources.UserOverview, "UserIndex", "User")</li>                  
+                            }
+                            @if (model.Group1Page2)
+                            {
+                                <li class="icn_add_user">@Html.ActionLink(LangResources.AddNewAdminUser, "UserAdd", "User")</li>
+                            }	
+                        </ul>
+                        <br />
+                    }
+
+                    if (model.Group2)
+                    {
+                        <h3>@LangResources.UserGroupManagement</h3>
+                        <ul class="toggle">
+                            @if (model.Group2Page1)
+                            {         
+                                <li class="icn_categories">@Html.ActionLink(LangResources.UserGroupOverview, "UserGroupIndex", new { controller = "UserGroup" })</li>
+                            }
+                            @if (model.Group2Page4)
+                            {  
+                                <li class="icn_categories">@Html.ActionLink(LangResources.UserGroupTemplateOverview, "UserTemplateIndex", new { controller = "User" })</li>
+                            }
+                            @if (model.Group2Page7)
+                            {
+                                <li class="icn_add_user">@Html.ActionLink(LangResources.CreateNewCustomer, "CustomerAdd", "UserGroup")</li>
+                            }
+                        </ul>
+                        <br />
+                    }
+
+                    if (model.Group3)
+                    {
+                        <h3>@LangResources.VFOManagement</h3>
+                        <ul class="toggle">
+                            @if (model.Group3Page1)
+                            {         
+                                <li class="icn_new_article">@Html.ActionLink(LangResources.CreateHyperlink, "CreateLink", new { controller = "VFO" })</li>
+                            }
+                            @if (model.Group3Page2)
+                            {  
+                                <li class="icn_categories">@Html.ActionLink(LangResources.SeeResults, "Groups", new { controller = "VFO", id = "" })</li>
+                            }
+                        </ul>
+                        <br />
+                    }
+
+                    if (model.Group4)
+                    {
+                        <h3>@LangResources.ContentManagement</h3>
+                        <ul class="toggle">
+                            @if (model.Group4Page1)
+                            {  
+                                <li class="icn_categories">@Html.ActionLink(LangResources.CategoryOverview, "CategoryIndex", new { controller = "Content" })</li>
+                            }
+                            @if (model.Group4Page2)
+                            {  
+                                <li class="icn_new_article">@Html.ActionLink(LangResources.AddNewExerciseCategory, "CategoryAdd", new { controller = "Content" })</li>
+                            }
+                            @if (model.Group4Page4)
+                            {  
+                                <li class="icn_categories">@Html.ActionLink(LangResources.ExerciseOverview, "ExerciseIndex", new { controller = "Content" })</li>    
+                            }
+                            @if (model.Group4Page5)
+                            {  
+                                <li class="icn_new_article">@Html.ActionLink(LangResources.AddNewExercise, "ExerciseAdd", new { controller = "Content" })</li>    
+                            }
+                        </ul>
+                        <br />
+                    }
+
+                    if (model.Group5)
+                    {
+                        <h3>@LangResources.LogManagement</h3>
+                        <ul class="toggle">
+                            @if (model.Group5Page1)
+                            {  
+                                <li class="icn_categories">@Html.ActionLink(LangResources.LogOverview, "LogIndex", new { controller = "Log" })</li>
+                            }
+                        </ul>
+                        <br />
+                    }
+           
+                    <h3>@LangResources.Others</h3>
+                    <ul class="toggle">
+                        <li class="icn_view_users"><a href="https://welfaredenmark.zendesk.com/home" target="_blank">@LangResources.Support</a></li>
+                        <li class="icn_profile">@Html.ActionLink(LangResources.YourProfile, "PersonalDetails", new { controller = "Account" })</li>   
+                        <li class="icn_jump_back">@Html.ActionLink(LangResources.LogOff, "LogOff", new { controller = "Account" })</li>
+                    </ul>
+                }
+            </aside><!-- end of sidebar -->
+            <section id="main" class="column">
+                @RenderBody()
+            </section>
+        </div>
+        <div id="version">@LangResources.Version 2.2.91</div>
+    </body>
+</html>

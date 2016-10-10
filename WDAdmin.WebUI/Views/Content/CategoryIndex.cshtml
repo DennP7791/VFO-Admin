@@ -1,0 +1,32 @@
+﻿@model WDAdmin.WebUI.Models.CategoryViewModel
+
+@{
+    ViewBag.Title = LangResources.ContentManagement;
+}
+
+<h4 class="alert_info">@LangResources.CategoryIndexTitle</h4>
+
+@if (Model.Categories != null && Model.Categories.Any())
+{
+    <article class="module width_full">
+        <header><h3>@LangResources.CategoryIndexHeader</h3></header>
+        <br />
+        @{
+            var grid = new WebGrid(Model.Categories, null, null, 20);   
+            @grid.GetHtml(columns: grid.Columns(            
+                 grid.Column("Name", LangResources.Name, canSort: true),   
+                 grid.Column(header: "", format: @<text>@Html.ActionLink(LangResources.Edit, "CategoryEdit", new { id = item.Id }, new { @class = "icn_edit_article" })</text>)
+           ));
+        }
+        <br />
+    </article>
+}
+
+@{          
+    if (Model.NoCategories)
+    {   
+        <h4 class="alert_warning">
+            @LangResources.NoCategoriesFound
+        </h4>  
+    }
+}

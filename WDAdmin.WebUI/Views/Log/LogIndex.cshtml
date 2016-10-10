@@ -1,0 +1,34 @@
+﻿@model WDAdmin.WebUI.Models.LogViewModel
+
+@{
+    ViewBag.Title = LangResources.LogManagement;
+}
+
+<h4 class="alert_info">@LangResources.LogIndexTitle</h4>
+
+@if (Model.LogEntries != null && Model.LogEntries.Count() > 0)
+{
+    <article class="module width_full">
+        <header><h3>@LangResources.LogIndexHeader</h3></header> 
+        <br />
+        @{          
+            var grid = new WebGrid(Model.LogEntries, null, null, 30);
+                    @grid.GetHtml(columns: grid.Columns(
+                 grid.Column("Time", LangResources.Timestamp, canSort: true),
+                 grid.Column("Title", LangResources.Title, canSort: true),
+                 grid.Column("Information", LangResources.Information, canSort: true),
+                 grid.Column(header: "", format: @<text>@Html.ActionLink(LangResources.SeeDetails, "LogDetails", new { id = item.Id }, new { @class = "icn_search" })</text>)
+                 ));
+            <br />
+        }
+    </article>
+}
+
+@{          
+    if (Model.NoLogEntries)
+    {   
+        <h4 class="alert_warning">
+            @LangResources.NoLogEntriesFound
+        </h4>  
+    }
+} 

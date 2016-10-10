@@ -1,0 +1,13 @@
+﻿@model WDAdmin.WebUI.Models.UserModel
+           
+<center>
+    <div class="download">    
+        <a href="@Url.Action("WebClient", "Home")" target="_blank" >
+            <div><img alt="" src="@Url.Content("~/Content/Graphics/images/download.png")"/></div>
+            <span class="download">@LangResources.GotoWebClient</span>
+        </a>
+        <br />
+        <br />
+        <a href="@Url.Content("~/Content/WebClient/Welfaredenmark.exe")"><span class="download">@LangResources.DownloadShortcut</span></a>
+    </div>
+</center>

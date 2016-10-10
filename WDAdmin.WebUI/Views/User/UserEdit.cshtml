@@ -1,0 +1,92 @@
+﻿@model WDAdmin.WebUI.Models.UserFormModel
+
+@{
+    ViewBag.Title = LangResources.UserEdit;
+}
+
+<h4 class="alert_info">@LangResources.UserEditTitle</h4>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <article class="module width_full">
+        <header><h3>@LangResources.UserEditDetailsHeader</h3></header> 
+        @Html.HiddenFor(m => m.CustomerId)
+        @Html.HiddenFor(m => m.CountryId)
+        @Html.HiddenFor(m => m.UserId)
+        <br />
+        <div class="editor-label">
+            @Html.LabelFor(m => m.UserGroup)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(m => m.UserGroupId, new SelectList(Model.UserGroup, "Id", "GroupName"), LangResources.Choose) @Html.ValidationMessageFor(m => m.UserGroupId)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(m => m.Templates)
+        </div>
+        <div class="editor-field">             
+            @Html.DropDownListFor(m => m.UserGroupTemplateId, new SelectList(Model.Templates, "Id", "TemplateName"), LangResources.Choose) @Html.ValidationMessageFor(m => m.UserGroupTemplateId)       
+        </div>
+        
+        <div class="editor-label">
+            @Html.LabelFor(m => m.Firstname)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(m => m.Firstname)  @Html.ValidationMessageFor(m => m.Firstname)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(m => m.Lastname)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(m => m.Lastname)  @Html.ValidationMessageFor(m => m.Lastname)
+        </div>
+        
+        @if(Model.SalaryNumber == -1)
+        {
+            @Html.HiddenFor(m => m.Username)
+            @Html.HiddenFor(m => m.SalaryNumber)
+            <div class="editor-label">
+                @Html.LabelFor(m => m.Phone)
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(m => m.Phone)  @Html.ValidationMessageFor(m => m.Phone)
+            </div>
+            <div class="editor-label">
+                @Html.LabelFor(m => m.Email)
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(m => m.Email)  @Html.ValidationMessageFor(m => m.Email)
+            </div>
+        }
+        else
+        {
+            <div class="editor-label">
+                @Html.LabelFor(m => m.SalaryNumber)
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(m => m.SalaryNumber)  @Html.ValidationMessageFor(m => m.SalaryNumber)
+            </div>
+            <div class="editor-label">
+                @Html.LabelFor(m => m.Username)
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(m => m.Username)  @Html.ValidationMessageFor(m => m.Username)
+            </div>
+            if(Model.Email != null)
+            {
+                <div class="editor-label">
+                    @Html.LabelFor(m => m.Email)
+                </div>
+                <div class="editor-field">
+                    @Html.TextBoxFor(m => m.Email)  @Html.ValidationMessageFor(m => m.Email)
+                </div>
+            }
+
+        }
+        <br />
+        <input type="submit" name="CreateUser" value="@LangResources.SaveButton" /> 
+        <button onclick="history.back(); return false;">@LangResources.BtnCancel</button>
+    </article>
+}
+            
+@Html.ValidationSummary(true, LangResources.UserEditGeneralError)

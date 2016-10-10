@@ -1,0 +1,82 @@
+﻿@model WDAdmin.WebUI.Models.UserPersonalViewModel
+
+@{
+    ViewBag.Title = LangResources.PersonalDetails;
+}
+
+<h4 class="alert_info">@LangResources.PersonalDetailsTitle</h4>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <article class="module width_full">
+        <header><h3>@LangResources.PersonalDetailsHeader</h3></header>
+        <br />
+        @if (Model.SalaryNumber != 0)
+        {
+            <div class="display-label">
+                @Html.LabelFor(m => m.SalaryNumber)
+            </div>
+            <div class="display-field">
+                @Model.SalaryNumber
+            </div>
+        }
+        <div class="display-label">
+            @Html.LabelFor(m => m.Firstname)
+        </div>
+        <div class="display-field">
+            @Model.Firstname
+        </div>
+        <div class="display-label">
+            @Html.LabelFor(m => m.Lastname)
+        </div>
+        <div class="display-field">
+            @Model.Lastname
+        </div>
+        
+        @if (Model.Phone != null)
+        {   
+            <div class="display-label">
+                @Html.LabelFor(m => m.Phone)
+            </div>
+            <div class="display-field">
+                @Model.Phone
+            </div>
+        }
+        
+        @if (Model.Email != null)
+        {
+            <div class="display-label">
+                @Html.LabelFor(m => m.Email)
+            </div>
+            <div class="display-field">
+                @Model.Email
+            </div>
+        }
+        
+        @if (Model.Username != null)
+        {
+            <div class="display-label">
+                @Html.LabelFor(m => m.Username)
+            </div>
+            <div class="display-field">
+                @Model.Username
+            </div>
+        }
+        
+        @if (Model.Language != null)
+        {
+            <div class="display-label">
+                @Html.LabelFor(m => m.Language)
+            </div>
+            <div class="display-field">
+                @Model.Language
+            </div>
+        }
+        <div class="clear"></div>
+        <br />
+        <input type="submit" value="@LangResources.ChangePassword" />
+        <button onclick="history.back(); return false;">@LangResources.BtnCancel</button>
+        <div class="clear"></div>
+    </article>
+}

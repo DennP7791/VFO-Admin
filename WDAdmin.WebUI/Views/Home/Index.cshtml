@@ -1,0 +1,25 @@
+﻿@model WDAdmin.WebUI.Models.HomeViewModel
+
+@{
+    ViewBag.Title = LangResources.Home;
+}
+
+@if (Model.HomeModule1)
+{
+    Html.RenderAction("TopAdminModule", "Home");  
+}
+
+@if (Model.HomeModule2)
+{
+    Html.RenderAction("CustomerModule", "Home"); 
+}
+
+@if (Model.HomeModule3)
+{
+    Html.RenderAction("AdminModule", "Home"); 
+}
+
+@if (Model.HomeModule4)
+{
+    Html.RenderAction("UserModule", "Home"); 
+}

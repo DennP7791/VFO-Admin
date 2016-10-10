@@ -1,0 +1,8 @@
+﻿@model WDAdmin.WebUI.Models.ForgottenPassEmailModel
+@{
+    Layout = "~/Views/Shared/_LayoutEmail.cshtml";
+}
+
+@Html.Raw(LangResources.NewPasswordMailBody) @Model.Password<br />
+<br />
+@Html.Raw(LangResources.GreetingsFromWelfareDenmark)

@@ -1,0 +1,11 @@
+﻿@model WDAdmin.WebUI.Models.EmailNewUserModel
+@{
+    Layout = "~/Views/Shared/_LayoutEmail.cshtml";
+}
+
+@Html.Raw(LangResources.PasswordMailBody)<br />
+<br />
+@LangResources.PasswordMailUsername @Model.Email<br />
+@LangResources.PasswordMailPassword @Model.Password<br />
+<br />
+@Html.Raw(LangResources.GreetingsFromWelfareDenmark)

@@ -1,0 +1,183 @@
+﻿@model WDAdmin.WebUI.Models.GroupResultViewModel
+@{
+    ViewBag.Title = "Groups";
+}
+
+<h4 class="alert_info">@string.Format(LangResources.UserGroupsResultTitle, Model.CurrentGroupName)</h4>
+
+<link href="@Url.Content("~/Content/jqplot/jquery.jqplot.min.css")" rel="stylesheet" type="text/css" />
+
+<!--[if lte IE 8]><script src="@Url.Content("~/Scripts/jqplot/excanvas.min.js")" type="text/javascript"></script><![endif]-->
+<script src="@Url.Content("~/Scripts/jqplot/jquery.jqplot.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jqplot/jquery.jqplot.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jqplot/plugins/jqplot.logAxisRenderer.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jqplot/plugins/jqplot.canvasTextRenderer.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jqplot/plugins/jqplot.canvasAxisLabelRenderer.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jqplot/plugins/jqplot.barRenderer.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jqplot/plugins/jqplot.canvasAxisTickRenderer.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jqplot/plugins/jqplot.categoryAxisRenderer.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jqplot/plugins/jqplot.pointLabels.min.js")" type="text/javascript"></script>
+
+<article class="module width_full">
+    <header><h3>@LangResources.GroupSummaryHeader</h3></header>
+    <table>
+        <tr>
+            <td>@LangResources.PassedProcent</td>
+            <td>@string.Format("{0:F}%", Model.CombinedPassedProcent)</td>
+        </tr>
+        <tr>
+            <td>@LangResources.Average</td>
+            <td>@Model.CombinedAvg.ToString("F")</td>
+        </tr>
+        <tr>
+            <td>@LangResources.WorstExercises</td>
+            <td>
+                <ol>
+                    @foreach (var e in Model.WorstExercises)
+                    { 
+                        <li><div>@e.Name: @e.Score.ToString("F")</div></li>
+                    }
+                </ol>
+            </td>
+        </tr>
+    </table>
+</article>
+
+<article class="module width_full">
+    <header><h3>@LangResources.GroupStatsHeader</h3></header>
+@if (Model.GroupStats.Any())
+{ 
+    <table>
+        <thead>
+            <tr>
+                <th>@LangResources.Groupname</th>
+                <th>@LangResources.PassedProcent</th>
+                <th>@LangResources.Average</th>
+            </tr>
+        </thead>
+        @foreach (var item in Model.GroupStats)
+        { 
+            <tr>
+                <td>@Html.ActionLink(item.Name, "Groups", new { id = item.Id })</td>
+                <td>@string.Format("{0:F}%", item.PassedPercent)</td>
+                <td>@item.Average.ToString("F")</td>
+            </tr>
+        }
+    </table>
+    <div id="placeholder-group-passed" class="flot-placeholder"></div>
+    <div id="placeholder-group-average" class="flot-placeholder"></div>
+}
+else
+{ 
+    <p>@LangResources.GroupStatsNoGroups</p>
+}
+</article>
+
+<article class="module width_full">
+    <header><h3>@LangResources.UserStatsHeader</h3></header>
+@if (Model.UserStats.Any())
+{ 
+    <table>
+        <thead>
+            <tr>
+                <th>@LangResources.Username</th>
+                <th>@LangResources.PassedProcent</th>
+                <th>@LangResources.Average</th>
+            </tr>
+        </thead>
+        @foreach (var item in Model.UserStats)
+        { 
+            <tr>
+                <td>@Html.ActionLink(item.Name, "CategoryResults", new { id = item.Id })</td>
+                <td>@string.Format("{0:F}%", item.PassedPercent)</td>
+                <td>@item.Average.ToString("F")</td>
+            </tr>
+        }
+    </table>
+    <div id="placeholder-user-passed" class="flot-placeholder"></div>
+    <div id="placeholder-user-average" class="flot-placeholder"></div>
+}
+else
+{ 
+    <p>@LangResources.GroupStatsNoUsers</p>
+}
+</article>
+
+<script type="text/javascript">
+    var plot = function (placeholder, title, data, ticks, max) {
+        $(placeholder).jqplot([data], {
+            title: title,
+            seriesDefaults: {
+                renderer: $.jqplot.BarRenderer
+            },
+            axes: {
+                xaxis: {
+                    renderer: $.jqplot.CategoryAxisRenderer,
+                    labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
+                    tickRenderer: $.jqplot.CanvasAxisTickRenderer,
+                    ticks: ticks,
+                    tickOptions: {
+                        angle: 45
+                    }
+                },
+                yaxis: {
+                    max: max
+                }
+            }
+        });
+    };
+    var plotAvg = function (placeholder, data, ticks) {
+        plot(placeholder, "@Html.Raw(LangResources.GraphLabelAverageScore)", data, ticks, 3);
+    };
+    var plotPassed = function (placeholder, data, ticks) {
+        plot(placeholder, "@Html.Raw(LangResources.GraphLabelPassedScore)", data, ticks, 100);
+    };
+
+    var unpack = function (data) {
+        var ticks = [];
+        $(data).each(function (i, v) {
+            ticks.push(v["Name"]);
+        });
+        var avg = [];
+        $(data).each(function (i, v) {
+            avg.push(v["Average"]);
+        });
+        var passed = [];
+        $(data).each(function (i, v) {
+            passed.push(v["PassedPercent"]);
+        });
+        var ids = [];
+        $(data).each(function (i, v) {
+            ids.push(v["Id"]);
+        });
+        return { ticks: ticks, avg: avg, passed: passed, ids: ids };
+    };
+
+    $(document).ready(function () {
+
+        @if (Model.GroupStats.Any())
+        {
+        <text>
+        var groupData = unpack(@Html.Raw(Model.GroupPlotData));
+        plotAvg("#placeholder-group-average" , groupData.avg, groupData.ticks);
+        plotPassed("#placeholder-group-passed" , groupData.passed, groupData.ticks);
+        </text>
+        }
+
+        @if (Model.UserStats.Any())
+        {
+        <text>
+        var userData = unpack(@Html.Raw(Model.UserPlotData));
+        plotAvg("#placeholder-user-average", userData.avg, userData.ticks);
+        plotPassed("#placeholder-user-passed", userData.passed, userData.ticks);
+        </text>
+        }
+
+        $('[id^=placeholder-group-]').bind('jqplotDataClick', function (ev, seriesIndex, pointIndex, data){
+            self.location = "@Url.Action("Groups", new { id = "" })/" + groupData.ids[pointIndex];
+        });
+        $('[id^=placeholder-user-]').bind('jqplotDataClick', function (ev, seriesIndex, pointIndex, data){
+            self.location = "@Url.Action("CategoryResults", new { id = "" })/" + userData.ids[pointIndex];
+        });
+    });
+</script>

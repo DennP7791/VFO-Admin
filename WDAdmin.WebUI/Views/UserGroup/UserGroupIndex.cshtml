@@ -1,0 +1,43 @@
+﻿@model WDAdmin.WebUI.Models.UserGroupViewModel
+
+@{
+    ViewBag.Title = LangResources.UserGroupManagement;
+}
+
+<script src="@Url.Content("~/Scripts/jquery.treeview.js")" type="text/javascript"></script>
+<link href="@Url.Content("~/Content/jquery.treeview.css")" rel="stylesheet" type="text/css" />
+
+<h4 class="alert_info">@LangResources.UserGroupOverviewTitle</h4>
+
+<article class="module width_full">
+    <header><h3>@LangResources.UserGroupOverviewHeader</h3></header>
+    <br />
+    <div id="treeView">
+        @**<div id="sidetreecontrol" style="margin-left: 50px; margin-bottom: 15px;"><a href="?#">@LangResources.ColapseAll</a> | <a href="?#">@LangResources.ExpandAll</a></div>*@
+        @*@Html.Raw(@Model.GroupTree)*@
+
+        @{ var gr = Model.GroupHierachy; }
+        <div class="treeRoot">
+            <a href="@Url.Action("UserGroupEdit/" + gr.Id)" class="topAdder">@gr.GroupName</a> - 
+            <a href="@Url.Action("UserGroupAdd/" + gr.Id)" class="creator">@LangResources.CreateUndergroup</a>
+            @if (gr.ChildGroups != null && gr.ChildGroups.Any())
+            {
+                Html.RenderPartial("ChildGroup", gr.ChildGroups);
+            }
+        </div>
+    </div>
+    <br />
+</article>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        //Create tree view
+        $('#treeView').treeview({
+            collapsed: true,
+            animated: "fast",
+            control: "#sidetreecontrol",
+            prerendered: false,
+            persist: "location"
+        });
+    });
+</script>

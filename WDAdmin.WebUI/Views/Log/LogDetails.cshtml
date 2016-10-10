@@ -1,0 +1,52 @@
+﻿@model WDAdmin.WebUI.Models.LogDetailsModel
+
+@{
+    ViewBag.Title = LangResources.LogManagement;
+}
+
+<h4 class="alert_info">@LangResources.LogDetailsTitle</h4>
+
+<article class="module width_full">
+    <header><h3>@LangResources.LogDetailsHeader</h3></header>
+    <br />
+    <div class="display-label">
+        @Html.LabelFor(m => m.Title)
+    </div>
+    <div class="display-field">
+        @Model.Title
+    </div>
+    <div class="display-label">
+        @Html.LabelFor(m => m.Time)
+    </div>
+    <div class="display-field">
+        @Model.Time
+    </div>
+    @if (Model.Information != null)
+    {
+        <div class="display-label">
+            @Html.LabelFor(m => m.Information)
+        </div>
+        <div class="display-field">
+            @Model.Information
+        </div>
+    }
+    <div class="display-label">
+        @Html.LabelFor(m => m.Type)
+    </div>
+    <div class="display-field">
+        @Model.Type
+    </div>
+    @if (Model.Message != null)
+    {
+        <div class="display-label">
+            @Html.LabelFor(m => m.Message)
+        </div>
+        <div>
+            @Html.TextAreaFor(m => m.Message, new { @class = "message", @readonly = "yes", @editable = "false" })
+        </div>
+    }
+    <div class="clear"></div>
+</article>
+
+<br />
+<button class="back" onclick="history.back(); return false;">@LangResources.BackButton</button>

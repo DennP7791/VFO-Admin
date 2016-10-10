@@ -1,0 +1,1446 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="EmailFormatError" xml:space="preserve">
+    <value>Indtast venligst en gyldig e-mail adresse!</value>
+  </data>
+  <data name="EmailFormatRegex" xml:space="preserve">
+    <value>\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*</value>
+  </data>
+  <data name="RequiredSiteNameError" xml:space="preserve">
+    <value>Indtast venligst et gyldigt sidenavn</value>
+  </data>
+  <data name="GeneralLoginError" xml:space="preserve">
+    <value>Login mislykkedes</value>
+  </data>
+  <data name="LoginPageTitle" xml:space="preserve">
+    <value>Log på...</value>
+  </data>
+  <data name="LoginPageMessage" xml:space="preserve">
+    <value>Indtast venligst brugernavn og kodeord for at logge ind</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Kodeord</value>
+  </data>
+  <data name="RememberMe" xml:space="preserve">
+    <value>Husk mig</value>
+  </data>
+  <data name="RequiredLoginFieldError" xml:space="preserve">
+    <value>Felt er påkrævet!</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>Brugernavn</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Opret</value>
+  </data>
+  <data name="Groupname" xml:space="preserve">
+    <value>Gruppenavn</value>
+  </data>
+  <data name="Group1" xml:space="preserve">
+    <value>Brugerstyring</value>
+  </data>
+  <data name="Group1Page1" xml:space="preserve">
+    <value>Brugeroversigt</value>
+  </data>
+  <data name="Group1Page2" xml:space="preserve">
+    <value>Opret en ny bruger</value>
+  </data>
+  <data name="Group2" xml:space="preserve">
+    <value>Brugergruppestyring</value>
+  </data>
+  <data name="Group2Page1" xml:space="preserve">
+    <value>Brugergruppeoversigt</value>
+  </data>
+  <data name="Group2Page2" xml:space="preserve">
+    <value>Opret en ny brugergruppe</value>
+  </data>
+  <data name="UserGroupAdd" xml:space="preserve">
+    <value>Brugergruppeoprettelse</value>
+  </data>
+  <data name="UserGroupAddHeader" xml:space="preserve">
+    <value>Opret en ny brugergruppe</value>
+  </data>
+  <data name="UserGroupAddTitle" xml:space="preserve">
+    <value>Her kan du oprette en ny brugergruppe</value>
+  </data>
+  <data name="UserGroupCreateGeneralError" xml:space="preserve">
+    <value>Brugergruppeoprettelse mislykkedes!</value>
+  </data>
+  <data name="UserGroupManagement" xml:space="preserve">
+    <value>Brugergruppestyring</value>
+  </data>
+  <data name="UserGroupOverviewHeader" xml:space="preserve">
+    <value>Eksisterende brugergrupper</value>
+  </data>
+  <data name="UserGroupOverviewTitle" xml:space="preserve">
+    <value>Her kan du se en oversigt over eksisterende brugergrupper</value>
+  </data>
+  <data name="UserGroupEdit" xml:space="preserve">
+    <value>Brugergrupperedigering</value>
+  </data>
+  <data name="UserGroupEditHeader" xml:space="preserve">
+    <value>Rediger brugergruppe</value>
+  </data>
+  <data name="UserGroupEditTitle" xml:space="preserve">
+    <value>Her kan du redigere den valgte brugergruppe</value>
+  </data>
+  <data name="InternalError" xml:space="preserve">
+    <value>Intern fejl! Hvis du ser denne meddelelse igen, kontakt venligst systemadministratoren</value>
+  </data>
+  <data name="InvalidUsernamePasswordError" xml:space="preserve">
+    <value>Inkorrekt Brugernavn og/eller Kodeord! Ret fejlene og prøv igen</value>
+  </data>
+  <data name="RequiredLoginUsernameError" xml:space="preserve">
+    <value>Felt er påkrævet! (E-mail adresse)</value>
+  </data>
+  <data name="CitizenRegisterPage" xml:space="preserve">
+    <value>Register...</value>
+  </data>
+  <data name="CitizenRegisterPageDetailsHeader" xml:space="preserve">
+    <value>Indtast venligst brugerdetaljer</value>
+  </data>
+  <data name="CitizenRegisterPageTitle" xml:space="preserve">
+    <value>På denne side kan du oprette dig som bruger</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Gentag kodeord</value>
+  </data>
+  <data name="ConfirmPasswordError" xml:space="preserve">
+    <value>Koderne stemmer ikke overens!</value>
+  </data>
+  <data name="LoginButton" xml:space="preserve">
+    <value>Log på</value>
+  </data>
+  <data name="LoginPageDetailsHeader" xml:space="preserve">
+    <value>Logindetaljer</value>
+  </data>
+  <data name="Reference" xml:space="preserve">
+    <value>Reference</value>
+  </data>
+  <data name="RequiredPasswordLengthError" xml:space="preserve">
+    <value>Kodeord skal bestå af mindst 6 tegn!</value>
+  </data>
+  <data name="RequiredReferenceFieldError" xml:space="preserve">
+    <value>Felt er påkrævet!</value>
+  </data>
+  <data name="SendButton" xml:space="preserve">
+    <value>Send</value>
+  </data>
+  <data name="MailUsername" xml:space="preserve">
+    <value>E-mail adresse</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Forsiden</value>
+  </data>
+  <data name="HomeModule1" xml:space="preserve">
+    <value>TopAdmin modul</value>
+  </data>
+  <data name="HomeModule2" xml:space="preserve">
+    <value>Kunde modul</value>
+  </data>
+  <data name="HomeModule3" xml:space="preserve">
+    <value>Vejleder modul</value>
+  </data>
+  <data name="AddNewUser" xml:space="preserve">
+    <value>Opret en ny bruger</value>
+  </data>
+  <data name="AddNewUserGroup" xml:space="preserve">
+    <value>Opret en ny brugergruppe</value>
+  </data>
+  <data name="Created" xml:space="preserve">
+    <value>Oprettet</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Slet</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Rediger</value>
+  </data>
+  <data name="LogOff" xml:space="preserve">
+    <value>Log ud</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>Gem</value>
+  </data>
+  <data name="UserGroupOverview" xml:space="preserve">
+    <value>Gruppeoversigt</value>
+  </data>
+  <data name="UserOverview" xml:space="preserve">
+    <value>Brugeroversigt</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Fejl...</value>
+  </data>
+  <data name="GeneralErrorMessage" xml:space="preserve">
+    <value>Vi beklager, men der opstod en fejl under behandling af din anmodning!</value>
+  </data>
+  <data name="ToLoginPage" xml:space="preserve">
+    <value>Videre til Login-side</value>
+  </data>
+  <data name="CitizenCreateSuccess" xml:space="preserve">
+    <value>Du er blevet oprettet som bruger og kan nu logge ind</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>E-mail adresse</value>
+  </data>
+  <data name="Firstname" xml:space="preserve">
+    <value>Fornavn</value>
+  </data>
+  <data name="GeneralUserCreateError" xml:space="preserve">
+    <value>Brugeroprettelse mislykkedes!</value>
+  </data>
+  <data name="Lastname" xml:space="preserve">
+    <value>Efternavn</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>Telefonnummer</value>
+  </data>
+  <data name="RequiredFieldError" xml:space="preserve">
+    <value>Felt er påkrævet!</value>
+  </data>
+  <data name="Choose" xml:space="preserve">
+    <value>Vælg</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Søg</value>
+  </data>
+  <data name="TopAdminModuleTitle" xml:space="preserve">
+    <value>Her kan du se en oversigt over eksisterende kunder</value>
+  </data>
+  <data name="UserOverviewGroupInfo" xml:space="preserve">
+    <value>Vælg én af de eksisterende brugergrupper for at få brugerliste for denne gruppe</value>
+  </data>
+  <data name="NoUsersInGroup" xml:space="preserve">
+    <value>Ingen brugere fundet i den valgte gruppe!</value>
+  </data>
+  <data name="NoReferenceError" xml:space="preserve">
+    <value>Brugerregistrering er ikke mulig uden et gyldigt referencenummer!</value>
+  </data>
+  <data name="WrongReferenceError" xml:space="preserve">
+    <value>Referencenummer er ikke gyldigt!</value>
+  </data>
+  <data name="UserCreate" xml:space="preserve">
+    <value>Brugeroprettelse</value>
+  </data>
+  <data name="UserCreateDetailsHeader" xml:space="preserve">
+    <value>Opret en ny bruger</value>
+  </data>
+  <data name="UserCreateTitle" xml:space="preserve">
+    <value>Her kan du oprette en ny bruger</value>
+  </data>
+  <data name="UserCreateGeneralError" xml:space="preserve">
+    <value>Brugeroprettelse mislykkedes!</value>
+  </data>
+  <data name="UserGroup" xml:space="preserve">
+    <value>Brugergruppe</value>
+  </data>
+  <data name="GroupNotChosenError" xml:space="preserve">
+    <value>Du skal vælge brugergruppen for en ny bruger!</value>
+  </data>
+  <data name="UserWithSameEmailError" xml:space="preserve">
+    <value>En bruger med samme e-mail adresse findes allerede i systemet. Ret fejlen og prøv igen</value>
+  </data>
+  <data name="UserGroupExistsError" xml:space="preserve">
+    <value>Brugergruppe med samme navn findes allerede i systemet!</value>
+  </data>
+  <data name="Group3" xml:space="preserve">
+    <value>Virtuel Foflytning</value>
+  </data>
+  <data name="Group3Page1" xml:space="preserve">
+    <value>Opret et nyt link</value>
+  </data>
+  <data name="Group3Page2" xml:space="preserve">
+    <value>Se resultaterne</value>
+  </data>
+  <data name="UserManagement" xml:space="preserve">
+    <value>Brugerstyring</value>
+  </data>
+  <data name="YourProfile" xml:space="preserve">
+    <value>Din profil</value>
+  </data>
+  <data name="CreateUserFields" xml:space="preserve">
+    <value>Felter for brugeroprettelse</value>
+  </data>
+  <data name="OtherUserGroups" xml:space="preserve">
+    <value>Andre brugergrupper</value>
+  </data>
+  <data name="Sites" xml:space="preserve">
+    <value>Sider</value>
+  </data>
+  <data name="UserGroupTemplateAdd" xml:space="preserve">
+    <value>Skabelonoprettelse</value>
+  </data>
+  <data name="UserGroupTemplateAddHeader" xml:space="preserve">
+    <value>Opret en ny skabelon</value>
+  </data>
+  <data name="UserGroupTemplateAddTitle" xml:space="preserve">
+    <value>Her kan du oprette en ny skabelon</value>
+  </data>
+  <data name="UserGroupTemplateCreateGeneralError" xml:space="preserve">
+    <value>Skabelonoprettelse mislykkedes!</value>
+  </data>
+  <data name="RequiredTemplateNameFieldError" xml:space="preserve">
+    <value>Felt er påkrævet!</value>
+  </data>
+  <data name="TemplateName" xml:space="preserve">
+    <value>Skabelonnavn</value>
+  </data>
+  <data name="UserGroupTemplateExistsError" xml:space="preserve">
+    <value>Skabelon med samme navn findes allerede i systemet!</value>
+  </data>
+  <data name="AddNewUserGroupTemplate" xml:space="preserve">
+    <value>Opret en ny skabelon</value>
+  </data>
+  <data name="UserGroupTemplateOverview" xml:space="preserve">
+    <value>Skabelonoversigt</value>
+  </data>
+  <data name="UserGroupTemplateOverviewHeader" xml:space="preserve">
+    <value>Eksisterende skabeloner</value>
+  </data>
+  <data name="UserGroupTemplateOverviewTitle" xml:space="preserve">
+    <value>Her kan du se en oversigt over eksisterende skabeloner</value>
+  </data>
+  <data name="Group2Page3" xml:space="preserve">
+    <value>Rediger brugergruppe</value>
+  </data>
+  <data name="UserGroupTemplateEdit" xml:space="preserve">
+    <value>Skabelonredigering</value>
+  </data>
+  <data name="UserGroupTemplateEditHeader" xml:space="preserve">
+    <value>Rediger en eksisterende skabelon</value>
+  </data>
+  <data name="UserGroupTemplateEditTitle" xml:space="preserve">
+    <value>Her kan du redigere en eksisterende skabelon</value>
+  </data>
+  <data name="UserGroupTemplateNotChosenError" xml:space="preserve">
+    <value>Du skal vælge en skabelon for at oprette en ny bruger!</value>
+  </data>
+  <data name="UserGroupTemplates" xml:space="preserve">
+    <value>Skabelon</value>
+  </data>
+  <data name="PhoneFormatError" xml:space="preserve">
+    <value>Der skal indtastes 8 tal i feltet!</value>
+  </data>
+  <data name="PhoneFormatRegex" xml:space="preserve">
+    <value>\d{8}</value>
+  </data>
+  <data name="AddNewExercise" xml:space="preserve">
+    <value>Opret en ny øvelse</value>
+  </data>
+  <data name="ExerciseManagement" xml:space="preserve">
+    <value>Øvelsesstyring</value>
+  </data>
+  <data name="ExerciseOverview" xml:space="preserve">
+    <value>Øvelsesoversigt</value>
+  </data>
+  <data name="UserEdit" xml:space="preserve">
+    <value>Brugerredigering</value>
+  </data>
+  <data name="UserEditDetailsHeader" xml:space="preserve">
+    <value>Rediger bruger</value>
+  </data>
+  <data name="UserEditGeneralError" xml:space="preserve">
+    <value>Bruger redigering mislykkedes</value>
+  </data>
+  <data name="UserEditTitle" xml:space="preserve">
+    <value>Her kan du redigere den valgte bruger</value>
+  </data>
+  <data name="UserNotFoundError" xml:space="preserve">
+    <value>Den valgte bruger findes ikke i systemet!</value>
+  </data>
+  <data name="ChooseExercise" xml:space="preserve">
+    <value>Vælg øvelsen:</value>
+  </data>
+  <data name="CombinedResult" xml:space="preserve">
+    <value>Kombineret resultat</value>
+  </data>
+  <data name="ExerciseIsTest" xml:space="preserve">
+    <value>Øvelse er en test</value>
+  </data>
+  <data name="RemoveExercise" xml:space="preserve">
+    <value>Fjern øvelsen</value>
+  </data>
+  <data name="RepeatDailyUntil" xml:space="preserve">
+    <value>Gentag øvelsen dagligt frem til den</value>
+  </data>
+  <data name="GreetingsFromWelfareDenmark" xml:space="preserve">
+    <value>Med venlig hilsen&lt;br /&gt;&lt;b&gt;WelfareDenmark&lt;/b&gt;</value>
+  </data>
+  <data name="NewPasswordMailBody" xml:space="preserve">
+    <value>Dit kodeord til WelfareDenmark er blevet nulstillet.&lt;br /&gt;&lt;br /&gt;Nyt kodeord er: </value>
+  </data>
+  <data name="NewPasswordMailTitle" xml:space="preserve">
+    <value>Nyt kodeord til WelfareDenmark</value>
+  </data>
+  <data name="PasswordMailBody" xml:space="preserve">
+    <value>Du er blevet oprettet som bruger i WelfareDenmark</value>
+  </data>
+  <data name="PasswordMailPassword" xml:space="preserve">
+    <value>Kodeord: </value>
+  </data>
+  <data name="PasswordMailSubject" xml:space="preserve">
+    <value>Kodeord til WelfareDenmark</value>
+  </data>
+  <data name="PasswordMailUsername" xml:space="preserve">
+    <value>Brugernavn: </value>
+  </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>Skift kodeord</value>
+  </data>
+  <data name="ForgottenPassword" xml:space="preserve">
+    <value>Glemt kodeord</value>
+  </data>
+  <data name="ForgottenPasswordHeader" xml:space="preserve">
+    <value>E-mail adresse / Brugernavn</value>
+  </data>
+  <data name="ForgottenPasswordTitle" xml:space="preserve">
+    <value>Indtast venligst din e-mail adresse / dit brugernavn for at nulstille kodeord</value>
+  </data>
+  <data name="PersonalDetails" xml:space="preserve">
+    <value>Din profil</value>
+  </data>
+  <data name="PersonalDetailsHeader" xml:space="preserve">
+    <value>Personlige detaljer</value>
+  </data>
+  <data name="PersonalDetailsTitle" xml:space="preserve">
+    <value>Her kan du se dine personlige deteljer samt ændre kodeord</value>
+  </data>
+  <data name="Countries" xml:space="preserve">
+    <value>Land</value>
+  </data>
+  <data name="CountryNotChosenError" xml:space="preserve">
+    <value>Du skal vælge et land for at oprette en ny kunde!</value>
+  </data>
+  <data name="CreateNewCustomer" xml:space="preserve">
+    <value>Opret en ny kunde</value>
+  </data>
+  <data name="CustomerAddHeader" xml:space="preserve">
+    <value>Kundedetaljer</value>
+  </data>
+  <data name="CustomerAddTitle" xml:space="preserve">
+    <value>Her kan du oprette en ny kunde</value>
+  </data>
+  <data name="CustomerName" xml:space="preserve">
+    <value>Kundenavn</value>
+  </data>
+  <data name="FlatratePrice" xml:space="preserve">
+    <value>Flatrate pris</value>
+  </data>
+  <data name="Release" xml:space="preserve">
+    <value>Indfri</value>
+  </data>
+  <data name="BillCustomer" xml:space="preserve">
+    <value>Fakturer kunden</value>
+  </data>
+  <data name="Group4" xml:space="preserve">
+    <value>Indholdsstyring</value>
+  </data>
+  <data name="Group4Page1" xml:space="preserve">
+    <value>Kategorioversigt</value>
+  </data>
+  <data name="Group4Page2" xml:space="preserve">
+    <value>Opret en ny kategori</value>
+  </data>
+  <data name="Group4Page3" xml:space="preserve">
+    <value>Rediger kategori</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Customer" xml:space="preserve">
+    <value>Kunde</value>
+  </data>
+  <data name="CustomerNotChosenAddError" xml:space="preserve">
+    <value>Du skal vælge en kunde for at oprette en ny satellit!</value>
+  </data>
+  <data name="CustomerNotChosenError" xml:space="preserve">
+    <value>Du skal vælge en kunde for at se satellitlisten!</value>
+  </data>
+  <data name="ChangePasswordError" xml:space="preserve">
+    <value>Kodeordredigering mislykkedes!</value>
+  </data>
+  <data name="ChangePasswordHeader" xml:space="preserve">
+    <value>Kodeorddetaljer</value>
+  </data>
+  <data name="ChangePasswordSuccess" xml:space="preserve">
+    <value>Kodeordet er nu blevet ændret!</value>
+  </data>
+  <data name="ChangePasswordTitle" xml:space="preserve">
+    <value>Her kan du ændre dit nuværende kodeord</value>
+  </data>
+  <data name="CurrentPassword" xml:space="preserve">
+    <value>Nuværende kodeord</value>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>Nyt kodeord</value>
+  </data>
+  <data name="PasswordRecreateError" xml:space="preserve">
+    <value>Nulstilling af kodeord mislykkedes!</value>
+  </data>
+  <data name="PasswordRecreateSuccess" xml:space="preserve">
+    <value>Dit kodeord er blevet nulstillet og et nyt kode er blevet fremsendt til din e-mail adresse!</value>
+  </data>
+  <data name="UserWithMailNotFoundError" xml:space="preserve">
+    <value>Brugeren med den angivne e-mail adresse findes ikke i systemet!</value>
+  </data>
+  <data name="GroupForUsersNotChosenError" xml:space="preserve">
+    <value>Du skal vælge brugergruppen for at se brugerlisten!</value>
+  </data>
+  <data name="Unassigned" xml:space="preserve">
+    <value>Ikke tildelt</value>
+  </data>
+  <data name="CustomerNotChosenLicensError" xml:space="preserve">
+    <value>Du skal vælge en kunde for at se listen af licenser!</value>
+  </data>
+  <data name="Flatrate" xml:space="preserve">
+    <value>Flatrate</value>
+  </data>
+  <data name="PDFTitle" xml:space="preserve">
+    <value>WelfareDenmark - udskrevet den. </value>
+  </data>
+  <data name="AddNewExerciseCategory" xml:space="preserve">
+    <value>Opret en ny kategori</value>
+  </data>
+  <data name="CategoryIndexHeader" xml:space="preserve">
+    <value>Kategorioversigt</value>
+  </data>
+  <data name="CategoryIndexTitle" xml:space="preserve">
+    <value>Her kan se en oversigt over eksisterende kategorier</value>
+  </data>
+  <data name="CategoryName" xml:space="preserve">
+    <value>Kategorinavn</value>
+  </data>
+  <data name="CategoryOverview" xml:space="preserve">
+    <value>Kategorioversigt</value>
+  </data>
+  <data name="Difficulty" xml:space="preserve">
+    <value>Sværhedsgrad</value>
+  </data>
+  <data name="ExerciseIndexHeader" xml:space="preserve">
+    <value>Øvelseoversigt</value>
+  </data>
+  <data name="ExerciseIndexTitle" xml:space="preserve">
+    <value>Her kan se en oversigt over eksisterende øvelser</value>
+  </data>
+  <data name="ExerciseName" xml:space="preserve">
+    <value>Øvelsesnavn</value>
+  </data>
+  <data name="Group4Page4" xml:space="preserve">
+    <value>Øvelsesoversigt</value>
+  </data>
+  <data name="Group4Page5" xml:space="preserve">
+    <value>Opret en ny øvelse</value>
+  </data>
+  <data name="Group4Page6" xml:space="preserve">
+    <value>Rediger øvelse</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Kategori</value>
+  </data>
+  <data name="CategoryAddHeader" xml:space="preserve">
+    <value>Kategoridetaljer</value>
+  </data>
+  <data name="CategoryAddTitle" xml:space="preserve">
+    <value>Her kan du oprette en ny kategori</value>
+  </data>
+  <data name="CategoryEditHeader" xml:space="preserve">
+    <value>Kategoridetaljer</value>
+  </data>
+  <data name="CategoryEditTitle" xml:space="preserve">
+    <value>Her kan du redigere den valgte kategori</value>
+  </data>
+  <data name="CategoryNotFoundError" xml:space="preserve">
+    <value>Den valgte øvelseskategori findes ikke i systemet!</value>
+  </data>
+  <data name="ExerciseAddHeader" xml:space="preserve">
+    <value>Øvelsesdetaljer</value>
+  </data>
+  <data name="ExerciseAddTitle" xml:space="preserve">
+    <value>Her kan du oprette en ny øvelse</value>
+  </data>
+  <data name="ExerciseCreateGeneralError" xml:space="preserve">
+    <value>Øvelsesoprettelse mislykkedes!</value>
+  </data>
+  <data name="ExerciseDescription" xml:space="preserve">
+    <value>Beskrivelse</value>
+  </data>
+  <data name="ExerciseDifficulty" xml:space="preserve">
+    <value>Sværhedsgrad</value>
+  </data>
+  <data name="ExerciseEditGeneralError" xml:space="preserve">
+    <value>Øvelsesredigering mislykkedes!</value>
+  </data>
+  <data name="ExerciseEditHeader" xml:space="preserve">
+    <value>Øvelsesdetaljer</value>
+  </data>
+  <data name="ExerciseEditTitle" xml:space="preserve">
+    <value>Her kan du redigere den valgte øvelse</value>
+  </data>
+  <data name="ExerciseNotFoundError" xml:space="preserve">
+    <value>Den valgte øvelse findes ikke i systemet!</value>
+  </data>
+  <data name="ContactAdminMessage" xml:space="preserve">
+    <value>Hvis du ser denne besked igen, bedes du kontakte systemadministratoren</value>
+  </data>
+  <data name="Group1Page3" xml:space="preserve">
+    <value>Rediger bruger</value>
+  </data>
+  <data name="Group2Page4" xml:space="preserve">
+    <value>Skabelonoversigt</value>
+  </data>
+  <data name="Group2Page5" xml:space="preserve">
+    <value>Opret et nyt skabelon</value>
+  </data>
+  <data name="Group2Page6" xml:space="preserve">
+    <value>Rediger skabelon</value>
+  </data>
+  <data name="Group2Page7" xml:space="preserve">
+    <value>Opret en ny kunde</value>
+  </data>
+  <data name="CloseWindow" xml:space="preserve">
+    <value>Luk vindue</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Fjern</value>
+  </data>
+  <data name="CreateUndergroup" xml:space="preserve">
+    <value>Opret undergruppe</value>
+  </data>
+  <data name="CreateUndertemplate" xml:space="preserve">
+    <value>Opret underskabelon</value>
+  </data>
+  <data name="CustomerModuleHeader" xml:space="preserve">
+    <value>Funktionsoversigt</value>
+  </data>
+  <data name="CustomerModuleTitle" xml:space="preserve">
+    <value>Her kan du se en oversigt over sidens funktioner</value>
+  </data>
+  <data name="NoCitizensFound" xml:space="preserve">
+    <value>Ingen tildelte borgere fundet!</value>
+  </data>
+  <data name="Assigned" xml:space="preserve">
+    <value>Tildelt</value>
+  </data>
+  <data name="NumberInputRequiredError" xml:space="preserve">
+    <value>Kun tal kan indtastes i dette felt!</value>
+  </data>
+  <data name="ColapseAll" xml:space="preserve">
+    <value>Skjul alle</value>
+  </data>
+  <data name="ExpandAll" xml:space="preserve">
+    <value>Vis alle</value>
+  </data>
+  <data name="NoCustomersFound" xml:space="preserve">
+    <value>Ingen kunder fundet i systemet!</value>
+  </data>
+  <data name="TopAdminModuleHeader" xml:space="preserve">
+    <value>Kundeoversigt</value>
+  </data>
+  <data name="BtnCancel" xml:space="preserve">
+    <value>Annuller</value>
+  </data>
+  <data name="Permitted" xml:space="preserve">
+    <value>Tilladt</value>
+  </data>
+  <data name="PreSelected" xml:space="preserve">
+    <value>Forudvalgt</value>
+  </data>
+  <data name="UserGroupNotFound" xml:space="preserve">
+    <value>Den valgte brugergruppe eksisterer ikke i systemet!</value>
+  </data>
+  <data name="ChangeUserGroup" xml:space="preserve">
+    <value>Ændre brugergruppen</value>
+  </data>
+  <data name="VFOManagement" xml:space="preserve">
+    <value>Virtuel Forflytning</value>
+  </data>
+  <data name="CreateHyperlink" xml:space="preserve">
+    <value>Opret bruger via link</value>
+  </data>
+  <data name="SeeResults" xml:space="preserve">
+    <value>Se resultaterne</value>
+  </data>
+  <data name="AddNewExercisePart" xml:space="preserve">
+    <value>Opret en ny øvelsesdel</value>
+  </data>
+  <data name="ContentManagement" xml:space="preserve">
+    <value>Indholdsstyring</value>
+  </data>
+  <data name="ExercisePartOverview" xml:space="preserve">
+    <value>Øvelsesdeloversigt</value>
+  </data>
+  <data name="Group4Page7" xml:space="preserve">
+    <value>Øvelsesdeloversigt</value>
+  </data>
+  <data name="Group4Page8" xml:space="preserve">
+    <value>Opret en ny øvelsesdel</value>
+  </data>
+  <data name="Group4Page9" xml:space="preserve">
+    <value>Rediger øvelsesdel</value>
+  </data>
+  <data name="CreateLink" xml:space="preserve">
+    <value>Vis link for gruppen</value>
+  </data>
+  <data name="CreateLinkHeader" xml:space="preserve">
+    <value>Grupperne</value>
+  </data>
+  <data name="CreateLinkTitle" xml:space="preserve">
+    <value>Her kan du oprette et nyt link for brugerne</value>
+  </data>
+  <data name="NoGroupsFound" xml:space="preserve">
+    <value>Ingen aktive grupper fundet i systemet!</value>
+  </data>
+  <data name="SalaryNumber" xml:space="preserve">
+    <value>Lønnummer</value>
+  </data>
+  <data name="GroupResultsHeader" xml:space="preserve">
+    <value>Resultaterne</value>
+  </data>
+  <data name="GroupResultsTitle" xml:space="preserve">
+    <value>Her kan du se resultaterne af Virtuel Forflytning træning</value>
+  </data>
+  <data name="NoResultsFound" xml:space="preserve">
+    <value>Ingen resultater fundet i systemet!</value>
+  </data>
+  <data name="Result" xml:space="preserve">
+    <value>Resultat</value>
+  </data>
+  <data name="SeeDetails" xml:space="preserve">
+    <value>Se detaljer</value>
+  </data>
+  <data name="Failed" xml:space="preserve">
+    <value>Ikke bestået</value>
+  </data>
+  <data name="Passed" xml:space="preserve">
+    <value>Bestået</value>
+  </data>
+  <data name="CategoryResultsHeader" xml:space="preserve">
+    <value>Kategorier</value>
+  </data>
+  <data name="Complete" xml:space="preserve">
+    <value>Afsluttet</value>
+  </data>
+  <data name="ExerciseResultsHeader" xml:space="preserve">
+    <value>Øvelser</value>
+  </data>
+  <data name="Incomplete" xml:space="preserve">
+    <value>Ikke afsluttet</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Navn</value>
+  </data>
+  <data name="PartResultsHeader" xml:space="preserve">
+    <value>Øvelsesdele</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Tid</value>
+  </data>
+  <data name="ExercisePartIndexHeader" xml:space="preserve">
+    <value>Øvelsesdele</value>
+  </data>
+  <data name="ExercisePartIndexTitle" xml:space="preserve">
+    <value>Her kan du se en oversigt over eksisterende øvelsesdele</value>
+  </data>
+  <data name="NoPartsFound" xml:space="preserve">
+    <value>Ingen øvelsesdele fundet i systemet!</value>
+  </data>
+  <data name="ContentCreateGeneralError" xml:space="preserve">
+    <value>Indholdoprettelse mislykkedes!</value>
+  </data>
+  <data name="ContentEditGeneralError" xml:space="preserve">
+    <value>Indholdredigering mislykkedes!</value>
+  </data>
+  <data name="ExercisePartAddHeader" xml:space="preserve">
+    <value>Øvelsesdelsdetaljer</value>
+  </data>
+  <data name="ExercisePartAddTitle" xml:space="preserve">
+    <value>Her kan du oprette en ny øvelsesdel</value>
+  </data>
+  <data name="ExercisePartEditHeader" xml:space="preserve">
+    <value>Øvelsesdelsdetaljer</value>
+  </data>
+  <data name="ExercisePartEditTitle" xml:space="preserve">
+    <value>Her kan du redigere den valgte øvelsesdel</value>
+  </data>
+  <data name="ExercisePartNotFoundError" xml:space="preserve">
+    <value>Den valgte øvelsesdel findes ikke i systemet!</value>
+  </data>
+  <data name="PartWithSameNameExists" xml:space="preserve">
+    <value>En øvelsesdel med samme navn findes allerede i systemet. Ret fejlen og prøv igen.</value>
+  </data>
+  <data name="NoExercisesFound" xml:space="preserve">
+    <value>Ingen øvelser fundet i systemet!</value>
+  </data>
+  <data name="ExerciseWithSameNameExists" xml:space="preserve">
+    <value>En øvelse med samme navn findes allerede i systemet. Ret fejlen og prøv igen.</value>
+  </data>
+  <data name="NoCategoriesFound" xml:space="preserve">
+    <value>Ingen kategorier fundet i systemet!</value>
+  </data>
+  <data name="CategoryWithSameNameExists" xml:space="preserve">
+    <value>En kategori med samme navn findes allerede i systemet. Ret fejlen og prøv igen.</value>
+  </data>
+  <data name="BackButton" xml:space="preserve">
+    <value>Tilbage</value>
+  </data>
+  <data name="SessionExpired" xml:space="preserve">
+    <value>Session er udløbet...</value>
+  </data>
+  <data name="UserGroupRightsHeader" xml:space="preserve">
+    <value>Vælg venligst hvilke sider brugeren skal have adgang til:</value>
+  </data>
+  <data name="Group5" xml:space="preserve">
+    <value>Logstyring</value>
+  </data>
+  <data name="Group5Page1" xml:space="preserve">
+    <value>Logoversigt</value>
+  </data>
+  <data name="Group5Page2" xml:space="preserve">
+    <value>Logdetaljer</value>
+  </data>
+  <data name="Information" xml:space="preserve">
+    <value>Information</value>
+  </data>
+  <data name="LogDetailsHeader" xml:space="preserve">
+    <value>Logpostdetaljer</value>
+  </data>
+  <data name="LogDetailsTitle" xml:space="preserve">
+    <value>Her kan du se detaljerne om den valgte logpost.</value>
+  </data>
+  <data name="LogIndexHeader" xml:space="preserve">
+    <value>Logoversigt</value>
+  </data>
+  <data name="LogIndexTitle" xml:space="preserve">
+    <value>Her kan du se en oversigt over gemte logposter.</value>
+  </data>
+  <data name="LogManagement" xml:space="preserve">
+    <value>Logstyring</value>
+  </data>
+  <data name="LogOverview" xml:space="preserve">
+    <value>Logoversigt</value>
+  </data>
+  <data name="LogpostNotFoundError" xml:space="preserve">
+    <value>Den valgte logpost findes ikke i systemet!</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Besked</value>
+  </data>
+  <data name="NoLogEntriesFound" xml:space="preserve">
+    <value>Ingen logposter fundet på nuværende tidspunkt!</value>
+  </data>
+  <data name="Timestamp" xml:space="preserve">
+    <value>Timestamp</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Overskrift</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="UserId" xml:space="preserve">
+    <value>Bruger ID</value>
+  </data>
+  <data name="SelfRegisterLinkHeader" xml:space="preserve">
+    <value>Kopier linket og send dette til de personer som ønskes skal være tilknyttet til denne gruppe.</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>WelfareDenmark - version</value>
+  </data>
+  <data name="SceneFunction" xml:space="preserve">
+    <value>Scene-funktion</value>
+  </data>
+  <data name="AddNewPackage" xml:space="preserve">
+    <value>Opret en ny pakke</value>
+  </data>
+  <data name="Group3Side3" xml:space="preserve">
+    <value>Pakkeoversigt</value>
+  </data>
+  <data name="Group3Side4" xml:space="preserve">
+    <value>Opret en ny pakke</value>
+  </data>
+  <data name="Group3Side5" xml:space="preserve">
+    <value>Rediger pakke</value>
+  </data>
+  <data name="PackageAddHeader" xml:space="preserve">
+    <value>Pakkedetaljer</value>
+  </data>
+  <data name="PackageAddTitle" xml:space="preserve">
+    <value>Her kan du oprette en ny pakke</value>
+  </data>
+  <data name="PackageCreateGeneralError" xml:space="preserve">
+    <value>Pakkeoprettelse mislykkedes!</value>
+  </data>
+  <data name="PackageEditGeneralError" xml:space="preserve">
+    <value>Pakkeredigering mislykkedes!</value>
+  </data>
+  <data name="PackageEditHeader" xml:space="preserve">
+    <value>Pakkedetaljer</value>
+  </data>
+  <data name="PackageEditTitle" xml:space="preserve">
+    <value>Her kan du redigere den valgte pakke</value>
+  </data>
+  <data name="PackageIndexHeader" xml:space="preserve">
+    <value>Pakkeoversigt</value>
+  </data>
+  <data name="PackageIndexTitle" xml:space="preserve">
+    <value>Her kan du få en oversigt over eksisterende pakker</value>
+  </data>
+  <data name="PackageManagement" xml:space="preserve">
+    <value>Pakkestyring</value>
+  </data>
+  <data name="PackageName" xml:space="preserve">
+    <value>Pakkenavn</value>
+  </data>
+  <data name="PackageNotFoundError" xml:space="preserve">
+    <value>Den valgte pakke findes ikke i systemet!</value>
+  </data>
+  <data name="PackageOverview" xml:space="preserve">
+    <value>Pakkeoversigt</value>
+  </data>
+  <data name="PackageWithSameNameExistsError" xml:space="preserve">
+    <value>Pakke med samme navn eksisterer i forvejen!</value>
+  </data>
+  <data name="Others" xml:space="preserve">
+    <value>Andre</value>
+  </data>
+  <data name="LoggedOut" xml:space="preserve">
+    <value>Ikke logget ind...</value>
+  </data>
+  <data name="VirtualTransport" xml:space="preserve">
+    <value>Virtuel Forflytning</value>
+  </data>
+  <data name="ChooseVFOExercises" xml:space="preserve">
+    <value>Vælg øvelserne gruppen skal have adgang til</value>
+  </data>
+  <data name="GetInstallationPackage" xml:space="preserve">
+    <value>Hent installationspakke til Virtuel Forflytning</value>
+  </data>
+  <data name="WelcomeToWelfareDenmark" xml:space="preserve">
+    <value>Velkommen til WelfareDenmark - Virtuel Forflytning!</value>
+  </data>
+  <data name="Support" xml:space="preserve">
+    <value>Support</value>
+  </data>
+  <data name="Category1" xml:space="preserve">
+    <value>Uden brug af lift</value>
+  </data>
+  <data name="Category16" xml:space="preserve">
+    <value>Horsens pakken</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>bruger</value>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>brugere</value>
+  </data>
+  <data name="Category11" xml:space="preserve">
+    <value>Introduktion</value>
+  </data>
+  <data name="Category12" xml:space="preserve">
+    <value>Funktionsniveau 1</value>
+  </data>
+  <data name="Category13" xml:space="preserve">
+    <value>Funktionsniveau 2</value>
+  </data>
+  <data name="Category14" xml:space="preserve">
+    <value>Funktionsniveau 3</value>
+  </data>
+  <data name="Category15" xml:space="preserve">
+    <value>Funktionsniveau 4</value>
+  </data>
+  <data name="Exercise101" xml:space="preserve">
+    <value>Introduktion</value>
+  </data>
+  <data name="Exercise102" xml:space="preserve">
+    <value>Vejledning</value>
+  </data>
+  <data name="Exercise201" xml:space="preserve">
+    <value>Fra siddende til liggende – 1.1</value>
+  </data>
+  <data name="Exercise202" xml:space="preserve">
+    <value>Fra sengekanten til stående – 1.1</value>
+  </data>
+  <data name="Exercise203" xml:space="preserve">
+    <value>Gang med borger – 1.1</value>
+  </data>
+  <data name="Exercise204" xml:space="preserve">
+    <value>Gang med borger – 1.2</value>
+  </data>
+  <data name="Exercise205" xml:space="preserve">
+    <value>Højere op i seng – 1.1</value>
+  </data>
+  <data name="Exercise206" xml:space="preserve">
+    <value>Op at sidde på sengekanten – 1.1</value>
+  </data>
+  <data name="Exercise207" xml:space="preserve">
+    <value>Til siden i seng – 1.1</value>
+  </data>
+  <data name="Exercise208" xml:space="preserve">
+    <value>Tilbage i stol – 1.1</value>
+  </data>
+  <data name="Exercise209" xml:space="preserve">
+    <value>Vending om på siden – 1.1</value>
+  </data>
+  <data name="Exercise210" xml:space="preserve">
+    <value>Vending om på siden – 1.2</value>
+  </data>
+  <data name="Exercise301" xml:space="preserve">
+    <value>Fra siddende til liggende – 2.1</value>
+  </data>
+  <data name="Exercise302" xml:space="preserve">
+    <value>Fra sengekanten til stående – 2.1</value>
+  </data>
+  <data name="Exercise303" xml:space="preserve">
+    <value>Fra sengekanten til stående – 2.2</value>
+  </data>
+  <data name="Exercise304" xml:space="preserve">
+    <value>Gang med borger – 2.1</value>
+  </data>
+  <data name="Exercise305" xml:space="preserve">
+    <value>Højere op i seng – 2.1</value>
+  </data>
+  <data name="Exercise306" xml:space="preserve">
+    <value>Op at sidde på sengekanten – 2.1</value>
+  </data>
+  <data name="Exercise307" xml:space="preserve">
+    <value>Op at sidde på sengekanten – 2.2</value>
+  </data>
+  <data name="Exercise308" xml:space="preserve">
+    <value>Til siden i seng – 2.1</value>
+  </data>
+  <data name="Exercise309" xml:space="preserve">
+    <value>Tilbage i stol – 2.1</value>
+  </data>
+  <data name="Exercise310" xml:space="preserve">
+    <value>Tilbage i stol – 2.2</value>
+  </data>
+  <data name="Exercise401" xml:space="preserve">
+    <value>Fra siddende til liggende – 3.1</value>
+  </data>
+  <data name="Exercise402" xml:space="preserve">
+    <value>Højere op i seng – 3.1</value>
+  </data>
+  <data name="Exercise403" xml:space="preserve">
+    <value>Til siden i seng – 3.1</value>
+  </data>
+  <data name="Exercise404" xml:space="preserve">
+    <value>Vending om på siden – 3.1</value>
+  </data>
+  <data name="Exercise501" xml:space="preserve">
+    <value>Højere op i seng med stiklagen 4.1</value>
+  </data>
+  <data name="Exercise502" xml:space="preserve">
+    <value>Sejlpålægning i seng 4.1</value>
+  </data>
+  <data name="Exercise503" xml:space="preserve">
+    <value>Liftning fra seng til stol – gulvlift 4.1</value>
+  </data>
+  <data name="Exercise504" xml:space="preserve">
+    <value>Liftning fra seng til stol – loftlift 4.1</value>
+  </data>
+  <data name="Exercise505" xml:space="preserve">
+    <value>Sejlpålægning i stol 4.1</value>
+  </data>
+  <data name="Exercise506" xml:space="preserve">
+    <value>Liftning fra stol til seng – gulvlift 4.1</value>
+  </data>
+  <data name="SessionExpiredMessageRest" xml:space="preserve">
+    <value>Derfor er du logget af, og forbindelsen er afbrudt. Hvis du ønsker at fortsætte, skal du logge på igen.</value>
+  </data>
+  <data name="SessionExpiredMessageTop" xml:space="preserve">
+    <value>Der har ikke været aktivitet i en periode....</value>
+  </data>
+  <data name="UpdateMessage1" xml:space="preserve">
+    <value>Du skal opdatere dit program.</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Sprog</value>
+  </data>
+  <data name="LanguageNotChosenError" xml:space="preserve">
+    <value>Du skal vælge sproget for at opdatere profilen!</value>
+  </data>
+  <data name="Danish" xml:space="preserve">
+    <value>Dansk</value>
+  </data>
+  <data name="Denmark" xml:space="preserve">
+    <value>Danmark</value>
+  </data>
+  <data name="English" xml:space="preserve">
+    <value>Engelsk</value>
+  </data>
+  <data name="US" xml:space="preserve">
+    <value>US</value>
+  </data>
+  <data name="UpdateMessage2" xml:space="preserve">
+    <value>Gå ind på vfo.welfaredanmark.com,</value>
+  </data>
+  <data name="UpdateMessage3" xml:space="preserve">
+    <value>Log ind med dit brugernavn og</value>
+  </data>
+  <data name="UpdateMessage4" xml:space="preserve">
+    <value>Kodeord, og hent programmet igen.</value>
+  </data>
+  <data name="UserWithSameUsernameError" xml:space="preserve">
+    <value>En bruger med samme brugernavn findes allerede i systemet. Ret fejlen og prøv igen</value>
+  </data>
+  <data name="ChangePasswordForUser" xml:space="preserve">
+    <value>Nedenunder kan du indtaste et nyt kodeord for brugeren (valgfrit)</value>
+  </data>
+  <data name="Exercise601" xml:space="preserve">
+    <value>Højere i seng – spielderdug under pude</value>
+  </data>
+  <data name="Exercise602" xml:space="preserve">
+    <value>Højere i seng – spielerdug under borger</value>
+  </data>
+  <data name="Exercise603" xml:space="preserve">
+    <value>Vending i seng</value>
+  </data>
+  <data name="Exercise604" xml:space="preserve">
+    <value>Op at sidde på sengekanten</value>
+  </data>
+  <data name="Exercise605" xml:space="preserve">
+    <value>Fra siddende på sengen til stående</value>
+  </data>
+  <data name="Exercise606" xml:space="preserve">
+    <value>Fra siddende på sengen til liggende</value>
+  </data>
+  <data name="HomeModule4" xml:space="preserve">
+    <value>Bruger modul</value>
+  </data>
+  <data name="Download" xml:space="preserve">
+    <value>Hent installationspakke</value>
+  </data>
+  <data name="NoExercisesChosen" xml:space="preserve">
+    <value>Du skal vælge mindst én øvelse for at oprette en ny kunde!</value>
+  </data>
+  <data name="AJAXGeneralError" xml:space="preserve">
+    <value>Der er opstået en fejl!</value>
+  </data>
+  <data name="AJAXNetworkError" xml:space="preserve">
+    <value>Der er sket en netværks fejl!</value>
+  </data>
+  <data name="AreYouSureToDeleteUser" xml:space="preserve">
+    <value>Sikker på du vil slette brugeren??</value>
+  </data>
+  <data name="UserDeleteError" xml:space="preserve">
+    <value>Sletning af bruger mislykkedes!!</value>
+  </data>
+  <data name="UserDeleteOK" xml:space="preserve">
+    <value>Brugeren er slettet!!</value>
+  </data>
+  <data name="RequiredUsernameLengthError" xml:space="preserve">
+    <value>Brugernavn skal bestå af mindst 5 tegn!</value>
+  </data>
+  <data name="ChangePasswordUserNotFoundError" xml:space="preserve">
+    <value>Inkorrekt brugernavn! Ret fejlen og prøv igen</value>
+  </data>
+  <data name="ContactVFOResponsible" xml:space="preserve">
+    <value>Kontakt venligst din forflytningsvejleder</value>
+  </data>
+  <data name="NoEmailForUserError" xml:space="preserve">
+    <value>Kodeordet kunne ikke nulstilles da brugernavnet ikke er en e-mail adresse! </value>
+  </data>
+  <data name="EmailOptional" xml:space="preserve">
+    <value>E-mail (valgfrit)</value>
+  </data>
+  <data name="AreYouSureToRecreatePassword" xml:space="preserve">
+    <value>Sikker på du vil gendanne kodeordet for brugeren??</value>
+  </data>
+  <data name="PasswordRecreate" xml:space="preserve">
+    <value>Gendan kodeord</value>
+  </data>
+  <data name="PasswordRecreateOK" xml:space="preserve">
+    <value>Kodeordet for brugeren er blevet nulstillet!</value>
+  </data>
+  <data name="NTries" xml:space="preserve">
+    <value>Forsøg</value>
+  </data>
+  <data name="CategoryGraphHeader" xml:space="preserve">
+    <value>Kategoristatistik</value>
+  </data>
+  <data name="LastPassed" xml:space="preserve">
+    <value>Sidst udført</value>
+  </data>
+  <data name="ExerciseGraphHeader" xml:space="preserve">
+    <value>Øvelsesstatistik</value>
+  </data>
+  <data name="ExercisesFailed" xml:space="preserve">
+    <value>Øvelser som IKKE er bestået</value>
+  </data>
+  <data name="ExercisesPassed" xml:space="preserve">
+    <value>Øvelser som er bestået</value>
+  </data>
+  <data name="GroupAvgGraphHeader" xml:space="preserve">
+    <value>Gruppe gennemsnit</value>
+  </data>
+  <data name="UserAvgGraphHeader" xml:space="preserve">
+    <value>Bruger gennemsnit</value>
+  </data>
+  <data name="GraphLabelScore" xml:space="preserve">
+    <value>Score</value>
+  </data>
+  <data name="GraphLabelTime" xml:space="preserve">
+    <value>Tid</value>
+  </data>
+  <data name="GraphLabelNExercises" xml:space="preserve">
+    <value>Antal øvelser</value>
+  </data>
+  <data name="Average" xml:space="preserve">
+    <value>Gennemsnit antal stjerner</value>
+  </data>
+  <data name="PassedProcent" xml:space="preserve">
+    <value>Beståelsesprocent</value>
+  </data>
+  <data name="GraphLabelAverageScore" xml:space="preserve">
+    <value>Gennemsnit antal stjerner</value>
+  </data>
+  <data name="GraphLabelPassedScore" xml:space="preserve">
+    <value>Procent bestået</value>
+  </data>
+  <data name="UserGroupsResultTitle" xml:space="preserve">
+    <value>Her kan du se resultaterne for "{0}"</value>
+  </data>
+  <data name="CategoryResultTitle" xml:space="preserve">
+    <value>Kategori resultater for bruger "{0}"</value>
+  </data>
+  <data name="Exercise103" xml:space="preserve">
+    <value>Funktionsniveauer</value>
+  </data>
+  <data name="Exercise104" xml:space="preserve">
+    <value>Trykpunkter</value>
+  </data>
+  <data name="Exercise211" xml:space="preserve">
+    <value>Højere op i seng – 1.2</value>
+  </data>
+  <data name="Exercise507" xml:space="preserve">
+    <value>Placer stiklagen i seng 4.1</value>
+  </data>
+  <data name="Exercise508" xml:space="preserve">
+    <value>Sejlpålægning i seng (1 hjælper) 4.1</value>
+  </data>
+  <data name="Exercise509" xml:space="preserve">
+    <value>Liftning fra seng til stol (1 hjælper) 4.1</value>
+  </data>
+  <data name="Exercise510" xml:space="preserve">
+    <value>Fjern sejl i stol 4.1</value>
+  </data>
+  <data name="Exercise511" xml:space="preserve">
+    <value>Fjern  sejl i stol (1 hjælper) 4.1</value>
+  </data>
+  <data name="Exercise512" xml:space="preserve">
+    <value>Fjern sejl i seng 3.1</value>
+  </data>
+  <data name="WorstExercises" xml:space="preserve">
+    <value>Top 5 øvelser som ikke er udført tilfredsstillende</value>
+  </data>
+  <data name="GroupSummaryHeader" xml:space="preserve">
+    <value>Oversigt over resultater</value>
+  </data>
+  <data name="GroupStatsHeader" xml:space="preserve">
+    <value>Oversigt over under gruppper</value>
+  </data>
+  <data name="UserStatsHeader" xml:space="preserve">
+    <value>Oversigt over brugere tilsluttet gruppen</value>
+  </data>
+  <data name="ExerciseResutlsTitle" xml:space="preserve">
+    <value>Her kan du se {0}'s resultater for øvelser i kategorien "{1}".</value>
+  </data>
+  <data name="GroupStatsNoGroups" xml:space="preserve">
+    <value>Der er ingen under grupper tilkoblet denne gruppe.</value>
+  </data>
+  <data name="GroupStatsNoUsers" xml:space="preserve">
+    <value>Der er ingen brugere direkte tilkoblet denne gruppe.</value>
+  </data>
+  <data name="DownloadShortcut" xml:space="preserve">
+    <value>Download skrivebordsgenvej</value>
+  </data>
+  <data name="GotoWebClient" xml:space="preserve">
+    <value>Gå til Webklienten</value>
+  </data>
+  <data name="Exercise405" xml:space="preserve">
+    <value>Tilbage i stol – 3.1</value>
+  </data>
+  <data name="ExerciseResultChartExplanation" xml:space="preserve">
+    <value>Hvor mange gange brugeren har forsøgt de forskellige øvelser i forhold til hinanden.</value>
+  </data>
+  <data name="ExercisesTotal" xml:space="preserve">
+    <value>Øvelser i kategorien</value>
+  </data>
+  <data name="ActivityGraphHeader" xml:space="preserve">
+    <value>Aktivitetsstatistik</value>
+  </data>
+  <data name="NoResult" xml:space="preserve">
+    <value>Ikke gennemført</value>
+  </data>
+  <data name="AddNewAdminUser" xml:space="preserve">
+    <value>Opret administrator/vejleder</value>
+  </data>
+  <data name="ChooseGroup" xml:space="preserve">
+    <value>Vælg gruppen</value>
+  </data>
+  <data name="ChooseGroupsResponsible" xml:space="preserve">
+    <value>Vælg / Skift den ansvarlige for gruppen</value>
+  </data>
+  <data name="EmailOrUsername" xml:space="preserve">
+    <value>E-mail adresse / Brugernavn</value>
+  </data>
+  <data name="GroupsResponsible" xml:space="preserve">
+    <value>Ansvarlig for gruppen</value>
+  </data>
+  <data name="NewPasswordResponsibleMailBody1" xml:space="preserve">
+    <value>Kodeord til WelfareDenmark for brugeren</value>
+  </data>
+  <data name="NewPasswordResponsibleMailBody2" xml:space="preserve">
+    <value>er blevet nulstillet.</value>
+  </data>
+  <data name="NewPasswordResponsibleMailTitle" xml:space="preserve">
+    <value>Nyt kodeord til WelfareDenmark for brugeren</value>
+  </data>
+  <data name="OptionalEmailField" xml:space="preserve">
+    <value>Valgfrit felt - anvendes i tilfælde af et glemt kodeord</value>
+  </data>
+  <data name="UserWithUsernameNotFoundError" xml:space="preserve">
+    <value>Brugeren med det angivne brugernavn findes ikke i systemet!</value>
+  </data>
+  <data name="NewPasswordResponsibleMailBody3" xml:space="preserve">
+    <value>Nyt kodeord er</value>
+  </data>
+  <data name="CopyToClipboard" xml:space="preserve">
+    <value>Kopier til udklipsholder</value>
+  </data>
+  <data name="PasswordRecreateSuccessResponsible1" xml:space="preserve">
+    <value>Dit kodeord er blevet nulstillet!</value>
+  </data>
+  <data name="PasswordRecreateSuccessResponsible2" xml:space="preserve">
+    <value>Et nyt kode er blevet fremsendt til den ansvarlige for din gruppe</value>
+  </data>
+  <data name="ChooseResponsibleUser" xml:space="preserve">
+    <value>Vælg brugeren</value>
+  </data>
+  <data name="ChooseResponsibleUserTitle1" xml:space="preserve">
+    <value>Ingen ansvarlige blev fundet for din gruppe!</value>
+  </data>
+  <data name="ChooseResponsibleUserTitle2" xml:space="preserve">
+    <value>Vælg venligst brugeren, der vil modtage e-mailen med dit nye kodeord.</value>
+  </data>
+  <data name="PasswordRecreateSuccessResponsible3" xml:space="preserve">
+    <value>Et nyt kode er blevet fremsendt til</value>
+  </data>
+</root>

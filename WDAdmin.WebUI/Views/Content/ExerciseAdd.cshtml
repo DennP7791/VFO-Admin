@@ -1,0 +1,42 @@
+﻿@model WDAdmin.WebUI.Models.ExerciseFormModel
+
+@{
+    ViewBag.Title = LangResources.ContentManagement;
+}
+
+<h4 class="alert_info">@LangResources.ExerciseAddTitle</h4>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <article class="module width_full">
+        <header><h3>@LangResources.ExerciseAddHeader</h3></header> 
+        <br />
+        <div class="editor-label">
+            @Html.LabelFor(m => m.ExerciseName)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(m => m.ExerciseName)  
+            @Html.ValidationMessageFor(m => m.ExerciseName)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(m => m.SceneFunction)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(m => m.SceneFunction)  
+            @Html.ValidationMessageFor(m => m.SceneFunction)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(m => m.Categories)
+            </div>
+            <div class="editor-field">             
+            @Html.DropDownListFor(m => m.CategoryId, new SelectList(Model.Categories, "Id", "Name"), LangResources.Choose) @Html.ValidationMessageFor(m => m.CategoryId)       
+        </div>
+        <br />
+        <div class="clear"></div>
+        <input type="submit" value="@LangResources.Create" />
+        <button onclick="history.back(); return false;">@LangResources.BtnCancel</button>
+    </article>
+}
+
+@Html.ValidationSummary(true, LangResources.ContentCreateGeneralError)

@@ -1,0 +1,18 @@
+﻿@{
+    Layout = Session["UserID"] != null ? "~/Views/Shared/_Layout.cshtml" : "~/Views/Shared/_LayoutLogin.cshtml";
+    
+    if (!Request["lang"].IsEmpty())
+    {
+        Culture = UICulture = Request["lang"];
+        Session.Add("WDCulture", Request["lang"]);
+    } 
+    else 
+    {
+        if (Session["WDCulture"] == null)
+        {
+            Session.Add("WDCulture", WDAdmin.WebUI.AppSettings.DefaultCulture.Name);
+        }
+
+        Culture = UICulture = Session["WDCulture"].ToString();
+    } 
+}

@@ -1,0 +1,32 @@
+﻿@model WDAdmin.WebUI.Models.ExerciseViewModel
+
+@{
+    ViewBag.Title = LangResources.ContentManagement;
+}
+
+<h4 class="alert_info">@LangResources.ExerciseIndexTitle</h4>
+
+@if (Model.Exercises != null && Model.Exercises.Any())
+{
+    <article class="module width_full">
+        <header><h3>@LangResources.ExerciseIndexHeader</h3></header>
+        <br />
+        @{
+            var grid = new WebGrid(Model.Exercises, null, null, 30);   
+            @grid.GetHtml(columns: grid.Columns(            
+                 grid.Column("Name", LangResources.Name, canSort: true),   
+                 grid.Column(header: "", format: @<text>@Html.ActionLink(LangResources.Edit, "ExerciseEdit", new { id = item.Id }, new { @class = "icn_edit_article" })</text>)
+           ));
+        }
+        <br />
+    </article>
+}
+
+@{          
+    if (Model.NoExercises)
+    {   
+        <h4 class="alert_warning">
+            @LangResources.NoExercisesFound
+        </h4>  
+    }
+}

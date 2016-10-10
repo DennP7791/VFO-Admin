@@ -1,0 +1,13 @@
+﻿@{
+    ViewBag.Title = LangResources.Error;
+    ViewBag.Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+<h4 class="alert_error">    
+    @LangResources.GeneralErrorMessage
+    <ul>
+        <li>@LangResources.ContactAdminMessage</li>
+        <li> &nbsp; </li>
+        <li>@Html.ActionLink(LangResources.ToLoginPage, "LogOff", "Account", new { controller = "Account" })</li>
+    </ul>
+</h4>

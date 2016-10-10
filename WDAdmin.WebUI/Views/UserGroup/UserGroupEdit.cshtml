@@ -1,0 +1,108 @@
+﻿@model WDAdmin.WebUI.Models.UserGroupFormModel
+
+@{
+    ViewBag.Title = LangResources.UserGroupManagement;
+}
+
+<h4 class="alert_info">@LangResources.UserGroupEditTitle</h4>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { Id = "usergroupEdit" }))
+{
+    @Html.AntiForgeryToken()
+    <article class="module width_full">
+        <header><h3>@LangResources.UserGroupEditHeader</h3></header> 
+        <br /> 
+        @Html.HiddenFor(m => m.UserGroupParentId)
+        @Html.HiddenFor(m => m.CustomerId)
+        <div class="editor-label">
+            @Html.LabelFor(m => m.GroupName)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(m => m.GroupName)  
+            @Html.ValidationMessageFor(m => m.GroupName)
+        </div>
+        <br />
+        @{
+            var hidden = string.Empty;
+            if(Model.IsEditedBySelf)
+            {
+                hidden = "hidden";
+            }    
+            
+            <div id="exercises"class="@hidden">
+                <div class="editor-label">
+                    @LangResources.ChooseVFOExercises
+                </div>
+                <div class="clear"></div>
+                <br />
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var cat in Model.Categories)
+                        {
+                            if (cat != Model.Categories.First())
+                            {
+                                <tr style="height: 10px;"></tr>
+                            }
+                            <tr style="height: 25px;">
+                                <td><span>@cat.Name</span></td>
+                                <td><input id="@cat.Id" type="checkbox" class="choice-checkbox category"/></td>  
+                            </tr>
+                            foreach (var ex in cat.Exercises)
+                            {
+                                var chosen = string.Empty;
+                                if (Model.ExercisesChosen.Contains(ex.Id))
+                                {
+                                    chosen = "checked";
+                                }
+                                <tr>
+                                    <td><span style="padding-left: 25px;">@ex.Name</span></td>
+                                    <td><input data-category="@cat.Id" type="checkbox" class="choice-checkbox exercise" name="ExercisesChosen" value="@ex.Id" @chosen/></td>    
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+                <br />
+            </div>
+        }
+        <input type="submit" value="@LangResources.SaveButton" />
+        <button onclick="history.back(); return false;">@LangResources.BtnCancel</button>
+    </article>
+}
+
+@Html.ValidationSummary(true, LangResources.UserGroupCreateGeneralError)
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        //Check if any exercise checked, if so, check the parent category
+        var exercises = $('.exercise');
+        $.each(exercises, function (index, value) {
+            var id = $(this).attr('data-category');
+            if ($(this).is(':checked')) {
+                $('input[id="' + id + '"]').attr('checked', true).trigger('change');
+            }
+        });
+        
+        //Check all if parent checked
+        $(".category").click(function () {
+            var id = $(this).attr('id');
+            $('input[data-category="' + id + '"]').attr("checked", this.checked);
+        });
+
+        //Check parent if child is checked - don't uncheck parent until last child is unchecked
+        $('.exercise').click(function () {
+            var id = $(this).attr('data-category');
+            if ($(this).is(':checked')) {
+                $('input[id="' + id + '"]').attr('checked', true).trigger('change');
+            } else {
+                $('input[id="' + id + '"]').prop('checked', $('input[data-category="' + id + '"]:checked').length).trigger('change');
+            }
+        });
+    });
+</script>

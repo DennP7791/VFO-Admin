@@ -1,0 +1,11 @@
+﻿@model List<WDAdmin.WebUI.Infrastructure.Various.GroupNode>
+
+<ul>
+    @foreach (var child in Model)
+    {
+    <li>
+        <span class="linkGroups"><input type="hidden" value="@child.Id"/>@child.GroupName - <a href="#" class="hyper">@LangResources.ChooseGroup</a></span>
+        @{Html.RenderPartial("ChildCreateLink", child.ChildGroups);}
+    </li>
+    }
+</ul>

@@ -1,0 +1,52 @@
+﻿@model WDAdmin.WebUI.Models.ForgottenPasswordModel
+
+@{
+    ViewBag.Title = LangResources.ChooseResponsibleUser;
+}
+
+<h4 class="alert_info">
+    @LangResources.ChooseResponsibleUserTitle1
+    <br />
+    <span class="extra_left_margin_40">@LangResources.ChooseResponsibleUserTitle2</span>
+
+</h4>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.UserId)
+    @Html.HiddenFor(m => m.UserGroupId)
+    
+    <article class="module width_full">
+        <header><h3>@LangResources.ChooseResponsibleUser</h3></header>
+        <br />
+        @foreach(var user in Model.ResponsibleUsers)
+        {
+            <input type="checkbox" value="@user.UserId" name="ChosenResponsibleId" />@user.Username
+            <br />  
+        }
+        <br />
+
+        <input id="send" type="submit" class="hidden" value="@LangResources.SendButton" />
+        <button onclick="history.back(); return false;">@LangResources.BtnCancel</button>
+    </article>
+}
+
+@Html.ValidationSummary(true, LangResources.PasswordRecreateError)
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('input[name="ChosenResponsibleId"]').change(function () {
+            $('input[name="ChosenResponsibleId"]').not($(this)).prop('checked', false);
+
+            if ($('input[name="ChosenResponsibleId"]:checked').length > 0) {
+                $('#send').removeClass('hidden');
+            }
+            else {
+                if (!$('#send').hasClass('hidden')) {
+                    $('#send').addClass('hidden')
+                }
+            }
+        });
+    });
+</script>

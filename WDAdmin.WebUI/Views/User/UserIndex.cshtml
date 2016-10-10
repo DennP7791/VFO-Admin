@@ -1,0 +1,111 @@
+﻿@model WDAdmin.WebUI.Models.UserViewModel
+
+@{
+    ViewBag.Title = LangResources.UserOverview;
+}
+    
+<h4 class="alert_info">@LangResources.TopAdminModuleTitle</h4>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <article class="module width_full">
+        <header><h3>@LangResources.UserOverview</h3></header>
+        <p>@LangResources.UserOverviewGroupInfo</p> 
+        <div class="editor-label">
+            @Html.LabelFor(m => m.UserGroups): 
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(m => m.GroupId, new SelectList(Model.UserGroups, "Id", "GroupName"), LangResources.Choose)
+            @Html.ValidationMessageFor(m => m.GroupId)
+        </div>
+        <br />
+        <input type="submit" value="@LangResources.Search" />
+        @if (Model.Users != null && Model.Users.Any())
+        {
+            var grid = new WebGrid(Model.Users, null, null, 20);
+            @grid.GetHtml(columns: grid.Columns(
+            grid.Column("Firstname", LangResources.Firstname, canSort: true),
+            grid.Column("Lastname", LangResources.Lastname, canSort: true),
+            grid.Column(header: "", format: @<text>@Html.ActionLink(LangResources.Edit, "UserEdit", new { id = item.Id }, new { @class = "icn_edit_article" })</text>),
+                     grid.Column(header: "", format: item => item.UserGroupId != (int)Session["UserGroupID"] && !string.IsNullOrEmpty(item.Email) ? Html.ActionLink(LangResources.PasswordRecreate, null, null, new { @id = item.Id, @class = "icn_password" }) : Html.Raw("")),
+            grid.Column(header: "", format: item => item.UserGroupId != (int)Session["UserGroupID"] ? Html.ActionLink(LangResources.Delete, null, null, new { @id = item.Id, @class = "icn_trash" }) : Html.Raw(""))
+            ));
+        }
+        <br />
+    </article>
+}
+
+@{          
+    if (Model.NoUsers)
+    {   
+        <h4 class="alert_warning">
+            @LangResources.NoUsersInGroup
+        </h4>  
+    }
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.ajaxSetup({
+            error: ajaxError
+        });
+
+        $('.icn_trash').click(function () {
+            var id = $(this).attr("id");
+            var r = confirm("@Html.Raw(LangResources.AreYouSureToDeleteUser)");
+
+            if (r) {
+                $.ajax({
+                    type: "POST",
+                    url: "/User/UserDelete/" + id,
+                    async: false,
+                    error: function () {
+                        alert("@Html.Raw(LangResources.UserDeleteError)");
+                    },
+                    success: function (result) {
+                        if (result == true) {
+                            alert("@Html.Raw(LangResources.UserDeleteOK)");
+                            var url = "/User/UserIndex";
+                            window.location = url;
+                        } else {
+                            alert("@Html.Raw(LangResources.UserDeleteError)");
+                        }
+                    }
+                });
+            }
+        });
+
+        $('.icn_password').click(function () {
+            var id = $(this).attr("id");
+            var r = confirm("@Html.Raw(LangResources.AreYouSureToRecreatePassword)");
+            
+            if (r) {
+                $.ajax({
+                    type: "POST",
+                    url: "/User/ResetPassword/" + id,
+                    async: false,
+                    error: function() {
+                        alert("@Html.Raw(LangResources.PasswordRecreateError)");
+                    },
+                    success: function(result) {
+                        if (result == true) {
+                            alert("@Html.Raw(LangResources.PasswordRecreateOK)");
+                            var url = "/User/UserIndex";
+                            window.location = url;
+                        } else {
+                            alert("@Html.Raw(LangResources.PasswordRecreateError)");
+                        }
+                    }
+                });
+            }
+        });
+
+        //Set function for AJAX error
+        function ajaxError(jqXHR, textStatus, errorThrown) {
+            if (textStatus == "timeout")
+                alert("@Html.Raw(LangResources.AJAXNetworkError)");
+            else alert("@Html.Raw(LangResources.AJAXGeneralError)");
+        }
+    });
+</script>

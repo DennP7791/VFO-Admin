@@ -1,0 +1,35 @@
+﻿@model WDAdmin.WebUI.Models.LogOnModel
+
+@{
+    ViewBag.Title = LangResources.LoginPageTitle;
+}
+
+<h4 class="alert_info">@LangResources.LoginPageMessage</h4>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    <article class="module width_full">
+        <header><h3>@LangResources.LoginPageDetailsHeader</h3></header> 
+            <br /> 
+            <div class="editor-label">
+                @Html.LabelFor(m => m.Username)
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(m => m.Username)  @Html.ValidationMessageFor(m => m.Username)
+            </div>
+            <div class="editor-label">
+                @Html.LabelFor(m => m.Password)
+            </div>
+            <div class="editor-field">
+                @Html.PasswordFor(m => m.Password)  @Html.ValidationMessageFor(m => m.Password)
+            </div>
+            <br />
+            <input type="submit" value="@LangResources.LoginButton" />
+    </article>
+}
+
+<h4 class="alert_warning">
+    @Html.ActionLink(LangResources.ForgottenPassword, "ForgottenPassword", "Account")
+</h4>
+
+@Html.ValidationSummary(true, LangResources.GeneralLoginError)

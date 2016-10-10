@@ -1,0 +1,27 @@
+﻿@model List<WDAdmin.WebUI.Infrastructure.Various.GroupNode>
+
+<ul>
+    @foreach (var child in Model)
+    { 
+        <li>
+            <a href="@Url.Action("UserGroupEdit/" + child.Id)" class="topAdder">@child.GroupName</a>
+            <span class="marginboth">-</span>
+            <a href="@Url.Action("UserGroupAdd/" + child.Id)" class="creator">@LangResources.CreateUndergroup</a>
+            @switch(child.UsersCount)
+            {
+                case 0:
+                    break;
+                case 1:
+                    <text>(@child.UsersCount @LangResources.User)</text>
+                    break;
+                default:
+                    <text>(@child.UsersCount @LangResources.Users)</text>
+                    break;
+            }
+            @if (child.ChildGroups != null && child.ChildGroups.Any())
+            {
+                Html.RenderPartial("ChildGroup", child.ChildGroups);
+            }
+        </li>
+    }
+</ul>
