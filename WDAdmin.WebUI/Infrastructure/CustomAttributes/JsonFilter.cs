@@ -51,6 +51,11 @@ namespace WDAdmin.WebUI.Infrastructure
                     data = JsonConvert.DeserializeObject<VideoCategoryData>(jsonText); //Deserialize JSON to VideoData
                     Logger.Log("JsonFilter VideoDataReceived OK", LogType.JsonStringReceived, LogEntryType.Info);
                 }
+                else if (RootType == typeof(VideoByteCollection))
+                {
+                    data = JsonConvert.DeserializeObject<VideoByteCollection>(jsonText); //Deserialize JSON to VideoData
+                    Logger.Log("JsonFilter VideoDataReceived OK", LogType.JsonStringReceived, LogEntryType.Info);
+                }
                 else if (RootType == typeof(VideoUserViewData))
                 {
                     data = JsonConvert.DeserializeObject<VideoUserViewData>(jsonText); //Deserialize JSON to VideoUserViewData

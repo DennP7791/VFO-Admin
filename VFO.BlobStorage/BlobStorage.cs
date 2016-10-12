@@ -2,6 +2,7 @@
 using Microsoft.WindowsAzure.Storage.Blob;
 using System;
 using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,6 +18,9 @@ namespace VFO.BlobStorage
             Initialize();
         }
 
+        /// <summary>
+        ///   Initializes BlobStorage variables. And sets up connection to our blob.
+        /// </summary>
         private void Initialize()
         {
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(ConfigurationManager.ConnectionStrings["StorageConnectionString"].ConnectionString);
@@ -24,14 +28,15 @@ namespace VFO.BlobStorage
             _Container = blobClient.GetContainerReference("vfo-recordings-staging");
         }
 
-        //public static void Upload(string blockBlobReference, file videoStream)
-        //{
-        //    CloudBlockBlob blockBlob = _Container.GetBlockBlobReference(blockBlobReference);
-        //    FileStream fs = System.IO.File.OpenRead("lreabæeææ");
+        public void Upload(string blockBlobReference, byte[] videoData)
+        {
+            CloudBlockBlob blockBlob = _Container.GetBlockBlobReference(blockBlobReference);
 
-        //    blockBlob.UploadFromStream(videoStream);
-
-        //}
+            using (var memoryStream = new MemoryStream(videoData))
+            {
+                blockBlob.UploadFromStream(memoryStream);
+            }
+        }
 
         public byte[] Download(string blockBlobReference)
         {

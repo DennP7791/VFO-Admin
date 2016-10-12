@@ -36,6 +36,11 @@ namespace WDAdmin.WebUI.Controllers
         private readonly ResourceHandler _handler;
 
         /// <summary>
+        /// The _BlockStorage
+        /// </summary>
+        private readonly BlobStorage _BlockStorage;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="ServiceController"/> class.
         /// </summary>
         /// <param name="repository">The repository.</param>
@@ -44,6 +49,8 @@ namespace WDAdmin.WebUI.Controllers
             _repository = repository;
             _pass = PassGenHash.GetInstance;
             _handler = ResourceHandler.GetInstance;
+
+            _BlockStorage = new BlobStorage();
         }
 
 
@@ -327,24 +334,31 @@ namespace WDAdmin.WebUI.Controllers
         }
 
         ///// <summary>
-        ///// Get video data for VFO client
+        ///// Get videobytedata for VFO client
         ///// </summary>
-        ///// <returns>Serialized data object with videos</returns>
-        //[HttpGet]
-        //public VideoStuff DownloadVideo()
-        //{
+        ///// <returns>Serialized data object with videobytes</returns>
+        [HttpGet]
+        public object DownloadVideo(string videoName)
+        {
+            VideoByteCollection vs = new VideoByteCollection { ByteArr = new byte[_BlockStorage.Download(videoName).Length] };
+            vs.ByteArr = _BlockStorage.Download(videoName);
 
-        //    BlobStorage bs = new BlobStorage();
-        //    VideoStuff vs = new VideoStuff { ByteArr = new byte[bs.Download("bunny").Length] };
-        //    vs.ByteArr = bs.Download("bunny");
-        //    Stream stream = new MemoryStream(vs.ByteArr);
-        //    ////ByteArrayContent byteContent = new ByteArrayContent(vs.ByteArr);
+            return JsonConvert.SerializeObject(vs);
+        }
 
-        //    ////VideoCollection vc = new VideoCollection { Video = "" };
-        //    ////vc.Video = Encoding.Default.GetString();
-        //    ////string ssss = bs.Download("bunny");
-        //    return vs;
-        //}
+        /// <summary>
+        /// Data save for VFO client
+        /// </summary>
+        /// <param name="jobject">Collection of data from VFO client</param>
+        /// <returns>Result of the data save</returns>
+        [HttpPost]
+        [JsonFilter(Param = "jobject", RootType = typeof(VideoByteCollection))]
+        public bool UploadVideo(VideoByteCollection jobject)
+        {
+            try{_BlockStorage.Upload(jobject.BlockBlobReference, jobject.ByteArr);}
+            catch{return false;}
+            return true;
+        }
 
         /// <summary>
         /// Data save for VFO client
@@ -358,7 +372,7 @@ namespace WDAdmin.WebUI.Controllers
             var unityData = jobject;
             var stamp = DateTime.Now; //Get the current timestamp
             int userId;
-            
+
             //Resolve user id
             if (unityData.UserId != -1) //Not test case
             {
@@ -375,23 +389,23 @@ namespace WDAdmin.WebUI.Controllers
             {
                 foreach (var cat in unityData.Categories)
                 {
-                    var category = new Category {DetailsId = cat.Id, Score = cat.Score, UserId = userId, Timestamp = stamp};
+                    var category = new Category { DetailsId = cat.Id, Score = cat.Score, UserId = userId, Timestamp = stamp };
 
                     if (!CreateEntity(category, "SaveData Category Error", "UserId: " + userId, LogType.DbCreateError))
                     {
                         return false;
                     }
-                        
+
                     foreach (var exer in cat.Exercises)
                     {
                         var exercise = new Exercise
-                                            {
-                                                DetailsId = exer.Id,
-                                                Score = exer.Score,
-                                                CategoryId = category.Id,
-                                                Timestamp = stamp,
-                                                Attempted = exer.Attempted
-                                            };
+                        {
+                            DetailsId = exer.Id,
+                            Score = exer.Score,
+                            CategoryId = category.Id,
+                            Timestamp = stamp,
+                            Attempted = exer.Attempted
+                        };
 
                         if (!CreateEntity(exercise, "SaveData Exercise Error", "UserId: " + userId, LogType.DbCreateError))
                         {
@@ -406,6 +420,8 @@ namespace WDAdmin.WebUI.Controllers
             Logger.Log("SaveData FinalOK", "UserId: " + userId, LogType.DbCreateOk, LogEntryType.Info);
             return true;
         }
+
+        
 
         /// <summary>
         /// VideoData save for VFO client
