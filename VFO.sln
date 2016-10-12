@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VFO.WebUI", "WDAdmin.WebUI\VFO.WebUI.csproj", "{200DA2F3-F94F-4B4D-9A38-CA7A4EDF92C2}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -22,24 +22,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{BF2557
 	EndProjectSection
 EndProject
 Global
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 5
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://welfaredenmark.visualstudio.com/
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = WDAdmin.Domain\\VFO.Domain.csproj
-		SccProjectName1 = WDAdmin.Domain
-		SccLocalPath1 = WDAdmin.Domain
-		SccProjectUniqueName2 = WDAdmin.Resources\\VFO.Resources.csproj
-		SccProjectName2 = WDAdmin.Resources
-		SccLocalPath2 = WDAdmin.Resources
-		SccProjectUniqueName3 = Migration\\Migration.csproj
-		SccProjectName3 = Migration
-		SccLocalPath3 = Migration
-		SccProjectUniqueName4 = WDAdmin.WebUI\\VFO.WebUI.csproj
-		SccProjectName4 = WDAdmin.WebUI
-		SccLocalPath4 = WDAdmin.WebUI
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Danish|Any CPU = Danish|Any CPU
 		Debug|Any CPU = Debug|Any CPU
