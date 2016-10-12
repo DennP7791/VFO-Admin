@@ -38,6 +38,17 @@ namespace WDAdmin.WebUI.Models
     }
 
     [DataContract]
+    public class VideoStuff
+    {
+        /// <summary>
+        /// Gets or sets the QR-videos.
+        /// </summary>
+        /// <value>The QR-videos.</value>
+        [DataMember]
+        public byte[] ByteArr { get; set; }
+    }
+
+    [DataContract]
     public class VideoCategoryCollection
     {
         /// <summary>

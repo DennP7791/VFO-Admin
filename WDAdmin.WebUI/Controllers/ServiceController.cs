@@ -11,6 +11,9 @@ using WDAdmin.WebUI.Infrastructure.Various;
 using WDAdmin.WebUI.Models;
 using Newtonsoft.Json;
 using WDAdmin.Domain;
+using VFO.BlobStorage;
+using System.Text;
+using System.IO;
 
 namespace WDAdmin.WebUI.Controllers
 {
@@ -322,6 +325,26 @@ namespace WDAdmin.WebUI.Controllers
             Logger.Log("GetVideos FinalOK", "UserId: " + userId, LogType.Ok, LogEntryType.Info);
             return JsonConvert.SerializeObject(unityData);
         }
+
+        ///// <summary>
+        ///// Get video data for VFO client
+        ///// </summary>
+        ///// <returns>Serialized data object with videos</returns>
+        //[HttpGet]
+        //public VideoStuff DownloadVideo()
+        //{
+
+        //    BlobStorage bs = new BlobStorage();
+        //    VideoStuff vs = new VideoStuff { ByteArr = new byte[bs.Download("bunny").Length] };
+        //    vs.ByteArr = bs.Download("bunny");
+        //    Stream stream = new MemoryStream(vs.ByteArr);
+        //    ////ByteArrayContent byteContent = new ByteArrayContent(vs.ByteArr);
+
+        //    ////VideoCollection vc = new VideoCollection { Video = "" };
+        //    ////vc.Video = Encoding.Default.GetString();
+        //    ////string ssss = bs.Download("bunny");
+        //    return vs;
+        //}
 
         /// <summary>
         /// Data save for VFO client
