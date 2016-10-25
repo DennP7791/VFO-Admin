@@ -85,6 +85,7 @@
     <Compile Include="Entities\User.cs" />
     <Compile Include="Entities\UserGroup.cs" />
     <Compile Include="Entities\TemplateToPageRight.cs" />
+    <Compile Include="Entities\UserGroupVideoCatagoryCredential.cs" />
     <Compile Include="Entities\UserTemplate.cs" />
     <Compile Include="Entities\ResponsibleToUserGroup.cs" />
     <Compile Include="Entities\Video.cs" />

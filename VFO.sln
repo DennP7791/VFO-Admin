@@ -21,8 +21,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{BF2557
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VFO.BlobStorage", "VFO.BlobStorage\VFO.BlobStorage.csproj", "{EBA925ED-2357-4370-B0E4-3B7CE809F30B}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Danish|Any CPU = Danish|Any CPU
@@ -73,16 +71,6 @@ Global
 		{D18D4E39-CB9F-4D4F-899E-DDE992D1BA61}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D18D4E39-CB9F-4D4F-899E-DDE992D1BA61}.Swedish|Any CPU.ActiveCfg = Release|Any CPU
 		{D18D4E39-CB9F-4D4F-899E-DDE992D1BA61}.Swedish|Any CPU.Build.0 = Release|Any CPU
-		{EBA925ED-2357-4370-B0E4-3B7CE809F30B}.Danish|Any CPU.ActiveCfg = Debug|Any CPU
-		{EBA925ED-2357-4370-B0E4-3B7CE809F30B}.Danish|Any CPU.Build.0 = Debug|Any CPU
-		{EBA925ED-2357-4370-B0E4-3B7CE809F30B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EBA925ED-2357-4370-B0E4-3B7CE809F30B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EBA925ED-2357-4370-B0E4-3B7CE809F30B}.Norwegian|Any CPU.ActiveCfg = Release|Any CPU
-		{EBA925ED-2357-4370-B0E4-3B7CE809F30B}.Norwegian|Any CPU.Build.0 = Release|Any CPU
-		{EBA925ED-2357-4370-B0E4-3B7CE809F30B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EBA925ED-2357-4370-B0E4-3B7CE809F30B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EBA925ED-2357-4370-B0E4-3B7CE809F30B}.Swedish|Any CPU.ActiveCfg = Release|Any CPU
-		{EBA925ED-2357-4370-B0E4-3B7CE809F30B}.Swedish|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

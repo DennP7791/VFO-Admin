@@ -11,7 +11,6 @@ using WDAdmin.WebUI.Infrastructure.Various;
 using WDAdmin.WebUI.Models;
 using Newtonsoft.Json;
 using WDAdmin.Domain;
-using VFO.BlobStorage;
 using System.Text;
 using System.IO;
 
@@ -34,11 +33,7 @@ namespace WDAdmin.WebUI.Controllers
         /// The _handler
         /// </summary>
         private readonly ResourceHandler _handler;
-
-        /// <summary>
-        /// The _BlockStorage
-        /// </summary>
-        private readonly BlobStorage _BlockStorage;
+        
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ServiceController"/> class.
@@ -49,8 +44,6 @@ namespace WDAdmin.WebUI.Controllers
             _repository = repository;
             _pass = PassGenHash.GetInstance;
             _handler = ResourceHandler.GetInstance;
-
-            _BlockStorage = new BlobStorage();
         }
 
 
@@ -319,12 +312,11 @@ namespace WDAdmin.WebUI.Controllers
                     Id = vid.Id,
                     Name = vid.Name,
                     Description = vid.Description,
-                    Url = vid.Url,
+                    Path = vid.Path,
                     Count = vid.Count,
                     UserGroupId = vid.UserGroupId,
                     UserId = vid.UserId,
-                    ReleaseDate = vid.ReleaseDate,
-                    Password = vid.Password
+                    ReleaseDate = vid.ReleaseDate
                 };
                 unityData.QrVideos.Add(video);
             }
@@ -332,33 +324,7 @@ namespace WDAdmin.WebUI.Controllers
             Logger.Log("GetVideos FinalOK", "UserId: " + userId, LogType.Ok, LogEntryType.Info);
             return JsonConvert.SerializeObject(unityData);
         }
-
-        ///// <summary>
-        ///// Get videobytedata for VFO client
-        ///// </summary>
-        ///// <returns>Serialized data object with videobytes</returns>
-        [HttpGet]
-        public object DownloadVideo(string videoName)
-        {
-            VideoByteCollection vs = new VideoByteCollection { ByteArr = new byte[_BlockStorage.Download(videoName).Length] };
-            vs.ByteArr = _BlockStorage.Download(videoName);
-
-            return JsonConvert.SerializeObject(vs);
-        }
-
-        /// <summary>
-        /// Data save for VFO client
-        /// </summary>
-        /// <param name="jobject">Collection of data from VFO client</param>
-        /// <returns>Result of the data save</returns>
-        [HttpPost]
-        [JsonFilter(Param = "jobject", RootType = typeof(VideoByteCollection))]
-        public bool UploadVideo(VideoByteCollection jobject)
-        {
-            try{_BlockStorage.Upload(jobject.BlockBlobReference, jobject.ByteArr);}
-            catch{return false;}
-            return true;
-        }
+        
 
         /// <summary>
         /// Data save for VFO client
@@ -450,7 +416,7 @@ namespace WDAdmin.WebUI.Controllers
             using (var transaction = TransactionScopeUtils.CreateTransactionScope())
             {
                 
-                    var video = new Video {Name = jobject.Name, Description = jobject.Description, Url = jobject.Url,
+                    var video = new Video {Name = jobject.Name, Description = jobject.Description, Path = jobject.Path,
                         Count = jobject.Count, UserGroupId = jobject.UserGroupId, UserId = userId, ReleaseDate = stamp };
 
                     if (!CreateEntity(video, "SaveVideo Video Error", "UserId: " + userId, LogType.DbCreateError))
@@ -532,7 +498,7 @@ namespace WDAdmin.WebUI.Controllers
                     Id = jobject.Id,
                     Name = jobject.Name,
                     Description = jobject.Description,
-                    Url = jobject.Url,
+                    Path = jobject.Path,
                     Count = count,
                     UserGroupId = jobject.UserGroupId,
                     UserId = userId,

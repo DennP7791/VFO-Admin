@@ -38,24 +38,6 @@ namespace WDAdmin.WebUI.Models
     }
 
     [DataContract]
-    public class VideoByteCollection
-    {
-        /// <summary>
-        /// Gets or sets the VideoByteArray.
-        /// </summary>
-        /// <value>The byte array.</value>
-        [DataMember]
-        public byte[] ByteArr { get; set; }
-
-        /// <summary>
-        /// Gets or sets the BlockBlobReference.
-        /// </summary>
-        /// <value>The BlockBlobReference.</value>
-        [DataMember]
-        public string BlockBlobReference { get; set; }
-    }
-
-    [DataContract]
     public class VideoCategoryCollection
     {
         /// <summary>
@@ -127,7 +109,7 @@ namespace WDAdmin.WebUI.Models
         /// </summary>
         /// <value>The url.</value>
         [DataMember]
-        public string Url { get; set; }
+        public string Path { get; set; }
         /// <summary>
         /// Gets or sets the count.
         /// </summary>
@@ -153,11 +135,11 @@ namespace WDAdmin.WebUI.Models
         [DataMember]    
         public DateTime ReleaseDate { get; set; }
         /// <summary>
-        /// Gets or sets the password.
+        /// Gets or sets the VideoCategoryId.
         /// </summary>
         /// <value>The password</value>
         [DataMember]
-        public string Password { get; set; }
+        public int VideoCategoryId { get; set; }
     }
 
     /// <summary>

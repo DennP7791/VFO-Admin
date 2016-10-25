@@ -422,10 +422,6 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\VFO.BlobStorage\VFO.BlobStorage.csproj">
-      <Project>{EBA925ED-2357-4370-B0E4-3B7CE809F30B}</Project>
-      <Name>VFO.BlobStorage</Name>
-    </ProjectReference>
     <ProjectReference Include="..\WDAdmin.Domain\VFO.Domain.csproj">
       <Project>{CC938E33-4115-4BB3-B35C-59202DB0ED7E}</Project>
       <Name>VFO.Domain</Name>
