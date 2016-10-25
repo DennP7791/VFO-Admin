@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Runtime.Serialization;
 using System.Web.Mvc;
 
@@ -35,6 +36,31 @@ namespace WDAdmin.WebUI.Models
         /// <value>The QR-videos.</value>
         [DataMember]
         public List<QrVideoData> QrVideos { get; set; }
+    }
+
+    [DataContract]
+    public class VideoByteCollection
+    {
+        ///// <summary>
+        ///// Gets or sets the VideoByteArray.
+        ///// </summary>
+        ///// <value>The byte array.</value>
+        //[DataMember]
+        //public byte[] ByteArr { get; set; }
+
+        /// <summary>
+        /// Gets or sets the VideoStream.
+        /// </summary>
+        /// <value>The VideoStream.</value>
+        [DataMember]
+        public Stream VideoStream { get; set; }
+
+        /// <summary>
+        /// Gets or sets the BlockBlobReference.
+        /// </summary>
+        /// <value>The BlockBlobReference.</value>
+        [DataMember]
+        public string BlockBlobReference { get; set; }
     }
 
     [DataContract]
