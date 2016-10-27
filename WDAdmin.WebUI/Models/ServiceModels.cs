@@ -48,6 +48,17 @@ namespace WDAdmin.WebUI.Models
         public List<VideoCategoryData> VideoCategories { get; set; }
     }
 
+    [DataContract]
+    public class UserGroupCollection
+    {
+        /// <summary>
+        /// Gets or sets the QR-videos.
+        /// </summary>
+        /// <value>The QR-videos.</value>
+        [DataMember]
+        public List<UserGroupData> UserGroups { get; set; }
+    }
+
     /// <summary>
     /// Class CategoryData.
     /// </summary>
@@ -133,7 +144,7 @@ namespace WDAdmin.WebUI.Models
         /// </summary>
         /// <value>The releasedate.</value>
         [DataMember]    
-        public DateTime ReleaseDate { get; set; }
+        public DateTime? ReleaseDate { get; set; }
         /// <summary>
         /// Gets or sets the VideoCategoryId.
         /// </summary>
@@ -141,6 +152,7 @@ namespace WDAdmin.WebUI.Models
         [DataMember]
         public int VideoCategoryId { get; set; }
     }
+    
 
     /// <summary>
     /// Class VideoCategoryData.
@@ -161,6 +173,27 @@ namespace WDAdmin.WebUI.Models
         /// <value>The Name.</value>
         [DataMember]
         public string Name { get; set; }
+    }
+
+    /// <summary>
+    /// Class UserGroupData.
+    /// </summary>
+    [DataContract]
+    public class UserGroupData
+    {
+        /// <summary>
+        /// Gets or sets the identifier.
+        /// </summary>
+        /// <value>The identifier.</value>
+        [DataMember]
+        public int Id { get; set; }
+        /// <summary>
+        /// Gets or sets the GroupName.
+        /// </summary>
+        /// <value>The GroupName.</value>
+        [DataMember]
+        public string GroupName { get; set; }
+        
     }
 
     /// <summary>

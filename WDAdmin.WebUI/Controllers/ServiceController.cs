@@ -34,7 +34,6 @@ namespace WDAdmin.WebUI.Controllers
         /// </summary>
         private readonly ResourceHandler _handler;
         
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ServiceController"/> class.
         /// </summary>
@@ -45,8 +44,7 @@ namespace WDAdmin.WebUI.Controllers
             _pass = PassGenHash.GetInstance;
             _handler = ResourceHandler.GetInstance;
         }
-
-
+        
         /// <summary>
         /// Service user authorization
         /// </summary>
@@ -324,7 +322,79 @@ namespace WDAdmin.WebUI.Controllers
             Logger.Log("GetVideos FinalOK", "UserId: " + userId, LogType.Ok, LogEntryType.Info);
             return JsonConvert.SerializeObject(unityData);
         }
-        
+
+        ///// <summary>
+        ///// Get video data for VFO client
+        ///// </summary>
+        ///// <param name="id">User ID</param>
+        ///// <returns>Serialized data object with videos</returns>
+        //[HttpGet]
+        //public object GetUserGroups(int id)
+        //{
+        //    //Test situation (-1) - Normal user
+        //    var userId = id == -1 ? (from use in _repository.Get<User>() select use.Id).First() : id;
+        //    Logger.Log("GetVideos InitOK", "UserId: " + userId, LogType.Ok, LogEntryType.Info);
+
+        //    var userGroup = (from use in _repository.Get<User>()
+        //                     where use.Id == id
+        //                     join ugr in _repository.Get<UserGroup>() on use.UserGroupId equals ugr.Id                             
+        //                     select ugr).Single();
+
+        //    var allUserGroups = (from ugr in _repository.Get<UserGroup>()                             
+        //                     where ugr.CustomerId.Equals(userGroup.CustomerId)
+        //                     select ugr).ToList();
+            
+        //    var unityData = new UserGroupCollection { UserGroups = new List<UserGroupData>() };
+        //    foreach (var ugr in allUserGroups)
+        //    {
+        //        var video = new UserGroupData
+        //        {
+        //            Id = ugr.Id,
+        //            GroupName = ugr.GroupName,
+        //        };
+
+        //        unityData.UserGroups.Add(video);
+        //    }
+
+        //    Logger.Log("GetVideos FinalOK", "UserId: " + userId, LogType.Ok, LogEntryType.Info);
+        //    return JsonConvert.SerializeObject(unityData);
+        //}
+
+        /// <summary>
+        /// Get video Path data for VFO client
+        /// </summary>
+        /// <param name="id">User ID</param>
+        /// <returns>Serialized data object with videos</returns>
+        [HttpGet]
+        public object GetVideoPaths(int id)
+        {
+            //Test situation (-1) - Normal user
+            var userId = id == -1 ? (from use in _repository.Get<User>() select use.Id).First() : id;
+            Logger.Log("GetVideos InitOK", "UserId: " + userId, LogType.Ok, LogEntryType.Info);
+
+            var allVideos = (from video in _repository.Get<Video>() where video.UserId.Equals(id) & video.ReleaseDate.Equals(null) select video).ToList();
+
+            var unityData = new QrVideoCollection { QrVideos = new List<QrVideoData>() };
+            foreach (var vid in allVideos)
+            {
+                var video = new QrVideoData
+                {
+                    Id = vid.Id,
+                    Name = vid.Name,
+                    Description = vid.Description,
+                    Path = vid.Path,
+                    Count = vid.Count,
+                    UserGroupId = vid.UserGroupId,
+                    UserId = vid.UserId,
+                    ReleaseDate = vid.ReleaseDate,
+                    VideoCategoryId = vid.VideoCategoryId
+                };
+                unityData.QrVideos.Add(video);
+            }
+
+            Logger.Log("GetVideos FinalOK", "UserId: " + userId, LogType.Ok, LogEntryType.Info);
+            return JsonConvert.SerializeObject(unityData);
+        }
 
         /// <summary>
         /// Data save for VFO client
@@ -386,9 +456,7 @@ namespace WDAdmin.WebUI.Controllers
             Logger.Log("SaveData FinalOK", "UserId: " + userId, LogType.DbCreateOk, LogEntryType.Info);
             return true;
         }
-
-        
-
+                
         /// <summary>
         /// VideoData save for VFO client
         /// </summary>
@@ -417,7 +485,7 @@ namespace WDAdmin.WebUI.Controllers
             {
                 
                     var video = new Video {Name = jobject.Name, Description = jobject.Description, Path = jobject.Path,
-                        Count = jobject.Count, UserGroupId = jobject.UserGroupId, UserId = userId, ReleaseDate = stamp };
+                        Count = jobject.Count, UserGroupId = jobject.UserGroupId, UserId = userId, ReleaseDate = jobject.ReleaseDate, VideoCategoryId = jobject.VideoCategoryId};
 
                     if (!CreateEntity(video, "SaveVideo Video Error", "UserId: " + userId, LogType.DbCreateError))
                     {
@@ -477,7 +545,7 @@ namespace WDAdmin.WebUI.Controllers
         public bool UpdateQrVideo(QrVideoData jobject)
         {
             int userId;
-            int count = jobject.Count + 1;
+            int? count = jobject.Count + 1;
 
             //Resolve user id
             if (jobject.UserId != -1) //Not test case
@@ -499,7 +567,7 @@ namespace WDAdmin.WebUI.Controllers
                     Name = jobject.Name,
                     Description = jobject.Description,
                     Path = jobject.Path,
-                    Count = count,
+                    Count = jobject.Count,
                     UserGroupId = jobject.UserGroupId,
                     UserId = userId,
                     ReleaseDate = jobject.ReleaseDate
