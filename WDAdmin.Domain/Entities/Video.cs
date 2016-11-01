@@ -19,22 +19,19 @@ namespace WDAdmin.Domain.Entities
         public string Description { get; set; }
 
         [Column]
-        public string Url { get; set; }
+        public string Path { get; set; }
 
-        [Column]
+        [Column(CanBeNull = true)]
         public int Count { get; set; }
 
-        [Column]
+        [Column(CanBeNull = true)]
         public int UserGroupId { get; set; }
 
         [Column]
         public int UserId { get; set; }
 
-        [Column]
-        public DateTime ReleaseDate { get; set; }
-
         [Column(CanBeNull = true)]
-        public string Password { get; set; }
+        public DateTime ReleaseDate { get; set; }
 
         [Column]
         public int VideoCategoryId { get; set; }

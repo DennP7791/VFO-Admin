@@ -35,10 +35,6 @@ namespace WDAdmin.WebUI.Controllers
         /// The _handler
         /// </summary>
         private readonly ResourceHandler _handler;
-
-        /// <summary>
-        /// The _BlobStorage
-        /// </summary>
         
 
         /// <summary>
@@ -50,7 +46,6 @@ namespace WDAdmin.WebUI.Controllers
             _repository = repository;
             _pass = PassGenHash.GetInstance;
             _handler = ResourceHandler.GetInstance;
-
         }
 
 
@@ -319,12 +314,11 @@ namespace WDAdmin.WebUI.Controllers
                     Id = vid.Id,
                     Name = vid.Name,
                     Description = vid.Description,
-                    Url = vid.Url,
+                    Path = vid.Path,
                     Count = vid.Count,
                     UserGroupId = vid.UserGroupId,
                     UserId = vid.UserId,
-                    ReleaseDate = vid.ReleaseDate,
-                    Password = vid.Password
+                    ReleaseDate = vid.ReleaseDate
                 };
                 unityData.QrVideos.Add(video);
             }
@@ -332,51 +326,6 @@ namespace WDAdmin.WebUI.Controllers
             Logger.Log("GetVideos FinalOK", "UserId: " + userId, LogType.Ok, LogEntryType.Info);
             return JsonConvert.SerializeObject(unityData);
         }
-
-        /// <summary>
-        /// Get videobytedata for VFO client
-        /// </summary>
-        /// <param name="videoName">Video Name</param>
-        /// <returns>Serialized data object with videobytes</returns>
-        [HttpGet]
-        public object DownloadVideo(string videoName)
-        {
-            //VideoByteCollection vs = new VideoByteCollection { ByteArr = new byte[_BlobStorage.Download(videoName).Length], BlockBlobReference = videoName };
-            //vs.ByteArr = _BlobStorage.Download(vs.BlockBlobReference);
-
-            //return JsonConvert.SerializeObject(vs);
-
-            VideoByteCollection vbc = new VideoByteCollection
-            {
-                VideoStream = new MemoryStream(),
-                BlockBlobReference = videoName
-            };
-            vbc.VideoStream = _BlobStorage.Download2(videoName);
-
-            return JsonConvert.SerializeObject(vbc, new JsonSerializerSettings { ContractResolver = new IgnoreStreamsResolver() });
-        }
-
-        [HttpGet]
-        public Stream DownloadVideoStream(string videoName)
-        {
-            MemoryStream memStream = (MemoryStream) _BlobStorage.Download2(videoName);
-            return memStream;
-        }
-
-        /// <summary>
-        /// Data save for VFO client
-        /// </summary>
-        /// <param name="jobject">Collection of data from VFO client</param>
-        /// <returns>Result of the data save</returns>
-        //[HttpPost]
-        //[JsonFilter(Param = "jobject", RootType = typeof(VideoByteCollection))]
-        //public bool UploadVideo(VideoByteCollection jobject)
-        //{
-        //    try{_BlobStorage.Upload(jobject.BlockBlobReference, jobject.ByteArr);}
-        //    catch{return false;}
-        //    return true;
-        //}
-
         /// <summary>
         /// Data save for VFO client
         /// </summary>
@@ -467,7 +416,7 @@ namespace WDAdmin.WebUI.Controllers
             using (var transaction = TransactionScopeUtils.CreateTransactionScope())
             {
                 
-                    var video = new Video {Name = jobject.Name, Description = jobject.Description, Url = jobject.Url,
+                    var video = new Video {Name = jobject.Name, Description = jobject.Description, Path = jobject.Path,
                         Count = jobject.Count, UserGroupId = jobject.UserGroupId, UserId = userId, ReleaseDate = stamp };
 
                     if (!CreateEntity(video, "SaveVideo Video Error", "UserId: " + userId, LogType.DbCreateError))
@@ -549,7 +498,7 @@ namespace WDAdmin.WebUI.Controllers
                     Id = jobject.Id,
                     Name = jobject.Name,
                     Description = jobject.Description,
-                    Url = jobject.Url,
+                    Path = jobject.Path,
                     Count = count,
                     UserGroupId = jobject.UserGroupId,
                     UserId = userId,
