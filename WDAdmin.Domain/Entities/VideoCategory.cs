@@ -17,5 +17,15 @@ namespace WDAdmin.Domain.Entities
 
         [Column]
         public string Name { get; set; }
+
+        /// <summary>
+        /// Helper enum
+        /// </summary>
+        public enum CategoryType
+        {
+            Vejledning = 1,
+            Forflytning = 2,
+            IndividuelForflytning = 3
+        }
     }
 }
