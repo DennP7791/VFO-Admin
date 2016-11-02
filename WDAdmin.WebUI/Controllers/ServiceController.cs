@@ -516,5 +516,27 @@ namespace WDAdmin.WebUI.Controllers
             Logger.Log("UpdateVideo FinalOK", "UserId: " + userId, LogType.DbCreateOk, LogEntryType.Info);
             return true;
         }
+
+        [HttpGet]
+        //[JsonFilter(Param ="jobject", RootType = typeof (UserGroupVideoCatagoryCredintial))]
+        public object getAllUserGroupVideoCategoryCredential()
+        {
+            var allUGVCC = _repository.Get<UserGroupVideoCategoryCredential>();
+
+            var unityData = new UserGroupVideoCategoryCredentialCollection { UGVCCC = new List<UserGroupVideoCategoryCredentialData>() };
+            foreach (var u in allUGVCC)
+            {
+                var ugvcc = new UserGroupVideoCategoryCredentialData
+                {
+                    Id = u.Id,
+                    VideoCatagoryId = u.VideoCategoryId,
+                    UserGroupId = u.UserGroupId,
+                    Password = u.Password,
+                    Salt = u.Salt
+                };
+                unityData.UGVCCC.Add(ugvcc);
+            }
+            return JsonConvert.SerializeObject(unityData);
+        }
     }
 }

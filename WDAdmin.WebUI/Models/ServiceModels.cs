@@ -142,6 +142,56 @@ namespace WDAdmin.WebUI.Models
         public int VideoCategoryId { get; set; }
     }
 
+    [DataContract]
+    public class UserGroupVideoCategoryCredentialData
+    {
+        /// <summary>
+        /// Gets or sets the identifier.
+        /// </summary>
+        /// <value>The identifier.</value>
+        [DataMember]
+        public int Id { get; set; }
+
+        /// <summary>
+        /// Gets or sets the identifier.
+        /// </summary>
+        /// <value>The identifier.</value>
+        [DataMember]
+        public int VideoCatagoryId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the identifier.
+        /// </summary>
+        /// <value>The identifier.</value>
+        [DataMember]
+        public int UserGroupId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the identifier.
+        /// </summary>
+        /// <value>The identifier.</value>
+        [DataMember]
+        public string Password { get; set; }
+
+        /// <summary>
+        /// Gets or sets the identifier.
+        /// </summary>
+        /// <value>The identifier.</value>
+        [DataMember]
+        public string Salt { get; set; }
+    }
+
+    [DataContract]
+    public class UserGroupVideoCategoryCredentialCollection
+    {
+        /// <summary>
+        /// Gets or sets the QR-videos.
+        /// </summary>
+        /// <value>The QR-videos.</value>
+        [DataMember]
+        public List<UserGroupVideoCategoryCredentialData> UGVCCC { get; set; }
+    }
+
     /// <summary>
     /// Class VideoCategoryData.
     /// </summary>
