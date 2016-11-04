@@ -13,6 +13,7 @@ using Newtonsoft.Json;
 using WDAdmin.Domain;
 using System.Text;
 using System.IO;
+using static WDAdmin.Domain.Entities.VideoCategory;
 
 namespace WDAdmin.WebUI.Controllers
 {
@@ -43,8 +44,9 @@ namespace WDAdmin.WebUI.Controllers
             _repository = repository;
             _pass = PassGenHash.GetInstance;
             _handler = ResourceHandler.GetInstance;
-        }
-        
+        }        
+
+
         /// <summary>
         /// Service user authorization
         /// </summary>
@@ -96,6 +98,7 @@ namespace WDAdmin.WebUI.Controllers
             return user.Id;
         }
 
+
         /// <summary>
         /// "Fake" service for getting message to old clients
         /// </summary>
@@ -112,6 +115,7 @@ namespace WDAdmin.WebUI.Controllers
             Logger.Log("GetData FakeServiceOK", "UserId: " + userId, LogType.Ok, LogEntryType.Info);
             return JsonConvert.SerializeObject(unityData);
         }
+
 
         /// <summary>
         /// Get exercise data for VFO client
@@ -256,7 +260,6 @@ namespace WDAdmin.WebUI.Controllers
             Logger.Log("GetExercises FinalOK", "UserId: " + userId, LogType.Ok, LogEntryType.Info);
             return JsonConvert.SerializeObject(unityData);
         }
-
         /// <summary>
         /// Get VideoCategory data for VFO client
         /// </summary>
@@ -279,7 +282,27 @@ namespace WDAdmin.WebUI.Controllers
             }
             return JsonConvert.SerializeObject(unityData);
         }
+        /// <summary>
+        /// Get VideoCategory data for VFO client
+        /// </summary>
+        /// <param name="id">User ID</param>
+        /// <returns>Serialized data object with videos</returns>
+        [HttpGet]
+        public object GetUserGroup(int id)
+        {
+            var userId = id == -1 ? (from use in _repository.Get<User>() select use.Id).First() : id;
+            var userGroup = (from use in _repository.Get<User>()
+                             where use.Id == id
+                             join ugr in _repository.Get<UserGroup>() on use.UserGroupId equals ugr.Id
+                             select ugr).Single();
 
+            var unityData = new UserGroupData();
+            unityData.Id = userGroup.Id;
+            unityData.GroupName = userGroup.GroupName;
+            unityData.CustomerId = userGroup.CustomerId;
+            
+            return JsonConvert.SerializeObject(unityData);
+        }
         /// <summary>
         /// Get video data for VFO client
         /// </summary>
@@ -293,14 +316,22 @@ namespace WDAdmin.WebUI.Controllers
             Logger.Log("GetVideos InitOK", "UserId: " + userId, LogType.Ok, LogEntryType.Info);
 
             var userGroup = (from use in _repository.Get<User>()
-                where use.Id == id
-                join ugr in _repository.Get<UserGroup>() on use.UserGroupId equals ugr.Id
-                select ugr).Single();
+                             where use.Id == id
+                             join ugr in _repository.Get<UserGroup>() on use.UserGroupId equals ugr.Id
+                             select ugr).Single();
 
-            var allVideos = (from ugr in _repository.Get<UserGroup>()
-                           join vid in _repository.Get<Video>() on ugr.Id equals vid.UserGroupId
-                           where ugr.Path.StartsWith(userGroup.Path)
-                           select vid).ToList();
+            List<Video> allVideos = null;
+            if (userGroup.CustomerId != null)
+            { 
+                 allVideos = (from vid in _repository.Get<Video>()
+                             where userGroup.CustomerId.Equals(userGroup.CustomerId) && vid.VideoCategoryId != (int) CategoryType.IndividuelForflytning
+                             select vid).ToList();
+            }else
+            {
+                allVideos = (from vid in _repository.Get<Video>() 
+                             where userGroup.Id.Equals(vid.UserGroupId)
+                             select vid).ToList();
+            }
 
             var unityData = new QrVideoCollection { QrVideos = new List<QrVideoData>() };
             foreach (var vid in allVideos)
@@ -314,7 +345,8 @@ namespace WDAdmin.WebUI.Controllers
                     Count = vid.Count,
                     UserGroupId = vid.UserGroupId,
                     UserId = vid.UserId,
-                    ReleaseDate = vid.ReleaseDate
+                    ReleaseDate = vid.ReleaseDate,
+                    VideoCategoryId = vid.VideoCategoryId
                 };
                 unityData.QrVideos.Add(video);
             }
@@ -322,44 +354,6 @@ namespace WDAdmin.WebUI.Controllers
             Logger.Log("GetVideos FinalOK", "UserId: " + userId, LogType.Ok, LogEntryType.Info);
             return JsonConvert.SerializeObject(unityData);
         }
-
-        ///// <summary>
-        ///// Get video data for VFO client
-        ///// </summary>
-        ///// <param name="id">User ID</param>
-        ///// <returns>Serialized data object with videos</returns>
-        //[HttpGet]
-        //public object GetUserGroups(int id)
-        //{
-        //    //Test situation (-1) - Normal user
-        //    var userId = id == -1 ? (from use in _repository.Get<User>() select use.Id).First() : id;
-        //    Logger.Log("GetVideos InitOK", "UserId: " + userId, LogType.Ok, LogEntryType.Info);
-
-        //    var userGroup = (from use in _repository.Get<User>()
-        //                     where use.Id == id
-        //                     join ugr in _repository.Get<UserGroup>() on use.UserGroupId equals ugr.Id                             
-        //                     select ugr).Single();
-
-        //    var allUserGroups = (from ugr in _repository.Get<UserGroup>()                             
-        //                     where ugr.CustomerId.Equals(userGroup.CustomerId)
-        //                     select ugr).ToList();
-            
-        //    var unityData = new UserGroupCollection { UserGroups = new List<UserGroupData>() };
-        //    foreach (var ugr in allUserGroups)
-        //    {
-        //        var video = new UserGroupData
-        //        {
-        //            Id = ugr.Id,
-        //            GroupName = ugr.GroupName,
-        //        };
-
-        //        unityData.UserGroups.Add(video);
-        //    }
-
-        //    Logger.Log("GetVideos FinalOK", "UserId: " + userId, LogType.Ok, LogEntryType.Info);
-        //    return JsonConvert.SerializeObject(unityData);
-        //}
-
         /// <summary>
         /// Get video Path data for VFO client
         /// </summary>
@@ -395,7 +389,6 @@ namespace WDAdmin.WebUI.Controllers
             Logger.Log("GetVideos FinalOK", "UserId: " + userId, LogType.Ok, LogEntryType.Info);
             return JsonConvert.SerializeObject(unityData);
         }
-
         /// <summary>
         /// Data save for VFO client
         /// </summary>
@@ -455,8 +448,7 @@ namespace WDAdmin.WebUI.Controllers
 
             Logger.Log("SaveData FinalOK", "UserId: " + userId, LogType.DbCreateOk, LogEntryType.Info);
             return true;
-        }
-                
+        }                
         /// <summary>
         /// VideoData save for VFO client
         /// </summary>
@@ -498,7 +490,11 @@ namespace WDAdmin.WebUI.Controllers
             Logger.Log("SaveVideo FinalOK", "UserId: " + userId, LogType.DbCreateOk, LogEntryType.Info);
             return true;
         }
-
+        /// <summary>
+        /// SaveQrVideoUserView save for VFO client
+        /// </summary>
+        /// <param name="jobject">Collection of QrVideoUserViews from VFO client</param>
+        /// <returns>Result of the QrVideoUserView save</returns>
         [HttpPost]
         [JsonFilter(Param = "jobject", RootType = typeof (VideoUserViewData))]
         public bool SaveQrVideoUserViewData(VideoUserViewData jobject)
@@ -539,7 +535,11 @@ namespace WDAdmin.WebUI.Controllers
             Logger.Log("SaveVideoUserView FinalOK", "UserId: " + userId, LogType.DbCreateOk, LogEntryType.Info);
             return true;
         }
-
+        /// <summary>
+        /// QrVideo Update for VFO client
+        /// </summary>
+        /// <param name="jobject">Collection of QrVideo from VFO client</param>
+        /// <returns>Result of the QrVideo Update</returns>
         [HttpPut]
         [JsonFilter(Param = "jobject", RootType = typeof (QrVideoData))]
         public bool UpdateQrVideo(QrVideoData jobject)
@@ -570,7 +570,8 @@ namespace WDAdmin.WebUI.Controllers
                     Count = jobject.Count,
                     UserGroupId = jobject.UserGroupId,
                     UserId = userId,
-                    ReleaseDate = jobject.ReleaseDate
+                    ReleaseDate = jobject.ReleaseDate,
+                    VideoCategoryId = jobject.VideoCategoryId
                 };
 
                 if (!UpdateEntity(video, "SaveVideo Video Error", "UserId: " + userId, LogType.DbCreateError))
