@@ -584,5 +584,28 @@ namespace WDAdmin.WebUI.Controllers
             Logger.Log("UpdateVideo FinalOK", "UserId: " + userId, LogType.DbCreateOk, LogEntryType.Info);
             return true;
         }
+
+        /// <summary>
+        /// Physical delete of a video
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public object DeleteVideo(int id)
+        {
+            Video video = _repository.Get<Video>().SingleOrDefault(x=> x.Id == id);
+            bool success = false;
+
+            if (video != null)
+            {
+                using (var transaction = TransactionScopeUtils.CreateTransactionScope())
+                {
+                    success = DeleteEntity<Video>(video, "Failed to delete video", "", LogType.DbDeleteError);
+                    transaction.Complete();
+                }
+            }
+
+            return success;
+        }
     }
 }
