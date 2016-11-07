@@ -556,6 +556,7 @@
     </Content>
     <Content Include="Views\UserGroup\ChildGroup.cshtml" />
     <Content Include="Views\VFO\ChildCreateLink.cshtml" />
+    <None Include="Properties\PublishProfiles\Vfo-Staging-WebApp - Web Deploy.pubxml" />
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>
