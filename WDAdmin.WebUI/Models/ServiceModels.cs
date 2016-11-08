@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Runtime.Serialization;
 using System.Web.Mvc;
 
@@ -51,6 +52,7 @@ namespace WDAdmin.WebUI.Models
         [DataMember]
         public List<VideoCategoryData> VideoCategories { get; set; }
     }
+
     /// <summary>
     /// Class CategoryData.
     /// </summary>

@@ -596,8 +596,7 @@ namespace WDAdmin.WebUI.Controllers
             Logger.Log("UpdateVideo FinalOK", "UserId: " + userId, LogType.DbCreateOk, LogEntryType.Info);
             return true;
         }
-
-        [HttpGet]
+        
         public bool getSecureQrVideo(int id, string path)
         {
             bool isAvailable = false;
@@ -642,23 +641,46 @@ namespace WDAdmin.WebUI.Controllers
             var userId = id == -1 ? (from use in _repository.Get<User>() select use.Id).First() : id;
 
             var userGroup = (from use in _repository.Get<User>()
-                                 where use.Id == id
-                                 join ugr in _repository.Get<UserGroup>() on use.UserGroupId equals ugr.Id
-                                 select ugr).Single();
+                             where use.Id == id
+                             join ugr in _repository.Get<UserGroup>() on use.UserGroupId equals ugr.Id
+                             select ugr).Single();
 
             UserGroupVideoCatagoryCredential customer = null;
-            if(userGroup.CustomerId != null)
+            if (userGroup.CustomerId != null)
             {
                 customer = (from vid in _repository.Get<UserGroupVideoCatagoryCredential>()
-                         where userGroup.CustomerId.Equals(vid.UserGroupId)
-                         select vid).Single();
+                            where userGroup.CustomerId.Equals(vid.UserGroupId)
+                            select vid).Single();
             }
-            else{
+            else {
                 customer = (from vid in _repository.Get<UserGroupVideoCatagoryCredential>()
-                         where userGroup.Id.Equals(vid.UserGroupId)
-                         select vid).Single();
+                            where userGroup.Id.Equals(vid.UserGroupId)
+                            select vid).Single();
             }
             return JsonConvert.SerializeObject(customer);
+        }
+        /// <summary>
+        /// Physical delete of a video
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpDelete]
+        public bool DeleteVideo(int id)
+        {
+            Video video = _repository.Get<Video>().SingleOrDefault(x=> x.Id == id);
+            bool success = false;
+
+            if (video != null)
+            {
+                using (var transaction = TransactionScopeUtils.CreateTransactionScope())
+                {
+                    success = DeleteEntity<Video>(video, "Failed to delete video", "", LogType.DbDeleteError);
+                    transaction.Complete();
+                }
+            }
+
+            return success;
+
         }
     }
 }
