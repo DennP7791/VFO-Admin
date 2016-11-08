@@ -224,6 +224,45 @@ namespace WDAdmin.WebUI.Models
         [DataMember]
         public DateTime ViewDate { get; set; }
     }
+
+    /// <summary>
+    /// Class VideoUserViewData.
+    /// </summary>
+    [DataContract]
+    public class UserGroupVideoCatagoryCredentialData
+    {
+        /// <summary>
+        /// Gets or sets the Identifier.
+        /// </summary>
+        /// <value>The indentifier.</value>
+        [DataMember]
+        public int Id { get; set; }
+        /// <summary>
+        /// Gets or sets the VideoCatagoryIdentifier.
+        /// </summary>
+        /// <value>The VideoCatagoryIdentifier.</value>
+        [DataMember]
+        public int VideoCatagoryId { get; set; }
+        /// <summary>
+        /// Gets or sets the UserGroupIdentifier.
+        /// </summary>
+        /// <value>The UserGroupIdentifier.</value>
+        [DataMember]
+        public int UserGroupId { get; set; }
+        /// <summary>
+        /// Gets or sets the Password.
+        /// </summary>
+        /// <value>The Password.</value>
+        [DataMember]
+        public string Password { get; set; }
+        /// <summary>
+        /// Gets or sets the Salt.
+        /// </summary>
+        /// <value>The Salt.</value>
+        [DataMember]
+        public string Salt { get; set; }
+    }
+
     /// <summary>
     /// Class ExerciseData.
     /// </summary>
