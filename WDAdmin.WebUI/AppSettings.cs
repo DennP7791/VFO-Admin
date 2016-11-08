@@ -20,6 +20,7 @@ namespace WDAdmin.WebUI
         {
             get
             {
+                string s = "S";
                 return Setting<string>("AddressFrom");
             }
         }

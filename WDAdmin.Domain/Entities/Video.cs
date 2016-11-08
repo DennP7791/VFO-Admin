@@ -31,7 +31,7 @@ namespace WDAdmin.Domain.Entities
         public int UserId { get; set; }
 
         [Column(CanBeNull = true)]
-        public DateTime ReleaseDate { get; set; }
+        public DateTime? ReleaseDate { get; set; }
 
         [Column]
         public int VideoCategoryId { get; set; }

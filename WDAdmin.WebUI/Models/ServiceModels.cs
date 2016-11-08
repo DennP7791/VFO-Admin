@@ -8,7 +8,7 @@ namespace WDAdmin.WebUI.Models
     /// <summary>
     /// Models/DataContracts from DataService
     /// </summary>
-    
+
     [DataContract]
     public class Collection
     {
@@ -25,7 +25,9 @@ namespace WDAdmin.WebUI.Models
         [DataMember]
         public List<CategoryData> Categories { get; set; }
     }
-
+    /// <summary>
+    /// Class QrVideoCollection.
+    /// </summary>
     [DataContract]
     public class QrVideoCollection
     {
@@ -36,7 +38,9 @@ namespace WDAdmin.WebUI.Models
         [DataMember]
         public List<QrVideoData> QrVideos { get; set; }
     }
-
+    /// <summary>
+    /// Class VideoCategoryCollection.
+    /// </summary>
     [DataContract]
     public class VideoCategoryCollection
     {
@@ -47,7 +51,6 @@ namespace WDAdmin.WebUI.Models
         [DataMember]
         public List<VideoCategoryData> VideoCategories { get; set; }
     }
-
     /// <summary>
     /// Class CategoryData.
     /// </summary>
@@ -79,7 +82,6 @@ namespace WDAdmin.WebUI.Models
         [DataMember]
         public List<ExerciseData> Exercises { get; set; }
     }
-
     /// <summary>
     /// Class CategoryData.
     /// </summary>
@@ -132,8 +134,8 @@ namespace WDAdmin.WebUI.Models
         /// Gets or sets the releasedate.
         /// </summary>
         /// <value>The releasedate.</value>
-        [DataMember]    
-        public DateTime ReleaseDate { get; set; }
+        [DataMember]
+        public DateTime? ReleaseDate { get; set; }
         /// <summary>
         /// Gets or sets the VideoCategoryId.
         /// </summary>
@@ -141,57 +143,6 @@ namespace WDAdmin.WebUI.Models
         [DataMember]
         public int VideoCategoryId { get; set; }
     }
-
-    [DataContract]
-    public class UserGroupVideoCategoryCredentialData
-    {
-        /// <summary>
-        /// Gets or sets the identifier.
-        /// </summary>
-        /// <value>The identifier.</value>
-        [DataMember]
-        public int Id { get; set; }
-
-        /// <summary>
-        /// Gets or sets the identifier.
-        /// </summary>
-        /// <value>The identifier.</value>
-        [DataMember]
-        public int VideoCatagoryId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the identifier.
-        /// </summary>
-        /// <value>The identifier.</value>
-        [DataMember]
-        public int UserGroupId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the identifier.
-        /// </summary>
-        /// <value>The identifier.</value>
-        [DataMember]
-        public string Password { get; set; }
-
-        /// <summary>
-        /// Gets or sets the identifier.
-        /// </summary>
-        /// <value>The identifier.</value>
-        [DataMember]
-        public string Salt { get; set; }
-    }
-
-    [DataContract]
-    public class UserGroupVideoCategoryCredentialCollection
-    {
-        /// <summary>
-        /// Gets or sets the QR-videos.
-        /// </summary>
-        /// <value>The QR-videos.</value>
-        [DataMember]
-        public List<UserGroupVideoCategoryCredentialData> UGVCCC { get; set; }
-    }
-
     /// <summary>
     /// Class VideoCategoryData.
     /// </summary>
@@ -212,7 +163,31 @@ namespace WDAdmin.WebUI.Models
         [DataMember]
         public string Name { get; set; }
     }
-
+    /// <summary>
+    /// Class UserGroupData.
+    /// </summary>
+    [DataContract]
+    public class UserGroupData
+    {
+        /// <summary>
+        /// Gets or sets the identifier.
+        /// </summary>
+        /// <value>The identifier.</value>
+        [DataMember]
+        public int Id { get; set; }
+        /// <summary>
+        /// Gets or sets the GroupName.
+        /// </summary>
+        /// <value>The GroupName.</value>
+        [DataMember]
+        public string GroupName { get; set; }
+        /// <summary>
+        /// Gets or sets the Customer identifier.
+        /// </summary>
+        /// <value>The Customer identifier.</value>
+        [DataMember]
+        public int? CustomerId { get; set; }
+    }
     /// <summary>
     /// Class VideoUserViewData.
     /// </summary>
@@ -247,12 +222,10 @@ namespace WDAdmin.WebUI.Models
         [DataMember]
         public DateTime ViewDate { get; set; }
     }
-
-
     /// <summary>
-        /// Class ExerciseData.
-        /// </summary>
-        [DataContract]
+    /// Class ExerciseData.
+    /// </summary>
+    [DataContract]
     public class ExerciseData
     {
         /// <summary>
@@ -286,7 +259,6 @@ namespace WDAdmin.WebUI.Models
         [DataMember]
         public bool Attempted { get; set; }
     }
-
     /// <summary>
     /// Class LoginData.
     /// </summary>

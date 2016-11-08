@@ -13,6 +13,7 @@ using Newtonsoft.Json;
 using WDAdmin.Domain;
 using System.Text;
 using System.IO;
+using static WDAdmin.Domain.Entities.VideoCategory;
 
 namespace WDAdmin.WebUI.Controllers
 {
@@ -33,7 +34,6 @@ namespace WDAdmin.WebUI.Controllers
         /// The _handler
         /// </summary>
         private readonly ResourceHandler _handler;
-        
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ServiceController"/> class.
@@ -98,6 +98,7 @@ namespace WDAdmin.WebUI.Controllers
             return user.Id;
         }
 
+
         /// <summary>
         /// "Fake" service for getting message to old clients
         /// </summary>
@@ -107,13 +108,14 @@ namespace WDAdmin.WebUI.Controllers
         {
             var userId = id;
             var unityData = new Collection { UserId = userId, Categories = new List<CategoryData>() };
-            unityData.Categories.Add(new CategoryData{ Id = 1, Name = LangResources.UpdateMessage1, Exercises = new List<ExerciseData>()});
+            unityData.Categories.Add(new CategoryData { Id = 1, Name = LangResources.UpdateMessage1, Exercises = new List<ExerciseData>() });
             unityData.Categories.Add(new CategoryData { Id = 2, Name = LangResources.UpdateMessage2, Exercises = new List<ExerciseData>() });
             unityData.Categories.Add(new CategoryData { Id = 3, Name = LangResources.UpdateMessage3, Exercises = new List<ExerciseData>() });
             unityData.Categories.Add(new CategoryData { Id = 4, Name = LangResources.UpdateMessage4, Exercises = new List<ExerciseData>() });
             Logger.Log("GetData FakeServiceOK", "UserId: " + userId, LogType.Ok, LogEntryType.Info);
             return JsonConvert.SerializeObject(unityData);
         }
+
 
         /// <summary>
         /// Get exercise data for VFO client
@@ -127,15 +129,15 @@ namespace WDAdmin.WebUI.Controllers
             //Test situation (-1) - Normal user
             var userId = id == -1 ? (from use in _repository.Get<User>() select use.Id).First() : id;
             Logger.Log("GetExercises InitOK", "UserId: " + userId, LogType.Ok, LogEntryType.Info);
-            
+
             //Get exercises allowed for the user group
             var allExer = (from use in _repository.Get<User>()
-                          where use.Id == id
-                          join ugr in _repository.Get<UserGroup>() on use.UserGroupId equals ugr.Id
-                          join exe in _repository.Get<GroupToExerciseRight>() on ugr.Id equals exe.GroupId
-                          where exe.IsChosen
-                          select exe).ToList();
-            
+                           where use.Id == id
+                           join ugr in _repository.Get<UserGroup>() on use.UserGroupId equals ugr.Id
+                           join exe in _repository.Get<GroupToExerciseRight>() on ugr.Id equals exe.GroupId
+                           where exe.IsChosen
+                           select exe).ToList();
+
             //Get ExerciseDetails for allowed exercises
             var exerDetails = allExer.Select(aE => (from ed in _repository.Get<ExerciseDetails>() where ed.Id == aE.ExerciseId select ed).Single()).ToList();
 
@@ -147,7 +149,7 @@ namespace WDAdmin.WebUI.Controllers
             var catLoc = new Dictionary<string, string>();
 
             //Create lists of exercise/category names according to culture specified
-            if(string.IsNullOrEmpty(culture) || culture.Equals("da-DK")) //No culture of default culture specified
+            if (string.IsNullOrEmpty(culture) || culture.Equals("da-DK")) //No culture of default culture specified
             {
                 exerLoc = _handler.GetResources(exerDetails.Select(x => x.Name).ToList(), "da-DK");
                 catLoc = _handler.GetResources(catDetails.Select(x => x.Name).ToList(), "da-DK");
@@ -158,8 +160,8 @@ namespace WDAdmin.WebUI.Controllers
                 catLoc = _handler.GetResources(catDetails.Select(x => x.Name).ToList(), culture);
             }
 
-            var unityData = new Collection { UserId = userId, Categories = new List<CategoryData>()};   
-            
+            var unityData = new Collection { UserId = userId, Categories = new List<CategoryData>() };
+
             //For each category pick latest category data, list of attached exercises & exercise data
             foreach (var cat in catDetails)
             {
@@ -168,41 +170,42 @@ namespace WDAdmin.WebUI.Controllers
 
                 //Pick latest category data score
                 var latestCatScore = from catd in _repository.Get<Category>()
-                                        where catd.UserId == userId && catd.DetailsId == cat.Id
-                                        group catd by catd.DetailsId into ct
-                                        select ct.OrderByDescending(t => t.Timestamp).First();
+                                     where catd.UserId == userId && catd.DetailsId == cat.Id
+                                     group catd by catd.DetailsId into ct
+                                     select ct.OrderByDescending(t => t.Timestamp).First();
 
-                if(latestCatScore.Any())
+                if (latestCatScore.Any())
                 {
                     //Create category data object
                     var cdata = new CategoryData
-                                        {
-                                            Id = cat.Id,
-                                            Name = catLoc[cat.Name],
-                                            Score = latestCatScore.Single().Score,
-                                            Exercises = new List<ExerciseData>()
-                                        };
-                        
-                    foreach(var exer in exercises)
+                    {
+                        Id = cat.Id,
+                        Name = catLoc[cat.Name],
+                        Score = latestCatScore.Single().Score,
+                        Exercises = new List<ExerciseData>()
+                    };
+
+                    foreach (var exer in exercises)
                     {
                         //Pick latest exercise data score
                         var latestEx = from exe in _repository.Get<Exercise>()
                                        where exe.CategoryId == latestCatScore.Single().Id && exe.DetailsId == exer.Id
                                        group exe by exe.DetailsId
-                                       into ex select ex.OrderByDescending(t => t.Timestamp).First();
+                                       into ex
+                                       select ex.OrderByDescending(t => t.Timestamp).First();
 
                         if (latestEx.Any())
                         {
                             //Create ExerciseData object + PartData object
                             var exdata = new ExerciseData
-                                                {
-                                                    Id = exer.Id,
-                                                    Name = exerLoc[exer.Name],
-                                                    SceneFunction = exer.SceneFunction,
-                                                    Score = latestEx.Single().Score,
-                                                    Attempted = false //latestEx.Single().Attempted
-                                                };
-                                
+                            {
+                                Id = exer.Id,
+                                Name = exerLoc[exer.Name],
+                                SceneFunction = exer.SceneFunction,
+                                Score = latestEx.Single().Score,
+                                Attempted = false //latestEx.Single().Attempted
+                            };
+
                             //Add exercise data to Category Object
                             cdata.Exercises.Add(exdata);
 
@@ -211,19 +214,19 @@ namespace WDAdmin.WebUI.Controllers
                         {
                             //Create new ExerciseData object
                             var exdata = new ExerciseData
-                                                {
-                                                    Id = exer.Id,
-                                                    Name = exerLoc[exer.Name],
-                                                    SceneFunction = exer.SceneFunction,
-                                                    Score = 0,
-                                                    Attempted = false
-                                                };
+                            {
+                                Id = exer.Id,
+                                Name = exerLoc[exer.Name],
+                                SceneFunction = exer.SceneFunction,
+                                Score = 0,
+                                Attempted = false
+                            };
 
                             //Add exercise data to Category Object
                             cdata.Exercises.Add(exdata);
                         }
                     }
-                        
+
                     //Add CategoryData object to collection
                     unityData.Categories.Add(cdata);
                 }
@@ -231,20 +234,20 @@ namespace WDAdmin.WebUI.Controllers
                 {
                     //Create CategoryData object
 
-                    var cdata = new CategoryData {Id = cat.Id, Name = catLoc[cat.Name], Score = 0, Exercises = new List<ExerciseData>()};
+                    var cdata = new CategoryData { Id = cat.Id, Name = catLoc[cat.Name], Score = 0, Exercises = new List<ExerciseData>() };
 
                     //Loop through exercises
                     foreach (var exe in exercises)
                     {
                         //Create ExerciseData object
                         var exdata = new ExerciseData
-                                         {
-                                             Id = exe.Id,
-                                             Name = exerLoc[exe.Name],
-                                             SceneFunction = exe.SceneFunction,
-                                             Score = 0,
-                                             Attempted = false
-                                         };
+                        {
+                            Id = exe.Id,
+                            Name = exerLoc[exe.Name],
+                            SceneFunction = exe.SceneFunction,
+                            Score = 0,
+                            Attempted = false
+                        };
 
                         //Add ExerciseData object to category
                         cdata.Exercises.Add(exdata);
@@ -258,7 +261,6 @@ namespace WDAdmin.WebUI.Controllers
             Logger.Log("GetExercises FinalOK", "UserId: " + userId, LogType.Ok, LogEntryType.Info);
             return JsonConvert.SerializeObject(unityData);
         }
-
         /// <summary>
         /// Get VideoCategory data for VFO client
         /// </summary>
@@ -281,7 +283,27 @@ namespace WDAdmin.WebUI.Controllers
             }
             return JsonConvert.SerializeObject(unityData);
         }
+        /// <summary>
+        /// Get VideoCategory data for VFO client
+        /// </summary>
+        /// <param name="id">User ID</param>
+        /// <returns>Serialized data object with videos</returns>
+        [HttpGet]
+        public object GetUserGroup(int id)
+        {
+            var userId = id == -1 ? (from use in _repository.Get<User>() select use.Id).First() : id;
+            var userGroup = (from use in _repository.Get<User>()
+                             where use.Id == id
+                             join ugr in _repository.Get<UserGroup>() on use.UserGroupId equals ugr.Id
+                             select ugr).Single();
 
+            var unityData = new UserGroupData();
+            unityData.Id = userGroup.Id;
+            unityData.GroupName = userGroup.GroupName;
+            unityData.CustomerId = userGroup.CustomerId;
+
+            return JsonConvert.SerializeObject(unityData);
+        }
         /// <summary>
         /// Get video data for VFO client
         /// </summary>
@@ -295,14 +317,23 @@ namespace WDAdmin.WebUI.Controllers
             Logger.Log("GetVideos InitOK", "UserId: " + userId, LogType.Ok, LogEntryType.Info);
 
             var userGroup = (from use in _repository.Get<User>()
-                where use.Id == id
-                join ugr in _repository.Get<UserGroup>() on use.UserGroupId equals ugr.Id
-                select ugr).Single();
+                             where use.Id == id
+                             join ugr in _repository.Get<UserGroup>() on use.UserGroupId equals ugr.Id
+                             select ugr).Single();
 
-            var allVideos = (from ugr in _repository.Get<UserGroup>()
-                           join vid in _repository.Get<Video>() on ugr.Id equals vid.UserGroupId
-                           where ugr.Path.StartsWith(userGroup.Path)
-                           select vid).ToList();
+            List<Video> allVideos = null;
+            if (userGroup.CustomerId != null)
+            {
+                allVideos = (from vid in _repository.Get<Video>()
+                             where userGroup.CustomerId.Equals(userGroup.CustomerId) && vid.VideoCategoryId != (int)CategoryType.IndividuelForflytning
+                             select vid).ToList();
+            }
+            else
+            {
+                allVideos = (from vid in _repository.Get<Video>()
+                             where userGroup.Id.Equals(vid.UserGroupId) && vid.VideoCategoryId != (int)CategoryType.IndividuelForflytning
+                             select vid).ToList();
+            }
 
             var unityData = new QrVideoCollection { QrVideos = new List<QrVideoData>() };
             foreach (var vid in allVideos)
@@ -316,7 +347,8 @@ namespace WDAdmin.WebUI.Controllers
                     Count = vid.Count,
                     UserGroupId = vid.UserGroupId,
                     UserId = vid.UserId,
-                    ReleaseDate = vid.ReleaseDate
+                    ReleaseDate = vid.ReleaseDate,
+                    VideoCategoryId = vid.VideoCategoryId
                 };
                 unityData.QrVideos.Add(video);
             }
@@ -324,8 +356,41 @@ namespace WDAdmin.WebUI.Controllers
             Logger.Log("GetVideos FinalOK", "UserId: " + userId, LogType.Ok, LogEntryType.Info);
             return JsonConvert.SerializeObject(unityData);
         }
-        
+        /// <summary>
+        /// Get video Path data for VFO client
+        /// </summary>
+        /// <param name="id">User ID</param>
+        /// <returns>Serialized data object with videos</returns>
+        [HttpGet]
+        public object GetVideoPaths(int id)
+        {
+            //Test situation (-1) - Normal user
+            var userId = id == -1 ? (from use in _repository.Get<User>() select use.Id).First() : id;
+            Logger.Log("GetVideos InitOK", "UserId: " + userId, LogType.Ok, LogEntryType.Info);
 
+            var allVideos = (from video in _repository.Get<Video>() where video.UserId.Equals(id) & video.ReleaseDate.Equals(null) select video).ToList();
+
+            var unityData = new QrVideoCollection { QrVideos = new List<QrVideoData>() };
+            foreach (var vid in allVideos)
+            {
+                var video = new QrVideoData
+                {
+                    Id = vid.Id,
+                    Name = vid.Name,
+                    Description = vid.Description,
+                    Path = vid.Path,
+                    Count = vid.Count,
+                    UserGroupId = vid.UserGroupId,
+                    UserId = vid.UserId,
+                    ReleaseDate = vid.ReleaseDate,
+                    VideoCategoryId = vid.VideoCategoryId
+                };
+                unityData.QrVideos.Add(video);
+            }
+
+            Logger.Log("GetVideos FinalOK", "UserId: " + userId, LogType.Ok, LogEntryType.Info);
+            return JsonConvert.SerializeObject(unityData);
+        }
         /// <summary>
         /// Data save for VFO client
         /// </summary>
@@ -386,9 +451,6 @@ namespace WDAdmin.WebUI.Controllers
             Logger.Log("SaveData FinalOK", "UserId: " + userId, LogType.DbCreateOk, LogEntryType.Info);
             return true;
         }
-
-        
-
         /// <summary>
         /// VideoData save for VFO client
         /// </summary>
@@ -415,14 +477,23 @@ namespace WDAdmin.WebUI.Controllers
 
             using (var transaction = TransactionScopeUtils.CreateTransactionScope())
             {
-                
-                    var video = new Video {Name = jobject.Name, Description = jobject.Description, Path = jobject.Path,
-                        Count = jobject.Count, UserGroupId = jobject.UserGroupId, UserId = userId, ReleaseDate = stamp };
 
-                    if (!CreateEntity(video, "SaveVideo Video Error", "UserId: " + userId, LogType.DbCreateError))
-                    {
-                        return false;
-                    }
+                var video = new Video
+                {
+                    Name = jobject.Name,
+                    Description = jobject.Description,
+                    Path = jobject.Path,
+                    Count = jobject.Count,
+                    UserGroupId = jobject.UserGroupId,
+                    UserId = userId,
+                    ReleaseDate = jobject.ReleaseDate,
+                    VideoCategoryId = jobject.VideoCategoryId
+                };
+
+                if (!CreateEntity(video, "SaveVideo Video Error", "UserId: " + userId, LogType.DbCreateError))
+                {
+                    return false;
+                }
 
                 transaction.Complete();
             }
@@ -430,9 +501,13 @@ namespace WDAdmin.WebUI.Controllers
             Logger.Log("SaveVideo FinalOK", "UserId: " + userId, LogType.DbCreateOk, LogEntryType.Info);
             return true;
         }
-
+        /// <summary>
+        /// SaveQrVideoUserView save for VFO client
+        /// </summary>
+        /// <param name="jobject">Collection of QrVideoUserViews from VFO client</param>
+        /// <returns>Result of the QrVideoUserView save</returns>
         [HttpPost]
-        [JsonFilter(Param = "jobject", RootType = typeof (VideoUserViewData))]
+        [JsonFilter(Param = "jobject", RootType = typeof(VideoUserViewData))]
         public bool SaveQrVideoUserViewData(VideoUserViewData jobject)
         {
             var stamp = DateTime.Now; //Get the current timestamp
@@ -471,13 +546,17 @@ namespace WDAdmin.WebUI.Controllers
             Logger.Log("SaveVideoUserView FinalOK", "UserId: " + userId, LogType.DbCreateOk, LogEntryType.Info);
             return true;
         }
-
+        /// <summary>
+        /// QrVideo Update for VFO client
+        /// </summary>
+        /// <param name="jobject">Collection of QrVideo from VFO client</param>
+        /// <returns>Result of the QrVideo Update</returns>
         [HttpPut]
-        [JsonFilter(Param = "jobject", RootType = typeof (QrVideoData))]
+        [JsonFilter(Param = "jobject", RootType = typeof(QrVideoData))]
         public bool UpdateQrVideo(QrVideoData jobject)
         {
             int userId;
-            int count = jobject.Count + 1;
+            int? count = jobject.Count + 1;
 
             //Resolve user id
             if (jobject.UserId != -1) //Not test case
@@ -499,10 +578,11 @@ namespace WDAdmin.WebUI.Controllers
                     Name = jobject.Name,
                     Description = jobject.Description,
                     Path = jobject.Path,
-                    Count = count,
+                    Count = jobject.Count,
                     UserGroupId = jobject.UserGroupId,
                     UserId = userId,
-                    ReleaseDate = jobject.ReleaseDate
+                    ReleaseDate = jobject.ReleaseDate,
+                    VideoCategoryId = jobject.VideoCategoryId
                 };
 
                 if (!UpdateEntity(video, "SaveVideo Video Error", "UserId: " + userId, LogType.DbCreateError))
@@ -518,25 +598,67 @@ namespace WDAdmin.WebUI.Controllers
         }
 
         [HttpGet]
-        //[JsonFilter(Param ="jobject", RootType = typeof (UserGroupVideoCatagoryCredintial))]
-        public object getAllUserGroupVideoCategoryCredential()
+        public bool getSecureQrVideo(int id, string path)
         {
-            var allUGVCC = _repository.Get<UserGroupVideoCategoryCredential>();
-
-            var unityData = new UserGroupVideoCategoryCredentialCollection { UGVCCC = new List<UserGroupVideoCategoryCredentialData>() };
-            foreach (var u in allUGVCC)
+            bool isAvailable = false;
+            try
             {
-                var ugvcc = new UserGroupVideoCategoryCredentialData
+                var userId = id == -1 ? (from use in _repository.Get<User>() select use.Id).First() : id;
+
+                var userGroup = (from use in _repository.Get<User>()
+                                 where use.Id == id
+                                 join ugr in _repository.Get<UserGroup>() on use.UserGroupId equals ugr.Id
+                                 select ugr).Single();
+
+                Video video = null;
+                if (userGroup.CustomerId != null)
                 {
-                    Id = u.Id,
-                    VideoCatagoryId = u.VideoCategoryId,
-                    UserGroupId = u.UserGroupId,
-                    Password = u.Password,
-                    Salt = u.Salt
-                };
-                unityData.UGVCCC.Add(ugvcc);
+                    video = (from vid in _repository.Get<Video>()
+                             where userGroup.CustomerId.Equals(userGroup.CustomerId) && vid.Path.Equals(path)
+                             select vid).Single();
+                }
+                else
+                {
+                    video = (from vid in _repository.Get<Video>()
+                             where userGroup.Id.Equals(vid.UserGroupId) && vid.Path.Equals(path)
+                             select vid).Single();
+                }
+                if (video != null)
+                {
+                    isAvailable = true;
+                }
             }
-            return JsonConvert.SerializeObject(unityData);
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+
+            return isAvailable;
+        }
+
+        [HttpGet]
+        public object getUserGroupCredintial(int id)
+        {
+            var userId = id == -1 ? (from use in _repository.Get<User>() select use.Id).First() : id;
+
+            var userGroup = (from use in _repository.Get<User>()
+                                 where use.Id == id
+                                 join ugr in _repository.Get<UserGroup>() on use.UserGroupId equals ugr.Id
+                                 select ugr).Single();
+
+            UserGroupVideoCatagoryCredential customer = null;
+            if(userGroup.CustomerId != null)
+            {
+                customer = (from vid in _repository.Get<UserGroupVideoCatagoryCredential>()
+                         where userGroup.CustomerId.Equals(vid.UserGroupId)
+                         select vid).Single();
+            }
+            else{
+                customer = (from vid in _repository.Get<UserGroupVideoCatagoryCredential>()
+                         where userGroup.Id.Equals(vid.UserGroupId)
+                         select vid).Single();
+            }
+            return JsonConvert.SerializeObject(customer);
         }
     }
 }

@@ -10,13 +10,13 @@ namespace WDAdmin.Domain.Entities
     /// Entity class for SQL table - UserGroupVideoCategoryCredential
     /// </summary>
     [Table]
-    public class UserGroupVideoCategoryCredential
+    public class UserGroupVideoCatagoryCredential
     {
         [Column(IsPrimaryKey = true, CanBeNull = false, IsDbGenerated = true, AutoSync = AutoSync.OnInsert)]
         public int Id { get; set; }
         
         [Column]
-        public int VideoCategoryId { get; set; }
+        public int VideoCatagoryId { get; set; }
 
         [Column]
         public int UserGroupId { get; set; }
