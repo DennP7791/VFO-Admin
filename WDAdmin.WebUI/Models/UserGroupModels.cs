@@ -93,7 +93,10 @@ namespace WDAdmin.WebUI.Models
         public string TemplateName { get; set; }
 
         //Tree structure of pages------------------------------------------------------------------------------
-        
+
+        [Display(ResourceType = typeof(LangResources), Name = "VideoPassword")]
+        public bool VideoPassword { get; set; }
+
         //Homepage
         [Display(ResourceType = typeof(LangResources), Name = "Home")]
         public bool Home { get; set; }
@@ -110,7 +113,9 @@ namespace WDAdmin.WebUI.Models
         [Display(ResourceType = typeof(LangResources), Name = "HomeModule4")]
         public bool HomeModule4 { get; set; }
 
-        
+
+
+
         //User management        
         [Display(ResourceType = typeof(LangResources), Name = "Group1")]
         public bool Group1 { get; set; }
@@ -149,6 +154,8 @@ namespace WDAdmin.WebUI.Models
 
         [Display(ResourceType = typeof(LangResources), Name = "Group2Page7")]
         public bool Group2Page7 { get; set; }
+
+
 
 
         //Result, exercise package & hyperlink-generation management

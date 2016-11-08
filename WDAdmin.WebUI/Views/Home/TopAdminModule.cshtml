@@ -11,9 +11,11 @@
             var grid = new WebGrid(Model.Customers, null, null, 20);
             @grid.GetHtml(columns: grid.Columns(
                 grid.Column("CustomerName", LangResources.CustomerName, canSort: true),
-                grid.Column(header: "", format: @<text>@Html.ActionLink(LangResources.Edit, "UserGroupEdit", "UserGroup", new { id = item.CustomerId }, new { @class = "icn_edit_article" })</text>)
+                grid.Column(header: "", format: @<text>@Html.ActionLink(LangResources.Edit, "UserGroupEdit", "UserGroup", new { id = item.CustomerId }, new { @class = "icn_edit_article" })</text>),
+                grid.Column(header: "", format: @<text>@Html.ActionLink(" Password", "Index", "VideoPassword", new { id = item.CustomerId }, null)</text>)
             ));
-        }       
+
+         }       
         <br />           
     </article>                     
 }

@@ -27,6 +27,8 @@ namespace WDAdmin.WebUI.Models
         /// </summary>
         /// <value><c>true</c> if [home module4]; otherwise, <c>false</c>.</value>
         public bool HomeModule4 { get; set; }
+
+        public bool HomeModule5 { get; set; }
     }
 
     /// <summary>
