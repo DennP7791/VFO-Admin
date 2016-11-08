@@ -18,7 +18,7 @@ namespace WDAdmin.WebUI.Infrastructure.Various
 
         public static void AddToQueue(Video video)
         {
-            storageAccount = CloudStorageAccount.Parse(ConfigurationManager.AppSettings["StorageConnectionString"]);
+            storageAccount = CloudStorageAccount.Parse(ConfigurationManager.ConnectionStrings["StorageConnectionString"].ConnectionString);
             queueClient = storageAccount.CreateCloudQueueClient();
             queue = queueClient.GetQueueReference("videocompressionqueue");
             string jsonObject = JsonConvert.SerializeObject(video);
