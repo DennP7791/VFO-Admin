@@ -472,19 +472,30 @@ namespace WDAdmin.WebUI.Controllers
             }
 
             Logger.Log("SaveVideo InitOK", "UserId: " + userId, LogType.Ok, LogEntryType.Info);
+            var video = new Video
+            {
+                Name = jobject.Name,
+                Description = jobject.Description,
+                Path = jobject.Path,
+                Count = jobject.Count,
+                UserGroupId = jobject.UserGroupId,
+                UserId = userId,
+                ReleaseDate = jobject.ReleaseDate,
+                VideoCategoryId = jobject.VideoCategoryId
+            };
 
             using (var transaction = TransactionScopeUtils.CreateTransactionScope())
             {
-                
-                    var video = new Video {Name = jobject.Name, Description = jobject.Description, Path = jobject.Path,
-                        Count = jobject.Count, UserGroupId = jobject.UserGroupId, UserId = userId, ReleaseDate = jobject.ReleaseDate, VideoCategoryId = jobject.VideoCategoryId};
-
                     if (!CreateEntity(video, "SaveVideo Video Error", "UserId: " + userId, LogType.DbCreateError))
                     {
                         return false;
                     }
 
                 transaction.Complete();
+            }
+            if (video.ReleaseDate != null)
+            {
+                QueueHelper.AddToQueue(video);
             }
 
             Logger.Log("SaveVideo FinalOK", "UserId: " + userId, LogType.DbCreateOk, LogEntryType.Info);
@@ -556,24 +567,22 @@ namespace WDAdmin.WebUI.Controllers
             {
                 userId = (from use in _repository.Get<User>() select use.Id).First();
             }
-
+            var video = new Video
+            {
+                Id = jobject.Id,
+                Name = jobject.Name,
+                Description = jobject.Description,
+                Path = jobject.Path,
+                Count = jobject.Count,
+                UserGroupId = jobject.UserGroupId,
+                UserId = userId,
+                ReleaseDate = jobject.ReleaseDate,
+                VideoCategoryId = jobject.VideoCategoryId
+            };
             Logger.Log("UpdateVideo InitOK", "UserId: " + userId, LogType.Ok, LogEntryType.Info);
 
             using (var transaction = TransactionScopeUtils.CreateTransactionScope())
-            {
-                var video = new Video
-                {
-                    Id = jobject.Id,
-                    Name = jobject.Name,
-                    Description = jobject.Description,
-                    Path = jobject.Path,
-                    Count = jobject.Count,
-                    UserGroupId = jobject.UserGroupId,
-                    UserId = userId,
-                    ReleaseDate = jobject.ReleaseDate,
-                    VideoCategoryId = jobject.VideoCategoryId
-                };
-
+            {                
                 if (!UpdateEntity(video, "SaveVideo Video Error", "UserId: " + userId, LogType.DbCreateError))
                 {
                     return false;
@@ -581,13 +590,16 @@ namespace WDAdmin.WebUI.Controllers
 
                 transaction.Complete();
             }
+            if(video.ReleaseDate != null) {
+                QueueHelper.AddToQueue(video);
+            }
 
             Logger.Log("UpdateVideo FinalOK", "UserId: " + userId, LogType.DbCreateOk, LogEntryType.Info);
             return true;
         }
 
         /// <summary>
-        /// Physical delete of a video
+        /// Delete local video
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
