@@ -11,7 +11,8 @@
     @Html.AntiForgeryToken()
     <article class="module width_full">
         <header><h3>@LangResources.UserGroupAddHeader - @LangResources.Sites</h3></header> 
-        <br /> @Html.HiddenFor(m => m.UserGroupParentId) @Html.HiddenFor(x => x.CountryId) @Html.HiddenFor(x => x.CustomerId)
+        <br /> 
+        @Html.HiddenFor(m => m.UserGroupParentId) @Html.HiddenFor(x => x.CountryId) @Html.HiddenFor(x => x.CustomerId)
         <div class="editor-label">
             @Html.LabelFor(m => m.GroupName)
         </div>

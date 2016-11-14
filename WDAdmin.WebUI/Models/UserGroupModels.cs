@@ -94,7 +94,7 @@ namespace WDAdmin.WebUI.Models
 
         //Tree structure of pages------------------------------------------------------------------------------
 
-        [Display(ResourceType = typeof(LangResources), Name = "VideoPassword")]
+        [Display(ResourceType = typeof(LangResources), Name = "VideoPasswordPage")]
         public bool VideoPassword { get; set; }
 
         //Homepage

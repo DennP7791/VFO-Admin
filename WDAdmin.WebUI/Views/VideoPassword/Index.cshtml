@@ -1,17 +1,67 @@
-﻿@{
-    Layout = null;
+﻿@model WDAdmin.WebUI.Models.UserGroupVideoCatagoryCredentialModels
+
+@{
+    Layout = "~/Views/Shared/_layout.cshtml";
 }
 
-<!DOCTYPE html>
+<h4 class="alert_info">Her kan du tilføje eller nulstille video kode</h4>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title></title>
-</head>
-<body>
-    <div>
-    
-    </div>
-</body>
-</html>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <article class="module width_full">
+        <header><h3>Tilføj Kode</h3></header>
+        <br />
+        @Html.HiddenFor(m => m.VideoCatagoryId)
+        @Html.HiddenFor(m => m.UserGroupId)
+        @Html.HiddenFor(m => m.Salt)
+        <div class="editor-label" style="margin:0px -90px 0px 0px">
+            @Html.LabelFor(m => m.Password, "Kode: ")
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Password)
+            @Html.ValidationMessageFor(m => m.Password)
+        </div>
+        <div class="clear"></div>
+        <br />
+        <div style="margin-left: 60px">
+            <input type="submit" value="Tilføj" />
+            <button onclick="history.back(); return false;">@LangResources.BtnCancel</button>
+        </div>
+    </article>
+
+    @Html.ValidationSummary(true, "Oprettelse af video kode mislykkedes!")
+}
+
+
+
+
+
+@*
+    @if (TempData["Success"] != null)
+    {
+        <div class="green">
+            @Html.ValidationSummary("Succes", "Koden Blev oprettet!");
+        </div>
+    }
+*@
+
+
+@*
+
+
+    <form action="" method="post">
+        <div>
+            <p>
+                <input id="newVideoPassword" placeholder="Indtast kode her.." name="newVideoPassword" type="text" />
+            </p>
+        </div>
+        <br />
+        <br />
+        <br />
+        <div>
+            <input type="submit" value="Tilføj" />
+            <button onclick="history.back(); return false;">@LangResources.BtnCancel</button>
+        </div>
+    </form>
+*@

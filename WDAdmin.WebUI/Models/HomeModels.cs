@@ -41,6 +41,7 @@ namespace WDAdmin.WebUI.Models
         /// </summary>
         /// <value>The customers.</value>
         public List<Customer> Customers { get; set; }
+        
     }
 
     /// <summary>
@@ -68,5 +69,6 @@ namespace WDAdmin.WebUI.Models
     {
         public string CustomerName { get; set; }
         public int CustomerId { get; set; }
+        //public bool isPassword { get; set; }
     }
 }
