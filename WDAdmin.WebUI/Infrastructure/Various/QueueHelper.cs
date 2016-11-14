@@ -23,6 +23,7 @@ namespace WDAdmin.WebUI.Infrastructure.Various
             queue = queueClient.GetQueueReference("videocompressionqueue");
             string jsonObject = JsonConvert.SerializeObject(video);
             queue.AddMessage(new CloudQueueMessage(jsonObject));
+
         }
     }
 }
