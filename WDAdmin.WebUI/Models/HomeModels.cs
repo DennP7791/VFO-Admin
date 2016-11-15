@@ -69,6 +69,6 @@ namespace WDAdmin.WebUI.Models
     {
         public string CustomerName { get; set; }
         public int CustomerId { get; set; }
-        //public bool isPassword { get; set; }
+        public bool isPassword { get; set; }
     }
 }

@@ -86,22 +86,20 @@ namespace WDAdmin.WebUI.Controllers
 
             foreach (var customer in customers.Select(cust => new Customer { CustomerId = cust.Id, CustomerName = cust.GroupName}))
             {
-              /*  var userGroupVideoCatagoryCredential = (from ugvcc in _repository.Get<UserGroupVideoCatagoryCredential>()
+                var userGroupVideoCatagoryCredential = (from ugvcc in _repository.Get<UserGroupVideoCatagoryCredential>()
                                                         where ugvcc.UserGroupId == customer.CustomerId
                                                         select ugvcc).SingleOrDefault();
 
                 if(userGroupVideoCatagoryCredential == null)
                 {
-                    customer.isPassword = false;
+                    customer.isPassword = true;
                 }else
                 {
-                    customer.isPassword = true;
-                }*/
+                    customer.isPassword = false;
+                }
                 model.Customers.Add(customer);
             }
-
-
-
+            
             return PartialView(model);
         }
 

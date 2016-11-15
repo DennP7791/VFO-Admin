@@ -586,6 +586,7 @@
     <Content Include="Views\VFO\ChildCreateLink.cshtml" />
     <None Include="Properties\PublishProfiles\Vfo-Staging-WebApp - Web Deploy.pubxml" />
     <Content Include="Views\VideoPassword\Index.cshtml" />
+    <Content Include="Views\VideoPassword\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>

@@ -91,7 +91,8 @@ namespace WDAdmin.WebUI.Infrastructure
             _pageStructure.Add("Group5Page1", 61); //LogIndex
             _pageStructure.Add("Group5Page2", 62); //Log details
 
-            _pageStructure.Add("VideoPassword", 69); //Admin Video Password
+            _pageStructure.Add("VideoPasswordNew", 69); //Admin Video Password
+            _pageStructure.Add("VideoPasswordEdit", 70); //Admin Video Password
         }
     }
 }

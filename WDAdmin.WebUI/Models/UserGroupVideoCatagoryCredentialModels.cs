@@ -19,7 +19,5 @@ namespace WDAdmin.WebUI.Models
 
         public string Salt { get; set; }
 
-        public bool IsValid { get; set; }
-
     }
 }
