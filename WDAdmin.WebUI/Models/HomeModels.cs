@@ -27,6 +27,8 @@ namespace WDAdmin.WebUI.Models
         /// </summary>
         /// <value><c>true</c> if [home module4]; otherwise, <c>false</c>.</value>
         public bool HomeModule4 { get; set; }
+
+        public bool HomeModule5 { get; set; }
     }
 
     /// <summary>
@@ -39,6 +41,7 @@ namespace WDAdmin.WebUI.Models
         /// </summary>
         /// <value>The customers.</value>
         public List<Customer> Customers { get; set; }
+        
     }
 
     /// <summary>
@@ -66,5 +69,6 @@ namespace WDAdmin.WebUI.Models
     {
         public string CustomerName { get; set; }
         public int CustomerId { get; set; }
+        public bool isPassword { get; set; }
     }
 }

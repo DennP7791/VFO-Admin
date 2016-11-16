@@ -43,12 +43,15 @@ namespace WDAdmin.WebUI.Infrastructure
         {
             _pageStructure = new SortedDictionary<string, int>();
 
+            
+
             //Homepage modules
             _pageStructure.Add("Home", 1); //Homepage
             _pageStructure.Add("HomeModule1", 11); //TopAdmin module
             _pageStructure.Add("HomeModule2", 12); //Customer module
             _pageStructure.Add("HomeModule3", 13); //Admin module
             _pageStructure.Add("HomeModule4", 14); //User module
+
 
             //User management modules and pages
             _pageStructure.Add("Group1", 2); //User
@@ -87,6 +90,9 @@ namespace WDAdmin.WebUI.Infrastructure
             _pageStructure.Add("Group5", 6); //LogGroup
             _pageStructure.Add("Group5Page1", 61); //LogIndex
             _pageStructure.Add("Group5Page2", 62); //Log details
+
+            _pageStructure.Add("VideoPasswordNew", 69); //Admin Video Password
+            _pageStructure.Add("VideoPasswordEdit", 70); //Admin Video Password
         }
     }
 }

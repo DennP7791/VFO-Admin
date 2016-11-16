@@ -1,0 +1,34 @@
+﻿@model WDAdmin.WebUI.Models.UserGroupVideoCatagoryCredentialModels
+
+@{
+    Layout = "~/Views/Shared/_layout.cshtml";
+}
+
+<h4 class="alert_info">Her kan du gendanne video kode</h4>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <article class="module width_full">
+        <header><h3>Gendan kode</h3></header>
+        <br />
+        @Html.HiddenFor(m => m.VideoCatagoryId)
+        @Html.HiddenFor(m => m.UserGroupId)
+        @Html.HiddenFor(m => m.Salt)
+        <div class="editor-label" style="margin:0px -90px 0px 0px">
+            @Html.LabelFor(m => m.Password, "Kode: ")
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Password)
+            @Html.ValidationMessageFor(m => m.Password)
+        </div>
+        <div class="clear"></div>
+        <br />
+        <div style="margin-left: 60px">
+            <input type="submit" value="Gendan" />
+            <button onclick="history.back(); return false;">@LangResources.BtnCancel</button>
+        </div>
+    </article>
+
+    @Html.ValidationSummary(true, "Oprettelse af video kode mislykkedes!")
+}
