@@ -35,5 +35,8 @@ namespace WDAdmin.Domain.Entities
 
         [Column]
         public int VideoCategoryId { get; set; }
+
+        [Column]
+        public bool IsCompressed {get;set;}
     }
 }
