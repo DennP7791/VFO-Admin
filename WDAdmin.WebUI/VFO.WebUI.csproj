@@ -171,6 +171,7 @@
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\UserGroupController.cs" />
     <Compile Include="Controllers\VFOController.cs" />
+    <Compile Include="Controllers\VideoPasswordController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -208,6 +209,7 @@
     <Compile Include="Models\LogModels.cs" />
     <Compile Include="Models\ServiceModels.cs" />
     <Compile Include="Models\UserGroupModels.cs" />
+    <Compile Include="Models\UserGroupVideoCatagoryCredentialModels.cs" />
     <Compile Include="Models\UserModels.cs" />
     <Compile Include="Models\VFOModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -583,6 +585,8 @@
     <Content Include="Views\UserGroup\ChildGroup.cshtml" />
     <Content Include="Views\VFO\ChildCreateLink.cshtml" />
     <None Include="Properties\PublishProfiles\Vfo-Staging-WebApp - Web Deploy.pubxml" />
+    <Content Include="Views\VideoPassword\Index.cshtml" />
+    <Content Include="Views\VideoPassword\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>
