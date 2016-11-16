@@ -10,7 +10,7 @@ namespace WDAdmin.Domain.Entities
     public class Video
     {
         [Column(IsPrimaryKey = true, CanBeNull = false, IsDbGenerated = true, AutoSync = AutoSync.OnInsert)]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         
         [Column]
         public string Name { get; set; }
@@ -21,10 +21,10 @@ namespace WDAdmin.Domain.Entities
         [Column]
         public string Path { get; set; }
 
-        [Column(CanBeNull = true)]
+        [Column]
         public int Count { get; set; }
 
-        [Column(CanBeNull = true)]
+        [Column]
         public int UserGroupId { get; set; }
 
         [Column]
@@ -35,5 +35,8 @@ namespace WDAdmin.Domain.Entities
 
         [Column]
         public int VideoCategoryId { get; set; }
+
+        [Column]
+        public bool IsCompressed {get;set;}
     }
 }
