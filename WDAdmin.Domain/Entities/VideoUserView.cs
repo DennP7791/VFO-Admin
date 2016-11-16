@@ -13,7 +13,7 @@ namespace WDAdmin.Domain.Entities
         public int Id { get; set; }
 
         [Column]
-        public int VideoId { get; set; }
+        public Guid VideoId { get; set; }
 
         [Column]
         public int UserId { get; set; }

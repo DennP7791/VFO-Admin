@@ -95,7 +95,7 @@ namespace WDAdmin.WebUI.Models
         /// </summary>
         /// <value>The identifier.</value>
         [DataMember]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         /// <summary>
         /// Gets or sets the name.
         /// </summary>
@@ -144,6 +144,12 @@ namespace WDAdmin.WebUI.Models
         /// <value>The password</value>
         [DataMember]
         public int VideoCategoryId { get; set; }
+        /// <summary>
+        /// Tells whether the compresser worker
+        /// has finished compressing the video
+        /// </summary>
+        [DataMember]
+        public bool IsCompressed { get; set; }
     }
     /// <summary>
     /// Class VideoCategoryData.
@@ -208,7 +214,7 @@ namespace WDAdmin.WebUI.Models
         /// </summary>
         /// <value>The videoId.</value>
         [DataMember]
-        public int VideoId { get; set; }
+        public Guid VideoId { get; set; }
 
         /// <summary>
         /// Gets or sets the user identifier.
