@@ -34,7 +34,7 @@ namespace WDAdmin.WebUI.Controllers
         /// The _handler
         /// </summary>
         private readonly ResourceHandler _handler;
-        
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ServiceController"/> class.
         /// </summary>
@@ -44,7 +44,7 @@ namespace WDAdmin.WebUI.Controllers
             _repository = repository;
             _pass = PassGenHash.GetInstance;
             _handler = ResourceHandler.GetInstance;
-        }        
+        }
 
 
         /// <summary>
@@ -108,7 +108,7 @@ namespace WDAdmin.WebUI.Controllers
         {
             var userId = id;
             var unityData = new Collection { UserId = userId, Categories = new List<CategoryData>() };
-            unityData.Categories.Add(new CategoryData{ Id = 1, Name = LangResources.UpdateMessage1, Exercises = new List<ExerciseData>()});
+            unityData.Categories.Add(new CategoryData { Id = 1, Name = LangResources.UpdateMessage1, Exercises = new List<ExerciseData>() });
             unityData.Categories.Add(new CategoryData { Id = 2, Name = LangResources.UpdateMessage2, Exercises = new List<ExerciseData>() });
             unityData.Categories.Add(new CategoryData { Id = 3, Name = LangResources.UpdateMessage3, Exercises = new List<ExerciseData>() });
             unityData.Categories.Add(new CategoryData { Id = 4, Name = LangResources.UpdateMessage4, Exercises = new List<ExerciseData>() });
@@ -129,15 +129,15 @@ namespace WDAdmin.WebUI.Controllers
             //Test situation (-1) - Normal user
             var userId = id == -1 ? (from use in _repository.Get<User>() select use.Id).First() : id;
             Logger.Log("GetExercises InitOK", "UserId: " + userId, LogType.Ok, LogEntryType.Info);
-            
+
             //Get exercises allowed for the user group
             var allExer = (from use in _repository.Get<User>()
-                          where use.Id == id
-                          join ugr in _repository.Get<UserGroup>() on use.UserGroupId equals ugr.Id
-                          join exe in _repository.Get<GroupToExerciseRight>() on ugr.Id equals exe.GroupId
-                          where exe.IsChosen
-                          select exe).ToList();
-            
+                           where use.Id == id
+                           join ugr in _repository.Get<UserGroup>() on use.UserGroupId equals ugr.Id
+                           join exe in _repository.Get<GroupToExerciseRight>() on ugr.Id equals exe.GroupId
+                           where exe.IsChosen
+                           select exe).ToList();
+
             //Get ExerciseDetails for allowed exercises
             var exerDetails = allExer.Select(aE => (from ed in _repository.Get<ExerciseDetails>() where ed.Id == aE.ExerciseId select ed).Single()).ToList();
 
@@ -149,7 +149,7 @@ namespace WDAdmin.WebUI.Controllers
             var catLoc = new Dictionary<string, string>();
 
             //Create lists of exercise/category names according to culture specified
-            if(string.IsNullOrEmpty(culture) || culture.Equals("da-DK")) //No culture of default culture specified
+            if (string.IsNullOrEmpty(culture) || culture.Equals("da-DK")) //No culture of default culture specified
             {
                 exerLoc = _handler.GetResources(exerDetails.Select(x => x.Name).ToList(), "da-DK");
                 catLoc = _handler.GetResources(catDetails.Select(x => x.Name).ToList(), "da-DK");
@@ -160,8 +160,8 @@ namespace WDAdmin.WebUI.Controllers
                 catLoc = _handler.GetResources(catDetails.Select(x => x.Name).ToList(), culture);
             }
 
-            var unityData = new Collection { UserId = userId, Categories = new List<CategoryData>()};   
-            
+            var unityData = new Collection { UserId = userId, Categories = new List<CategoryData>() };
+
             //For each category pick latest category data, list of attached exercises & exercise data
             foreach (var cat in catDetails)
             {
@@ -170,41 +170,42 @@ namespace WDAdmin.WebUI.Controllers
 
                 //Pick latest category data score
                 var latestCatScore = from catd in _repository.Get<Category>()
-                                        where catd.UserId == userId && catd.DetailsId == cat.Id
-                                        group catd by catd.DetailsId into ct
-                                        select ct.OrderByDescending(t => t.Timestamp).First();
+                                     where catd.UserId == userId && catd.DetailsId == cat.Id
+                                     group catd by catd.DetailsId into ct
+                                     select ct.OrderByDescending(t => t.Timestamp).First();
 
-                if(latestCatScore.Any())
+                if (latestCatScore.Any())
                 {
                     //Create category data object
                     var cdata = new CategoryData
-                                        {
-                                            Id = cat.Id,
-                                            Name = catLoc[cat.Name],
-                                            Score = latestCatScore.Single().Score,
-                                            Exercises = new List<ExerciseData>()
-                                        };
-                        
-                    foreach(var exer in exercises)
+                    {
+                        Id = cat.Id,
+                        Name = catLoc[cat.Name],
+                        Score = latestCatScore.Single().Score,
+                        Exercises = new List<ExerciseData>()
+                    };
+
+                    foreach (var exer in exercises)
                     {
                         //Pick latest exercise data score
                         var latestEx = from exe in _repository.Get<Exercise>()
                                        where exe.CategoryId == latestCatScore.Single().Id && exe.DetailsId == exer.Id
                                        group exe by exe.DetailsId
-                                       into ex select ex.OrderByDescending(t => t.Timestamp).First();
+                                       into ex
+                                       select ex.OrderByDescending(t => t.Timestamp).First();
 
                         if (latestEx.Any())
                         {
                             //Create ExerciseData object + PartData object
                             var exdata = new ExerciseData
-                                                {
-                                                    Id = exer.Id,
-                                                    Name = exerLoc[exer.Name],
-                                                    SceneFunction = exer.SceneFunction,
-                                                    Score = latestEx.Single().Score,
-                                                    Attempted = false //latestEx.Single().Attempted
-                                                };
-                                
+                            {
+                                Id = exer.Id,
+                                Name = exerLoc[exer.Name],
+                                SceneFunction = exer.SceneFunction,
+                                Score = latestEx.Single().Score,
+                                Attempted = false //latestEx.Single().Attempted
+                            };
+
                             //Add exercise data to Category Object
                             cdata.Exercises.Add(exdata);
 
@@ -213,19 +214,19 @@ namespace WDAdmin.WebUI.Controllers
                         {
                             //Create new ExerciseData object
                             var exdata = new ExerciseData
-                                                {
-                                                    Id = exer.Id,
-                                                    Name = exerLoc[exer.Name],
-                                                    SceneFunction = exer.SceneFunction,
-                                                    Score = 0,
-                                                    Attempted = false
-                                                };
+                            {
+                                Id = exer.Id,
+                                Name = exerLoc[exer.Name],
+                                SceneFunction = exer.SceneFunction,
+                                Score = 0,
+                                Attempted = false
+                            };
 
                             //Add exercise data to Category Object
                             cdata.Exercises.Add(exdata);
                         }
                     }
-                        
+
                     //Add CategoryData object to collection
                     unityData.Categories.Add(cdata);
                 }
@@ -233,20 +234,20 @@ namespace WDAdmin.WebUI.Controllers
                 {
                     //Create CategoryData object
 
-                    var cdata = new CategoryData {Id = cat.Id, Name = catLoc[cat.Name], Score = 0, Exercises = new List<ExerciseData>()};
+                    var cdata = new CategoryData { Id = cat.Id, Name = catLoc[cat.Name], Score = 0, Exercises = new List<ExerciseData>() };
 
                     //Loop through exercises
                     foreach (var exe in exercises)
                     {
                         //Create ExerciseData object
                         var exdata = new ExerciseData
-                                         {
-                                             Id = exe.Id,
-                                             Name = exerLoc[exe.Name],
-                                             SceneFunction = exe.SceneFunction,
-                                             Score = 0,
-                                             Attempted = false
-                                         };
+                        {
+                            Id = exe.Id,
+                            Name = exerLoc[exe.Name],
+                            SceneFunction = exe.SceneFunction,
+                            Score = 0,
+                            Attempted = false
+                        };
 
                         //Add ExerciseData object to category
                         cdata.Exercises.Add(exdata);
@@ -300,7 +301,7 @@ namespace WDAdmin.WebUI.Controllers
             unityData.Id = userGroup.Id;
             unityData.GroupName = userGroup.GroupName;
             unityData.CustomerId = userGroup.CustomerId;
-            
+
             return JsonConvert.SerializeObject(unityData);
         }
         /// <summary>
@@ -322,14 +323,15 @@ namespace WDAdmin.WebUI.Controllers
 
             List<Video> allVideos = null;
             if (userGroup.CustomerId != null)
-            { 
-                 allVideos = (from vid in _repository.Get<Video>()
-                             where userGroup.CustomerId.Equals(userGroup.CustomerId) && vid.VideoCategoryId != (int) CategoryType.IndividuelForflytning
-                             select vid).ToList();
-            }else
             {
-                allVideos = (from vid in _repository.Get<Video>() 
-                             where userGroup.Id.Equals(vid.UserGroupId)
+                allVideos = (from vid in _repository.Get<Video>()
+                             where userGroup.CustomerId.Equals(userGroup.CustomerId) && vid.VideoCategoryId != (int)CategoryType.IndividuelForflytning
+                             select vid).ToList();
+            }
+            else
+            {
+                allVideos = (from vid in _repository.Get<Video>()
+                             where userGroup.Id.Equals(vid.UserGroupId) && vid.VideoCategoryId != (int)CategoryType.IndividuelForflytning
                              select vid).ToList();
             }
 
@@ -448,7 +450,7 @@ namespace WDAdmin.WebUI.Controllers
 
             Logger.Log("SaveData FinalOK", "UserId: " + userId, LogType.DbCreateOk, LogEntryType.Info);
             return true;
-        }                
+        }
         /// <summary>
         /// VideoData save for VFO client
         /// </summary>
@@ -472,19 +474,30 @@ namespace WDAdmin.WebUI.Controllers
             }
 
             Logger.Log("SaveVideo InitOK", "UserId: " + userId, LogType.Ok, LogEntryType.Info);
+            var video = new Video
+            {
+                Name = jobject.Name,
+                Description = jobject.Description,
+                Path = jobject.Path,
+                Count = jobject.Count,
+                UserGroupId = jobject.UserGroupId,
+                UserId = userId,
+                ReleaseDate = jobject.ReleaseDate,
+                VideoCategoryId = jobject.VideoCategoryId
+            };
 
             using (var transaction = TransactionScopeUtils.CreateTransactionScope())
             {
-                
-                    var video = new Video {Name = jobject.Name, Description = jobject.Description, Path = jobject.Path,
-                        Count = jobject.Count, UserGroupId = jobject.UserGroupId, UserId = userId, ReleaseDate = jobject.ReleaseDate, VideoCategoryId = jobject.VideoCategoryId};
-
-                    if (!CreateEntity(video, "SaveVideo Video Error", "UserId: " + userId, LogType.DbCreateError))
+                if (!CreateEntity(video, "SaveVideo Video Error", "UserId: " + userId, LogType.DbCreateError))
                     {
                         return false;
                     }
-
+                    
                 transaction.Complete();
+            }
+            if (video.ReleaseDate != null)
+            {
+                QueueHelper.AddToQueue(video);
             }
 
             Logger.Log("SaveVideo FinalOK", "UserId: " + userId, LogType.DbCreateOk, LogEntryType.Info);
@@ -496,7 +509,7 @@ namespace WDAdmin.WebUI.Controllers
         /// <param name="jobject">Collection of QrVideoUserViews from VFO client</param>
         /// <returns>Result of the QrVideoUserView save</returns>
         [HttpPost]
-        [JsonFilter(Param = "jobject", RootType = typeof (VideoUserViewData))]
+        [JsonFilter(Param = "jobject", RootType = typeof(VideoUserViewData))]
         public bool SaveQrVideoUserViewData(VideoUserViewData jobject)
         {
             var stamp = DateTime.Now; //Get the current timestamp
@@ -541,7 +554,7 @@ namespace WDAdmin.WebUI.Controllers
         /// <param name="jobject">Collection of QrVideo from VFO client</param>
         /// <returns>Result of the QrVideo Update</returns>
         [HttpPut]
-        [JsonFilter(Param = "jobject", RootType = typeof (QrVideoData))]
+        [JsonFilter(Param = "jobject", RootType = typeof(QrVideoData))]
         public bool UpdateQrVideo(QrVideoData jobject)
         {
             int userId;
@@ -556,24 +569,22 @@ namespace WDAdmin.WebUI.Controllers
             {
                 userId = (from use in _repository.Get<User>() select use.Id).First();
             }
-
+            var video = new Video
+            {
+                Id = jobject.Id,
+                Name = jobject.Name,
+                Description = jobject.Description,
+                Path = jobject.Path,
+                Count = jobject.Count,
+                UserGroupId = jobject.UserGroupId,
+                UserId = userId,
+                ReleaseDate = jobject.ReleaseDate,
+                VideoCategoryId = jobject.VideoCategoryId
+            };
             Logger.Log("UpdateVideo InitOK", "UserId: " + userId, LogType.Ok, LogEntryType.Info);
 
             using (var transaction = TransactionScopeUtils.CreateTransactionScope())
-            {
-                var video = new Video
-                {
-                    Id = jobject.Id,
-                    Name = jobject.Name,
-                    Description = jobject.Description,
-                    Path = jobject.Path,
-                    Count = jobject.Count,
-                    UserGroupId = jobject.UserGroupId,
-                    UserId = userId,
-                    ReleaseDate = jobject.ReleaseDate,
-                    VideoCategoryId = jobject.VideoCategoryId
-                };
-
+            {                
                 if (!UpdateEntity(video, "SaveVideo Video Error", "UserId: " + userId, LogType.DbCreateError))
                 {
                     return false;
@@ -581,13 +592,88 @@ namespace WDAdmin.WebUI.Controllers
 
                 transaction.Complete();
             }
+            if(video.ReleaseDate != null) {
+                QueueHelper.AddToQueue(video);
+            }
 
             Logger.Log("UpdateVideo FinalOK", "UserId: " + userId, LogType.DbCreateOk, LogEntryType.Info);
             return true;
         }
+        
+        public bool GetSecureQrVideo(int id, string path)
+        {
+            bool isAvailable = false;
+            try
+            {
+                var userId = id == -1 ? (from use in _repository.Get<User>() select use.Id).First() : id;
 
+                var userGroup = (from use in _repository.Get<User>()
+                                 where use.Id == id
+                                 join ugr in _repository.Get<UserGroup>() on use.UserGroupId equals ugr.Id
+                                 select ugr).Single();
+
+                Video video = null;
+                if (userGroup.CustomerId != null)
+                {
+                    video = (from vid in _repository.Get<Video>()
+                             where userGroup.CustomerId.Equals(userGroup.CustomerId) && vid.Path.Equals(path)
+                             select vid).Single();
+                }
+                else
+                {
+                    video = (from vid in _repository.Get<Video>()
+                             where userGroup.Id.Equals(vid.UserGroupId) && vid.Path.Equals(path)
+                             select vid).Single();
+                }
+                if (video != null)
+                {
+                    isAvailable = true;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+
+            return isAvailable;
+        }
+
+        [HttpGet]
+        public object getUserGroupCredential(int id)
+        {
+            var userId = id == -1 ? (from use in _repository.Get<User>() select use.Id).First() : id;
+
+            var userGroup = (from use in _repository.Get<User>()
+                             where use.Id == id
+                             join ugr in _repository.Get<UserGroup>() on use.UserGroupId equals ugr.Id
+                             select ugr).Single();
+
+            UserGroupVideoCatagoryCredential customer = null;
+            if (userGroup.CustomerId != null)
+            {
+                customer = (from vid in _repository.Get<UserGroupVideoCatagoryCredential>()
+                            where userGroup.CustomerId.Equals(vid.UserGroupId)
+                            select vid).Single();
+            }
+            else
+            {
+                customer = (from vid in _repository.Get<UserGroupVideoCatagoryCredential>()
+                            where userGroup.Id.Equals(vid.UserGroupId)
+                            select vid).Single();
+            }
+            UserGroupVideoCatagoryCredentialData unityData = new UserGroupVideoCatagoryCredentialData()
+            {
+                Id = customer.Id,
+                VideoCatagoryId = customer.VideoCatagoryId,
+                UserGroupId = customer.UserGroupId,
+                Password = customer.Password,
+                Salt = customer.Salt
+            };
+
+            return JsonConvert.SerializeObject(unityData);
+        }
         /// <summary>
-        /// Physical delete of a video
+        /// Delete local video
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -607,6 +693,7 @@ namespace WDAdmin.WebUI.Controllers
             }
 
             return success;
+
         }
     }
 }
