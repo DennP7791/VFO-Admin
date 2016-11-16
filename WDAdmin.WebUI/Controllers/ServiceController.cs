@@ -632,6 +632,79 @@ namespace WDAdmin.WebUI.Controllers
             return success;
         }
 
+        public bool GetSecureQrVideo(int id, string path)
+        {
+            bool isAvailable = false;
+            try
+            {
+                var userId = id == -1 ? (from use in _repository.Get<User>() select use.Id).First() : id;
+
+                var userGroup = (from use in _repository.Get<User>()
+                                 where use.Id == id
+                                 join ugr in _repository.Get<UserGroup>() on use.UserGroupId equals ugr.Id
+                                 select ugr).Single();
+
+                Video video = null;
+                if (userGroup.CustomerId != null)
+                {
+                    video = (from vid in _repository.Get<Video>()
+                             where userGroup.CustomerId.Equals(userGroup.CustomerId) && vid.Path.Equals(path)
+                             select vid).Single();
+                }
+                else
+                {
+                    video = (from vid in _repository.Get<Video>()
+                             where userGroup.Id.Equals(vid.UserGroupId) && vid.Path.Equals(path)
+                             select vid).Single();
+                }
+                if (video != null)
+                {
+                    isAvailable = true;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+
+            return isAvailable;
+        }
+
+        [HttpGet]
+        public object getUserGroupCredential(int id)
+        {
+            var userId = id == -1 ? (from use in _repository.Get<User>() select use.Id).First() : id;
+
+            var userGroup = (from use in _repository.Get<User>()
+                             where use.Id == id
+                             join ugr in _repository.Get<UserGroup>() on use.UserGroupId equals ugr.Id
+                             select ugr).Single();
+
+            UserGroupVideoCatagoryCredential customer = null;
+            if (userGroup.CustomerId != null)
+            {
+                customer = (from vid in _repository.Get<UserGroupVideoCatagoryCredential>()
+                            where userGroup.CustomerId.Equals(vid.UserGroupId)
+                            select vid).Single();
+            }
+            else
+            {
+                customer = (from vid in _repository.Get<UserGroupVideoCatagoryCredential>()
+                            where userGroup.Id.Equals(vid.UserGroupId)
+                            select vid).Single();
+            }
+            UserGroupVideoCatagoryCredentialData unityData = new UserGroupVideoCatagoryCredentialData()
+            {
+                Id = customer.Id,
+                VideoCatagoryId = customer.VideoCatagoryId,
+                UserGroupId = customer.UserGroupId,
+                Password = customer.Password,
+                Salt = customer.Salt
+            };
+
+            return JsonConvert.SerializeObject(unityData);
+        }
+
         /// <summary>
         /// Physical delete of a video
         /// </summary>
