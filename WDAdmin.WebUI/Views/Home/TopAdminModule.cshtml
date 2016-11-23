@@ -14,10 +14,16 @@
                 grid.Column(header: "", format: @<text>@Html.ActionLink(LangResources.Edit, "UserGroupEdit", "UserGroup", new { id = item.CustomerId }, new { @class = "icn_edit_article" })</text>),
 
                 grid.Column(header: "", format: @<text>@if (item.isPassword)
-                { @Html.ActionLink("Tilføje kode", "Index", "VideoPassword", new { id = item.CustomerId }, null) }
+                { @Html.ActionLink(LangResources.VideoPasswordAddHeader, "Index", "VideoPassword", new { id = item.CustomerId }, new { @class = "icn_edit_article" }) }
                 else
-                { @Html.ActionLink("Gendan kode", "Edit", "VideoPassword", new { id = item.CustomerId }, null) }</text>)
+                { @Html.ActionLink(LangResources.VideoPasswordEditHeader, "Edit", "VideoPassword", new { id = item.CustomerId }, new { @class = "icn_edit_article" }) }</text>)
 
+           @*
+    grid.Column(header: "", format: @<text>@if (!item.isPassword)
+    { @Html.ActionLink("Slet kode", "Delete", "VideoPassword", new { id = item.CustomerId }, new { @class = "icn_edit_article" }) }
+    else
+    { }</text>)
+        *@
             ));
         }
         <br />

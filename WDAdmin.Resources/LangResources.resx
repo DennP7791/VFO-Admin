@@ -1443,4 +1443,37 @@
   <data name="PasswordRecreateSuccessResponsible3" xml:space="preserve">
     <value>Et nyt kode er blevet fremsendt til</value>
   </data>
+  <data name="VideoPasswordAddHeader" xml:space="preserve">
+    <value>Tilføj Kode</value>
+  </data>
+  <data name="VideoPasswordAddPasswordExsists" xml:space="preserve">
+    <value>Der eksistere allerede en kode til denne gruppe!</value>
+  </data>
+  <data name="VideoPasswordAddTitle" xml:space="preserve">
+    <value>Her kan du tilføje en ny video kode</value>
+  </data>
+  <data name="VideoPasswordEditHeader" xml:space="preserve">
+    <value>Gendan Kode</value>
+  </data>
+  <data name="VideoPasswordEditPasswordExsists" xml:space="preserve">
+    <value>Der eksistere ikke en kode til denne gruppe!</value>
+  </data>
+  <data name="VideoPasswordEditTitle" xml:space="preserve">
+    <value>Her kan du gendanne video kode</value>
+  </data>
+  <data name="VideoPasswordEmpty" xml:space="preserve">
+    <value>Indtast venligst den nye kode!</value>
+  </data>
+  <data name="VideoPasswordMinimum8" xml:space="preserve">
+    <value>Koden skal være minimum 8 eller mere tegn!</value>
+  </data>
+  <data name="VideoPasswordView" xml:space="preserve">
+    <value>Kode: </value>
+  </data>
+  <data name="VideoPasswordViewAddError" xml:space="preserve">
+    <value>Oprettelse af video kode mislykkedes!</value>
+  </data>
+  <data name="VideoPasswordViewEditError" xml:space="preserve">
+    <value>Gendannelse af video kode mislykkedes!</value>
+  </data>
 </root>

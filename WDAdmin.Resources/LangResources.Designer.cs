@@ -3994,6 +3994,105 @@ namespace WDAdmin.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tilføj Kode.
+        /// </summary>
+        public static string VideoPasswordAddHeader {
+            get {
+                return ResourceManager.GetString("VideoPasswordAddHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Der eksistere allerede en kode til denne gruppe!.
+        /// </summary>
+        public static string VideoPasswordAddPasswordExsists {
+            get {
+                return ResourceManager.GetString("VideoPasswordAddPasswordExsists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Her kan du tilføje en ny video kode.
+        /// </summary>
+        public static string VideoPasswordAddTitle {
+            get {
+                return ResourceManager.GetString("VideoPasswordAddTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gendan Kode.
+        /// </summary>
+        public static string VideoPasswordEditHeader {
+            get {
+                return ResourceManager.GetString("VideoPasswordEditHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Der eksistere ikke en kode til denne gruppe!.
+        /// </summary>
+        public static string VideoPasswordEditPasswordExsists {
+            get {
+                return ResourceManager.GetString("VideoPasswordEditPasswordExsists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Her kan du gendanne video kode.
+        /// </summary>
+        public static string VideoPasswordEditTitle {
+            get {
+                return ResourceManager.GetString("VideoPasswordEditTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Indtast venligst den nye kode!.
+        /// </summary>
+        public static string VideoPasswordEmpty {
+            get {
+                return ResourceManager.GetString("VideoPasswordEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Koden skal være minimum 8 eller mere tegn!.
+        /// </summary>
+        public static string VideoPasswordMinimum8 {
+            get {
+                return ResourceManager.GetString("VideoPasswordMinimum8", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kode: .
+        /// </summary>
+        public static string VideoPasswordView {
+            get {
+                return ResourceManager.GetString("VideoPasswordView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Oprettelse af video kode mislykkedes!.
+        /// </summary>
+        public static string VideoPasswordViewAddError {
+            get {
+                return ResourceManager.GetString("VideoPasswordViewAddError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gendannelse af video kode mislykkedes!.
+        /// </summary>
+        public static string VideoPasswordViewEditError {
+            get {
+                return ResourceManager.GetString("VideoPasswordViewEditError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Virtuel Forflytning.
         /// </summary>
         public static string VirtualTransport {
