@@ -569,7 +569,7 @@ namespace WDAdmin.WebUI.Controllers
             {
                 userId = (from use in _repository.Get<User>() select use.Id).First();
             }
-
+            
             Logger.Log("UpdateVideo InitOK", "UserId: " + userId, LogType.Ok, LogEntryType.Info);
 
             using (var transaction = TransactionScopeUtils.CreateTransactionScope())
@@ -584,16 +584,23 @@ namespace WDAdmin.WebUI.Controllers
                     UserGroupId = jobject.UserGroupId,
                     UserId = userId,
                     ReleaseDate = jobject.ReleaseDate,
-                    VideoCategoryId = jobject.VideoCategoryId
+                    VideoCategoryId = jobject.VideoCategoryId,
+                    IsCompressed = jobject.IsCompressed
+                
+                    
                 };
-
                 if (!UpdateEntity(video, "SaveVideo Video Error", "UserId: " + userId, LogType.DbCreateError))
                 {
                     return false;
                 }
 
                 transaction.Complete();
+                if (!video.IsCompressed)
+                {
+                    QueueHelper.AddToQueue(video);
+                }
             }
+            
 
             Logger.Log("UpdateVideo FinalOK", "UserId: " + userId, LogType.DbCreateOk, LogEntryType.Info);
             return true;
@@ -671,7 +678,7 @@ namespace WDAdmin.WebUI.Controllers
         }
 
         [HttpGet]
-        public object getUserGroupCredential(int id)
+        public object GetUserGroupCredential(int id)
         {
             var userId = id == -1 ? (from use in _repository.Get<User>() select use.Id).First() : id;
 
