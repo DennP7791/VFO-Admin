@@ -38,11 +38,11 @@ namespace WDAdmin.WebUI.Controllers
         /// <param name="password">The password.</param>
         /// <returns>EmailResult.</returns>
         public EmailResult EmailNewUser(string email, string password)
-        {
+        {           
             From = AppSettings.AddressFrom;
             Subject = GetLocalizedSubject("PasswordMailSubject");
             To.Add(email);
-            return Email("EmailNewUser", new EmailNewUserModel{ Email = email, Password = password });
+            return Email("EmailNewUser", new EmailNewUserModel { Email = email, Password = password });
         }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace WDAdmin.WebUI.Controllers
             From = AppSettings.AddressFrom;
             Subject = GetLocalizedSubject("NewPasswordMailTitle");
             To.Add(email);
-            return Email("ForgottenPassEmail", new ForgottenPassEmailModel{ Email = email, Password = password });
+            return Email("ForgottenPassEmail", new ForgottenPassEmailModel { Email = email, Password = password });
         }
 
         /// <summary>
@@ -82,6 +82,19 @@ namespace WDAdmin.WebUI.Controllers
             });
         }
 
+        public EmailResult QrCodeMail(string email, QrVideoData video)
+        {
+            From = AppSettings.AddressFrom;
+            Subject = "QR: " + video.Name;
+            To.Add(email);
+            return Email("EmailQrCode", new QrCodeEmailModel
+             {
+                 Name = video.Name,
+                 Description = video.Description,
+                 Path = video.Path
+             });
+        }
+
         /// <summary>
         /// Gets the localized subject.
         /// </summary>
@@ -93,6 +106,8 @@ namespace WDAdmin.WebUI.Controllers
             var resource = WDAdmin.WebUI.Infrastructure.ResourceHandler.GetInstance.GetResource(key, culture);
             return resource;
         }
+
+
 
         /// <summary>
         /// Do work after email is sent

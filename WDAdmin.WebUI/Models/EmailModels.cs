@@ -70,4 +70,11 @@ namespace WDAdmin.WebUI.Models
         /// <value>The new password.</value>
         public string NewPassword { get; set; }
     }
+
+    public class QrCodeEmailModel
+    {
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public string Path { get; set; }
+    }
 }

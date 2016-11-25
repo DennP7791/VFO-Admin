@@ -50,8 +50,8 @@ namespace WDAdmin.WebUI.Controllers
         /// <returns>Index view</returns>
         [AuthorizeAccessAttribute("Home")]
         public ActionResult Index()
-        {           
-            //Reset Help variable in Session
+        {                               
+           //Reset Help variable in Session
             Session["Help"] = null;
             
             //Create HomeViewModel

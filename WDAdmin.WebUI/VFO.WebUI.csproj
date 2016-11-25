@@ -108,6 +108,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Spatial, Version=5.6.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Spatial.5.6.4\lib\net40\System.Spatial.dll</HintPath>
@@ -156,6 +157,12 @@
     <Reference Include="WebGrease">
       <HintPath>..\packages\WebGrease.1.1.0\lib\WebGrease.dll</HintPath>
     </Reference>
+    <Reference Include="zxing">
+      <HintPath>..\packages\ZXing.Net.0.14.0.0\net4.0\zxing.dll</HintPath>
+    </Reference>
+    <Reference Include="zxing.presentation">
+      <HintPath>..\packages\ZXing.Net.0.14.0.0\net4.0\zxing.presentation.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppSettings.cs" />
@@ -199,6 +206,7 @@
     <Compile Include="Infrastructure\Various\GroupHierarchy.cs" />
     <Compile Include="Infrastructure\Various\PageStructureGenerator.cs" />
     <Compile Include="Infrastructure\Various\PassGenHash.cs" />
+    <Compile Include="Infrastructure\Various\QrCodeGenerator.cs" />
     <Compile Include="Infrastructure\Various\QueueHelper.cs" />
     <Compile Include="Infrastructure\Various\ResourceHandler.cs" />
     <Compile Include="Infrastructure\Various\StatisticsHelper.cs" />
@@ -588,6 +596,7 @@
     <Content Include="Views\VideoPassword\Index.cshtml" />
     <Content Include="Views\VideoPassword\Edit.cshtml" />
     <Content Include="Views\VideoPassword\Delete.cshtml" />
+    <Content Include="Views\Email\EmailQrCode.html.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>

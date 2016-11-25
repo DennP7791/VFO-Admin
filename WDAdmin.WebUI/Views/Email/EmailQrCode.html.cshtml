@@ -1,0 +1,22 @@
+﻿@model WDAdmin.WebUI.Models.QrCodeEmailModel
+@using WDAdmin.WebUI.Infrastructure.Various
+@{
+    Layout = "~/Views/Shared/_LayoutEmail.cshtml";
+}
+<style>
+    .emailBody {
+        width: 800px;
+    margin: 0 0 15px 20px;
+    padding: 15px;
+    text-align: center;
+}
+</style>
+
+
+<div class="emailBody">
+     @Html.GenerateQrCode(@Model.Path)
+
+    <h3 style="text-align: left;">@Model.Name </h3>
+    <p style="text-align: left;">@Model.Description</p>       
+    
+</div>

@@ -728,7 +728,28 @@ namespace WDAdmin.WebUI.Controllers
             return success;
         }
 
+        [HttpPut]
+        [JsonFilter(Param = "jobject", RootType = typeof(QrVideoData))]
+        public object SendQRVode(int userId, QrVideoData jobject)
+        {
+            bool success = false;
+            User user = _repository.Get<User>().FirstOrDefault(x => x.Id == userId);
 
-        
+            if (user != null)
+            {
+                try
+                {
+                    new EmailController().QrCodeMail(user.Email, jobject);
+                    success = true;
+                }
+                catch (Exception e)
+                {
+                    Logger.Log("Failed to send email", e.Message, LogType.MailSendError, LogEntryType.Error);
+                    success = false;
+                }
+            }
+
+            return success;
+        }
     }
 }
