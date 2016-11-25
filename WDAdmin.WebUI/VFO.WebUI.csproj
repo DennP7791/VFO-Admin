@@ -587,6 +587,7 @@
     <None Include="Properties\PublishProfiles\Vfo-Staging-WebApp - Web Deploy.pubxml" />
     <Content Include="Views\VideoPassword\Index.cshtml" />
     <Content Include="Views\VideoPassword\Edit.cshtml" />
+    <Content Include="Views\VideoPassword\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>

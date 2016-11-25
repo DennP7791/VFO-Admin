@@ -38,13 +38,18 @@ namespace WDAdmin.WebUI.Controllers
 
         #region
 
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //-------------------------------------------------------Create------------------------------------------------------------------
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
         [AuthorizeAccess("VideoPasswordNew")]
         public ActionResult Index(int id)
         {
-            var model = new UserGroupVideoCatagoryCredentialModels { UserGroupId = id, VideoCatagoryId = 3, Salt = generateSalt()};
+            var model = new UserGroupVideoCatagoryCredentialModels { UserGroupId = id, VideoCatagoryId = 3, Salt = generateSalt() };
             return View(model);
         }
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Index(UserGroupVideoCatagoryCredentialModels model)
@@ -53,9 +58,6 @@ namespace WDAdmin.WebUI.Controllers
 
             var gtgRights = ((MasterUserRightsModel)Session["Rights"]).UserToTemplateViewRights;
             UserGroupVideoCatagoryCredential ugvcc;
-
-            
-
             try
             {
                 ugvcc = (from uvc in _repository.Get<UserGroupVideoCatagoryCredential>() where uvc.UserGroupId == model.Id select uvc).SingleOrDefault();
@@ -68,14 +70,16 @@ namespace WDAdmin.WebUI.Controllers
 
                         if (model.Password == null)
                         {
-                            ModelState.AddModelError("", "Indtast venligst en kode!");
+                            ModelState.AddModelError(string.Empty, ResourceHandler.GetInstance.GetResource("VideoPasswordEmpty", culture));
                             return View();
                         }
-                        
-                        if (model.Password.Length <= 7){
-                            ModelState.AddModelError("", "Koden skal være minimum 8 eller mere tegn!");
+
+                        if (model.Password.Length <= 7)
+                        {
+                            ModelState.AddModelError(string.Empty, ResourceHandler.GetInstance.GetResource("VideoPasswordMinimum8", culture));
                             return View();
-                        }else
+                        }
+                        else
                         {
                             var videoPassword = new UserGroupVideoCatagoryCredential();
                             videoPassword.UserGroupId = model.Id;
@@ -84,14 +88,13 @@ namespace WDAdmin.WebUI.Controllers
                             videoPassword.Password = Hash(model.Password, GetBytes(model.Salt));
 
                             CreateEntity(videoPassword, "Add UserGroupVideoCatagoryCredential Error!!", string.Empty, LogType.DbCreateError);
-                            //TempData["Success"] = "Created";
-                            return RedirectToAction("Index");
+                            return RedirectToAction("Index", "Home");
                         }
                     }
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Der eksistere allerede en kode til denne gruppe!");
+                    ModelState.AddModelError(string.Empty, ResourceHandler.GetInstance.GetResource("VideoPasswordAddPasswordExsists", culture));
                     return View();
                 }
             }
@@ -103,6 +106,9 @@ namespace WDAdmin.WebUI.Controllers
         }
 
 
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //-------------------------------------------------------EDIT--------------------------------------------------------------------
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         [AuthorizeAccess("VideoPasswordEdit")]
         public ActionResult Edit(int id)
@@ -110,7 +116,9 @@ namespace WDAdmin.WebUI.Controllers
             var model = new UserGroupVideoCatagoryCredentialModels { UserGroupId = id, VideoCatagoryId = 3, Salt = generateSalt() };
             return View(model);
         }
-        
+
+
+        //Edit Video Password for Usergroup.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(UserGroupVideoCatagoryCredentialModels model)
@@ -130,13 +138,13 @@ namespace WDAdmin.WebUI.Controllers
                     {
                         if (model.Password == null)
                         {
-                            ModelState.AddModelError("", "Indtast venligst den nye kode!");
+                            ModelState.AddModelError(string.Empty, ResourceHandler.GetInstance.GetResource("VideoPasswordEmpty", culture));
                             return View();
                         }
 
                         if (model.Password.Length <= 7)
                         {
-                            ModelState.AddModelError("", "Koden skal være minimum 8 eller mere tegn!");
+                            ModelState.AddModelError(string.Empty, ResourceHandler.GetInstance.GetResource("VideoPasswordMinimum8", culture));
                             return View();
                         }
                         else
@@ -149,14 +157,18 @@ namespace WDAdmin.WebUI.Controllers
                             videoPassword.Password = Hash(model.Password, GetBytes(model.Salt));
 
 
-                            UpdateVideoPassword(videoPassword);
-                            return RedirectToAction("Index");
+                            if (!UpdateVideoPassword(videoPassword))
+                            {
+                                ModelState.AddModelError("", "Der eksistere ikke en kode til denne gruppe!");
+                            }
+
+                            return RedirectToAction("Index", "Home");
                         }
                     }
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Der eksistere ikke en kode til denne gruppe!");
+                    ModelState.AddModelError(string.Empty, ResourceHandler.GetInstance.GetResource("VideoPasswordEditPasswordExsists", culture));
                     return View();
                 }
             }
@@ -167,10 +179,118 @@ namespace WDAdmin.WebUI.Controllers
             return View(model);
         }
 
+        private bool UpdateVideoPassword(UserGroupVideoCatagoryCredentialData Credential)
+        {
+            bool updateSucces = false;
+            int userGroupId;
 
+            //Resolve id
+            if (Credential.UserGroupId != -1) //Not test case
+            {
+                userGroupId = Credential.UserGroupId; //Get Id from JSON string
+            }
+            else //Test case, take the last user available
+            {
+                userGroupId = (from ugvcc in _repository.Get<UserGroup>() select ugvcc.Id).First();
+            }
 
+            Logger.Log("UpdatevideoPassword InitOK", "videoPasswordId: " + userGroupId, LogType.Ok, LogEntryType.Info);
 
+            var orginalVideoPassword = _repository.Get<UserGroupVideoCatagoryCredential>().SingleOrDefault(x => x.Id == Credential.Id);
 
+            if (orginalVideoPassword != null)
+            {
+                using (var transaction = TransactionScopeUtils.CreateTransactionScope())
+                {
+                    orginalVideoPassword.Password = Credential.Password;
+                    orginalVideoPassword.Salt = Credential.Salt;
+                    if (!UpdateEntity(orginalVideoPassword, "UpdatevideoPassword Error", "userGroupId: " + userGroupId, LogType.DbCreateError))
+                    {
+                        updateSucces = false;
+                    }
+                    else
+                    {
+                        updateSucces = true;
+                    }
+
+                    transaction.Complete();
+                }
+            }
+            Logger.Log("UpdatevideoPassword FinalOK", "userGroupId: " + userGroupId, LogType.DbCreateOk, LogEntryType.Info);
+            return updateSucces;
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //-------------------------------------------------------Delete--------------------------------------------------------------------
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+            /*
+        [AuthorizeAccess("VideoPasswordEdit")]
+        public ActionResult Delete(int id)
+        {
+            var model = new UserGroupVideoCatagoryCredentialModels { UserGroupId = id };
+            return View(model);
+        }
+
+        //Add new Video Password for Usergroup.
+        [HttpDelete]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(UserGroupVideoCatagoryCredentialModels model)
+        {
+            var culture = Session["WDCulture"].ToString();
+            var gtgRights = ((MasterUserRightsModel)Session["Rights"]).UserToTemplateViewRights;
+
+            UserGroupVideoCatagoryCredential ugvcc;
+            try
+            {
+                if (model != null)
+                {
+                    if (ModelState.IsValid)
+                    {
+                        if (model.Password == null)
+                        {
+                            ModelState.AddModelError(string.Empty, ResourceHandler.GetInstance.GetResource("VideoPasswordEmpty", culture));
+                            return View();
+                        }
+                        else
+                        {
+                            ugvcc = _repository.Get<UserGroupVideoCatagoryCredential>().SingleOrDefault(x => x.Id == model.Id);
+                            string HashedPassword = Hash(model.Password, GetBytes(model.Salt));
+                            if (HashedPassword != ugvcc.Password)
+                            {
+                                ModelState.AddModelError(string.Empty, "Den indtastede kode er forkert!");
+                                return View();
+                            }
+                            else
+                            {
+                                if (!DeleteEntity(ugvcc, "DeleteVideoPassword Error", "userGroupId: " + ugvcc.Id, LogType.DbCreateError))
+                                {
+                                    ModelState.AddModelError("", "Der eksistere ikke en kode til denne gruppe!");
+                                }
+
+                                return RedirectToAction("Index", "Home");
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Video kode eksistere ikke!");
+                    return View();
+                }
+            }
+            catch (Exception e)
+            {
+                Logger.Log("UserGroupVideoCatagoryCredintialNotFound Error", e.Message, LogType.DbQueryError, LogEntryType.Error);
+            }
+            return View(model);
+        }
+        */
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //-------------------------------------------------------Hash----------------------------------------------------------------------
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        
         public string Hash(string password, byte[] hashBytes)
         {
             //Console.WriteLine("Password: " + password);
@@ -201,44 +321,6 @@ namespace WDAdmin.WebUI.Controllers
         //
         //Virker ikke helt endnu.. men her skal man kunne opdatere video kode for en gruppe!
         //
-        [HttpPut]
-        [JsonFilter(Param = "jobject", RootType = typeof(UserGroupVideoCatagoryCredentialData))]
-        public bool UpdateVideoPassword(UserGroupVideoCatagoryCredentialData jobject)
-        {
-            int videoPasswordId;
-
-            //Resolve user id
-            if (jobject.Id != -1) //Not test case
-            {
-                videoPasswordId = jobject.Id; //Get Id from JSON string
-            }
-            else //Test case, take the last user available
-            {
-                videoPasswordId = (from ugvcc in _repository.Get<UserGroupVideoCatagoryCredential>() select ugvcc.Id).First();
-            }
-            var videoPassword = new UserGroupVideoCatagoryCredential
-            {
-                Id = jobject.Id,
-                VideoCatagoryId = jobject.VideoCatagoryId,
-                UserGroupId = jobject.UserGroupId,
-                Password = jobject.Password,
-                Salt = jobject.Salt
-            };
-            Logger.Log("UpdatevideoPassword InitOK", "videoPasswordId: " + videoPasswordId, LogType.Ok, LogEntryType.Info);
-
-            using (var transaction = TransactionScopeUtils.CreateTransactionScope())
-            {
-                if (!UpdateEntity(videoPassword, "UpdatevideoPassword Error", "videoPasswordId: " + videoPasswordId, LogType.DbCreateError))
-                {
-                    return false;
-                }
-
-                transaction.Complete();
-            }
-
-            Logger.Log("UpdatevideoPassword FinalOK", "videoPasswordId: " + videoPasswordId, LogType.DbCreateOk, LogEntryType.Info);
-            return true;
-        }
 
 
         #endregion

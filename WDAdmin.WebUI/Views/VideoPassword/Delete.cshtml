@@ -4,13 +4,13 @@
     Layout = "~/Views/Shared/_layout.cshtml";
 }
 
-<h4 class="alert_info">@LangResources.VideoPasswordEditTitle</h4>
+<h4 class="alert_info">Slet video kode</h4>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     <article class="module width_full">
-        <header><h3>@LangResources.VideoPasswordEditHeader</h3></header>
+        <header><h3>Her har du mulighed for at slette video koden</h3></header>
         <br />
         @Html.HiddenFor(m => m.VideoCatagoryId)
         @Html.HiddenFor(m => m.UserGroupId)
@@ -25,10 +25,10 @@
         <div class="clear"></div>
         <br />
         <div style="margin-left: 60px">
-            <input type="submit" value="Gendan" />
+            <input type="submit" value="Slet" />
             <input type="button" value="@LangResources.BtnCancel" onclick="location.href='@Url.Action("Index", "Home")'" />
         </div>
     </article>
 
-    @Html.ValidationSummary(true, LangResources.VideoPasswordViewEditError)
+    @Html.ValidationSummary(true, "Slettelse af video kode mislykkedes!")
 }
