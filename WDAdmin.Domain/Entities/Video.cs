@@ -9,7 +9,7 @@ namespace WDAdmin.Domain.Entities
     [Table]
     public class Video
     {
-        [Column(IsPrimaryKey = true, CanBeNull = false, IsDbGenerated = true, AutoSync = AutoSync.OnInsert)]
+        [Column(IsPrimaryKey = true, CanBeNull = false, AutoSync = AutoSync.OnInsert)]
         public Guid Id { get; set; }
         
         [Column]
