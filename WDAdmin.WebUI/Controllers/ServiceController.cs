@@ -179,12 +179,12 @@ namespace WDAdmin.WebUI.Controllers
                 {
                     //Create category data object
                     var cdata = new CategoryData
-                                        {
-                                            Id = cat.Id,
-                                            Name = catLoc[cat.Name],
-                                            Score = latestCatScore.Single().Score,
-                                            Exercises = new List<ExerciseData>()
-                                        };
+                    {
+                        Id = cat.Id,
+                        Name = catLoc[cat.Name],
+                        Score = latestCatScore.Single().Score,
+                        Exercises = new List<ExerciseData>()
+                    };
 
                     foreach (var exer in exercises)
                     {
@@ -193,19 +193,19 @@ namespace WDAdmin.WebUI.Controllers
                                        where exe.CategoryId == latestCatScore.Single().Id && exe.DetailsId == exer.Id
                                        group exe by exe.DetailsId
                                            into ex
-                                           select ex.OrderByDescending(t => t.Timestamp).First();
+                                       select ex.OrderByDescending(t => t.Timestamp).First();
 
                         if (latestEx.Any())
                         {
                             //Create ExerciseData object + PartData object
                             var exdata = new ExerciseData
-                                                {
-                                                    Id = exer.Id,
-                                                    Name = exerLoc[exer.Name],
-                                                    SceneFunction = exer.SceneFunction,
-                                                    Score = latestEx.Single().Score,
-                                                    Attempted = false //latestEx.Single().Attempted
-                                                };
+                            {
+                                Id = exer.Id,
+                                Name = exerLoc[exer.Name],
+                                SceneFunction = exer.SceneFunction,
+                                Score = latestEx.Single().Score,
+                                Attempted = false //latestEx.Single().Attempted
+                            };
 
                             //Add exercise data to Category Object
                             cdata.Exercises.Add(exdata);
@@ -215,13 +215,13 @@ namespace WDAdmin.WebUI.Controllers
                         {
                             //Create new ExerciseData object
                             var exdata = new ExerciseData
-                                                {
-                                                    Id = exer.Id,
-                                                    Name = exerLoc[exer.Name],
-                                                    SceneFunction = exer.SceneFunction,
-                                                    Score = 0,
-                                                    Attempted = false
-                                                };
+                            {
+                                Id = exer.Id,
+                                Name = exerLoc[exer.Name],
+                                SceneFunction = exer.SceneFunction,
+                                Score = 0,
+                                Attempted = false
+                            };
 
                             //Add exercise data to Category Object
                             cdata.Exercises.Add(exdata);
@@ -242,13 +242,13 @@ namespace WDAdmin.WebUI.Controllers
                     {
                         //Create ExerciseData object
                         var exdata = new ExerciseData
-                                         {
-                                             Id = exe.Id,
-                                             Name = exerLoc[exe.Name],
-                                             SceneFunction = exe.SceneFunction,
-                                             Score = 0,
-                                             Attempted = false
-                                         };
+                        {
+                            Id = exe.Id,
+                            Name = exerLoc[exe.Name],
+                            SceneFunction = exe.SceneFunction,
+                            Score = 0,
+                            Attempted = false
+                        };
 
                         //Add ExerciseData object to category
                         cdata.Exercises.Add(exdata);
@@ -569,7 +569,7 @@ namespace WDAdmin.WebUI.Controllers
             {
                 userId = (from use in _repository.Get<User>() select use.Id).First();
             }
-            
+
             Logger.Log("UpdateVideo InitOK", "UserId: " + userId, LogType.Ok, LogEntryType.Info);
 
             using (var transaction = TransactionScopeUtils.CreateTransactionScope())
@@ -586,8 +586,6 @@ namespace WDAdmin.WebUI.Controllers
                     ReleaseDate = jobject.ReleaseDate,
                     VideoCategoryId = jobject.VideoCategoryId,
                     IsCompressed = jobject.IsCompressed
-                
-                    
                 };
                 if (!UpdateEntity(video, "SaveVideo Video Error", "UserId: " + userId, LogType.DbCreateError))
                 {
@@ -600,7 +598,7 @@ namespace WDAdmin.WebUI.Controllers
                     QueueHelper.AddToQueue(video);
                 }
             }
-            
+
 
             Logger.Log("UpdateVideo FinalOK", "UserId: " + userId, LogType.DbCreateOk, LogEntryType.Info);
             return true;
@@ -623,7 +621,7 @@ namespace WDAdmin.WebUI.Controllers
                 {
                     video.IsCompressed = true;
 
-                    if (!UpdateEntity(video, "SaveVideo Video Error", "Video Id: " + id, LogType.DbCreateError))
+                    if (!UpdateEntity(video, "SaveVideo Video Error", "Video Id: " + id, LogType.DbUpdateError))
                     {
                         success = false;
                     }
@@ -635,6 +633,29 @@ namespace WDAdmin.WebUI.Controllers
                 }
 
                 Logger.Log("Update IsCompressed on: " + id, LogType.DbUpdateOk, LogEntryType.Info);
+            }
+            return success;
+        }
+
+        [HttpPut]
+        public bool UpdateVideoCount(Guid id, int count)
+        {
+            Video video = _repository.Get<Video>().Single(x => x.Id == id);
+            bool success = false;
+            if(video != null)
+            {
+                using (var transaction = TransactionScopeUtils.CreateTransactionScope())
+                {
+                    video.Count = count;
+                    if(!UpdateEntity(video, "Update Video Count error", "Video id: " + id, LogType.DbUpdateError))
+                    {
+                        success = false;
+                    }else
+                    {
+                        success = true;
+                    }
+                    transaction.Complete();
+                }
             }
             return success;
         }
@@ -757,6 +778,60 @@ namespace WDAdmin.WebUI.Controllers
             }
 
             return success;
+        }
+
+        [HttpPost]
+        [JsonFilter(Param = "jobject", RootType = typeof(VideoUserViewData))]
+        public object SaveVideoUserViewData(VideoUserViewData jobject)
+        {
+            var unityData = jobject;
+
+            using (var transaction = TransactionScopeUtils.CreateTransactionScope())
+            {
+                var VUV = new VideoUserView { VideoId = unityData.VideoId, UserId = unityData.UserId, ViewDate = unityData.ViewDate };
+
+                if (!CreateEntity(VUV, "Create VideoUserView Error", "UserId: " + unityData.UserId, LogType.DbCreateError))
+                {
+                    return false;
+                }
+
+                transaction.Complete();
+            }
+            return true;
+        }
+
+        [HttpGet]
+        public object GetVideoIdByPath(string path)
+        {
+            var video = (from videoId in _repository.Get<Video>()
+                         where videoId.Path == path
+                         select videoId).First();
+
+            return JsonConvert.SerializeObject(video);
+        }
+
+        [HttpGet]
+        public object GetVideoCount(Guid id)
+        {
+            var video = (from videoUserView in _repository.Get<VideoUserView>()
+                         where videoUserView.VideoId == id
+                         select videoUserView).ToList();
+
+            var unityData = new VideoUserViewCollection { VideoUserView = new List<VideoUserViewData>() };
+
+            foreach (var avuv in video)
+            {
+                var videouserView = new VideoUserViewData
+                {
+                    Id = avuv.Id,
+                    VideoId = avuv.VideoId,
+                    UserId = avuv.UserId,
+                    ViewDate = avuv.ViewDate
+                };
+
+                unityData.VideoUserView.Add(videouserView);
+            }
+            return JsonConvert.SerializeObject(unityData);
         }
     }
 }

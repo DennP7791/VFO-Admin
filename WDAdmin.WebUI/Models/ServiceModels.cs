@@ -54,6 +54,19 @@ namespace WDAdmin.WebUI.Models
     }
 
     /// <summary>
+    /// Class VideoUserViewCollection.
+    /// </summary>
+    [DataContract]
+    public class VideoUserViewCollection
+    {
+        /// <summary>
+        /// Gets or sets the QR-videos.
+        /// </summary>
+        /// <value>The QR-videos.</value>
+        [DataMember]
+        public List<VideoUserViewData> VideoUserView { get; set; }
+    }
+    /// <summary>
     /// Class CategoryData.
     /// </summary>
     [DataContract]
