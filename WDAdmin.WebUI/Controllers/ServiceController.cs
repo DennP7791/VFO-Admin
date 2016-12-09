@@ -265,7 +265,6 @@ namespace WDAdmin.WebUI.Controllers
         /// <summary>
         /// Get VideoCategory data for VFO client
         /// </summary>
-        /// <param name="id">User ID</param>
         /// <returns>Serialized data object with videos</returns>
         [HttpGet]
         public object GetVideoCategories()
@@ -608,7 +607,7 @@ namespace WDAdmin.WebUI.Controllers
         /// <summary>
         /// QrVideo Update for VFO client
         /// </summary>
-        /// <param name="jobject">Collection of QrVideo from VFO client</param>
+        /// <param name="id">Collection of QrVideo from VFO client</param>
         /// <returns>Result of the QrVideo Update</returns>
         [HttpPut]
         public bool UpdateVideoCompression(Guid id)
@@ -638,6 +637,12 @@ namespace WDAdmin.WebUI.Controllers
             return success;
         }
 
+        /// <summary>
+        /// UserVideoView Update for VFO client
+        /// </summary>
+        /// <param name="id">Collection of UserVideoView from VFO client</param>
+        /// <param name="count">Collection of SecureQrVideo from VFO client</param>
+        /// <returns>Result of the UserVideoView Update</returns>
         [HttpPut]
         public bool UpdateVideoCount(Guid id, int count)
         {
@@ -661,6 +666,12 @@ namespace WDAdmin.WebUI.Controllers
             return success;
         }
 
+        /// <summary>
+        /// SecureQrVideo Get for VFO client
+        /// </summary>
+        /// <param name="id">Collection of SecureQrVideo from VFO client</param>
+        /// <param name="path">Collection of SecureQrVideo from VFO client</param>
+        /// <returns>Result of the SecureQrVideo Update</returns>
         public bool GetSecureQrVideo(int id, string path)
         {
             bool isAvailable = false;
@@ -699,6 +710,11 @@ namespace WDAdmin.WebUI.Controllers
             return isAvailable;
         }
 
+        /// <summary>
+        /// UserGroupCredential Get for VFO client
+        /// </summary>
+        /// <param name="id">Collection of UserGroupCredential from VFO client</param>
+        /// <returns>Result of the UserGroupCredential Update</returns>
         [HttpGet]
         public object GetUserGroupCredential(int id)
         {
@@ -738,7 +754,7 @@ namespace WDAdmin.WebUI.Controllers
         /// Physical delete of a video
         /// </summary>
         /// <param name="id"></param>
-        /// <returns></returns>
+        /// <returns>Result of the Delete Video</returns>
         [HttpPost]
         public object DeleteVideo(Guid id)
         {
@@ -757,6 +773,12 @@ namespace WDAdmin.WebUI.Controllers
             return success;
         }
 
+        /// <summary>
+        /// SaveQrCode save for VFO client
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="jobject"></param>
+        /// <returns>Result of the Send QrVode</returns>
         [HttpPut]
         [JsonFilter(Param = "jobject", RootType = typeof(QrVideoData))]
         public object SendQRVode(int userId, QrVideoData jobject)
@@ -781,6 +803,11 @@ namespace WDAdmin.WebUI.Controllers
             return success;
         }
 
+        /// <summary>
+        /// VideoUserView save for VFO client
+        /// </summary>
+        /// <param name="jobject"></param>
+        /// <returns>Returns the result of videoUserView save</returns>
         [HttpPost]
         [JsonFilter(Param = "jobject", RootType = typeof(VideoUserViewData))]
         public object SaveVideoUserViewData(VideoUserViewData jobject)
@@ -801,6 +828,11 @@ namespace WDAdmin.WebUI.Controllers
             return true;
         }
 
+        /// <summary>
+        /// VideoIdPath Get for VFO Client
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns>Returns videoId result</returns>
         [HttpGet]
         public object GetVideoIdByPath(string path)
         {
@@ -810,7 +842,11 @@ namespace WDAdmin.WebUI.Controllers
 
             return JsonConvert.SerializeObject(video);
         }
-
+        /// <summary>
+        /// VideoCount Get for VFO Client
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Returns video count</returns>
         [HttpGet]
         public object GetVideoCount(Guid id)
         {

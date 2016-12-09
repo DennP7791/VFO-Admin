@@ -16,6 +16,12 @@ namespace WDAdmin.WebUI.Infrastructure.Various
         private static CloudQueueClient queueClient;
         private static CloudQueue queue;
 
+        /// <summary>
+        /// Connects to Microsoft Azure using the Storage Connection String, 
+        /// Connects to Queue, using the Queue reference,
+        /// Serializes Video and adds it to the Queue as a new Message.
+        /// </summary>
+        /// <param name="video"></param>
         public static void AddToQueue(Video video)
         {
             storageAccount = CloudStorageAccount.Parse(ConfigurationManager.ConnectionStrings["StorageConnectionString"].ConnectionString);
