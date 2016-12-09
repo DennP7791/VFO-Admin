@@ -461,7 +461,6 @@ namespace WDAdmin.WebUI.Controllers
         [JsonFilter(Param = "jobject", RootType = typeof(QrVideoData))]
         public bool SaveQrVideo(QrVideoData jobject)
         {
-            var stamp = DateTime.Now; //Get the current timestamp
             int userId;
 
             //Resolve user id
@@ -481,7 +480,7 @@ namespace WDAdmin.WebUI.Controllers
 
                 var video = new Video
                 {
-                    Id = jobject.Id,
+                    Id = Guid.Parse(jobject.Id.ToString().Trim(new Char[] { '{', '}'})),
                     Name = jobject.Name,
                     Description = jobject.Description,
                     Path = jobject.Path,
@@ -489,7 +488,9 @@ namespace WDAdmin.WebUI.Controllers
                     UserGroupId = jobject.UserGroupId,
                     UserId = userId,
                     ReleaseDate = jobject.ReleaseDate,
-                    VideoCategoryId = jobject.VideoCategoryId
+                    VideoCategoryId = jobject.VideoCategoryId,
+                    IsCompressed = jobject.IsCompressed
+                    
                 };
 
                 if (!CreateEntity(video, "SaveVideo Video Error", "UserId: " + userId, LogType.DbCreateError))
